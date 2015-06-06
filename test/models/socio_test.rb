@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class SocioTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:usuario)
+  should have_many(:gastos)
+  should validate_presence_of(:nombre)
+  should validate_presence_of(:usuario)
 end
