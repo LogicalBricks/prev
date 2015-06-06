@@ -1,5 +1,5 @@
 %h2
-  %i.fa
+  %i.fa.fa-list
   &nbsp;
   Detalles de Rubro
 
@@ -14,16 +14,19 @@
         = @rubro.nombre
   .form-group
     %label.col-sm-3.control-label
-      Descripcion:
-    .col-sm-9
-      %p.form-control-static
-        = @rubro.descripcion
-  .form-group
-    %label.col-sm-3.control-label
       Agrupador:
     .col-sm-9
       %p.form-control-static
         = @rubro.agrupador
+
+%h2
+  %i.fa.fa-list-alt
+  &nbsp;
+  Descripción
+
+%hr
+
+= markdown @rubro.descripcion
 
 = link_to rubros_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left
