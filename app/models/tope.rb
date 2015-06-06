@@ -1,6 +1,6 @@
 class Tope < ActiveRecord::Base
   # == Associations ==
-  belongs_to :prevision
+  belongs_to :prevision, inverse_of: :topes
   belongs_to :socio
 
   # == Validations ==

@@ -1,6 +1,6 @@
 class Deposito < ActiveRecord::Base
   # == Associations ==
-  belongs_to :prevision
+  belongs_to :prevision, inverse_of: :depositos
 
   # == Validations ==
   validates :fecha, :prevision, presence: true

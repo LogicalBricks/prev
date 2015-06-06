@@ -1,5 +1,7 @@
 class Prevision < ActiveRecord::Base
-  has_many :depositos
+  # == Associations ==
+  has_many :depositos, inverse_of: :prevision
+  has_many :topes, inverse_of: :prevision
 
   validates :fecha_inicial, :fecha_final, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
