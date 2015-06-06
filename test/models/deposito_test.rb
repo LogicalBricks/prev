@@ -1,9 +1,24 @@
 require 'test_helper'
 
 class DepositoTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to :prevision
+  should validate_presence_of :fecha
+  should validate_presence_of :prevision
+  should validate_numericality_of(:monto).is_greater_than(0)
+
+  test "does not allow to set a fecha before the prevision's innitial date" do
+    prevision = FactoryGirl.build_stubbed :prevision, fecha_inicial: Date.today, fecha_final: Date.today.tomorrow
+    deposito = FactoryGirl.build :deposito, fecha: 1.month.ago, prevision: prevision
+    deposito.valid?
+    assert_equal 1, deposito.errors[:fecha].size
+  end
+
+  test "does not allow to set a fecha after the prevision's final date" do
+    prevision = FactoryGirl.build_stubbed :prevision, fecha_inicial: Date.today, fecha_final: Date.today.tomorrow
+    deposito = FactoryGirl.build :deposito, fecha: 1.month.from_now, prevision: prevision
+    deposito.valid?
+    assert_equal 1, deposito.errors[:fecha].size
+  end
 end
 
 # == Schema Information

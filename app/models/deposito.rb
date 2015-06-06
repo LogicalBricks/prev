@@ -1,5 +1,18 @@
 class Deposito < ActiveRecord::Base
+  # == Associations ==
   belongs_to :prevision
+
+  # == Validations ==
+  validates :fecha, :prevision, presence: true
+  validates :monto, numericality: { greater_than: 0 }
+  validate :fecha_no_anterior_a_prevision
+
+private
+
+  def fecha_no_anterior_a_prevision
+    errors.add :fecha, 'debe ser posterior al inicio de la prevision' if prevision and fecha < prevision.fecha_inicial
+    errors.add :fecha, 'debe ser anterior al final de la prevision' if prevision and fecha > prevision.fecha_final
+  end
 end
 
 # == Schema Information

@@ -5,8 +5,16 @@ class Gasto < ActiveRecord::Base
   belongs_to :apartado
 
   # == Validations ==
-  validates :socio, presence: true
+  validates :socio, :apartado, presence: true
   validates :monto, numericality: { greater_than: 0 }
+  validate :fecha_no_anterior_a_prevision
+
+private
+
+  def fecha_no_anterior_a_prevision
+    errors.add :fecha, 'debe ser posterior al inicio de la prevision' if apartado and fecha < apartado.fecha_inicial
+    errors.add :fecha, 'debe ser anterior al final de la prevision' if apartado and fecha > apartado.fecha_final
+  end
 end
 
 # == Schema Information
