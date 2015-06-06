@@ -1,4 +1,7 @@
 class Agrupador < ActiveRecord::Base
+  has_many :rubros
+
+  validates :nombre, presence: true
 end
 
 # == Schema Information

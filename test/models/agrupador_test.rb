@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class AgrupadorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should validate_presence_of :nombre
+  should have_many :rubros
 end
 
 # == Schema Information
