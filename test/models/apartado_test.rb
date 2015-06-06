@@ -8,8 +8,12 @@ class ApartadoTest < ActiveSupport::TestCase
 
   test "should validate monto not to rebase prevision's monto" do
     prevision = FactoryGirl.build :prevision, monto: 100
-    apartado = prevision.apartados.build monto_maximo: 101
-    refute apartado.valid?
+    apartado = prevision.apartados.build monto_maximo: 99
+    apartado.valid?
+    assert_equal 0, apartado.errors[:monto].size
+
+    apartado.monto_maximo = 101
+    apartado.valid?
     assert_equal 1, apartado.errors[:monto].size
   end
 
