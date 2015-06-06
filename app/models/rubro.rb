@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: rubros
+#
+#  id           :integer          not null, primary key
+#  nombre       :string
+#  descripcion  :text
+#  agrupador_id :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Rubro < ActiveRecord::Base
   belongs_to :agrupador
 
