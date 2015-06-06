@@ -7,4 +7,39 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    %nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Menus-lite', root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li{ class: controller_name == 'rubros' ? 'active' : '' }
+              = link_to rubros_path do
+                %i.fa.fa-list
+                &nbsp;
+                Rubros
+            %li{ class: controller_name == 'previsiones' ? 'active' : '' }
+              = link_to previsiones_path do
+                %i.fa.fa-calendar
+                &nbsp;
+                Previsiones
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              = link_to destroy_usuario_session_path, method: :delete do
+                %i.fa.fa-sign-out
+                Cerrar sesión
+
+    .container
+      .row
+        .span12
+          = yield
+
+      %hr
+    
+      %footer
+        %p &copy; LogicalBricks 2015
