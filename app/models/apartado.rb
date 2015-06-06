@@ -8,6 +8,14 @@ class Apartado < ActiveRecord::Base
   validates :monto_maximo, numericality: { greater_than: 0 }
   validate :monto_no_rebasa_monto_de_prevision
 
+  def fecha_inicial
+    prevision.fecha_inicial
+  end
+
+  def fecha_final
+    prevision.fecha_final
+  end
+
 private
 
   def monto_no_rebasa_monto_de_prevision

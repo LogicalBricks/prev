@@ -12,6 +12,24 @@ class ApartadoTest < ActiveSupport::TestCase
     refute apartado.valid?
     assert_equal 1, apartado.errors[:monto].size
   end
+
+  test 'should return the fecha_inicial from prevision' do
+    prevision = FactoryGirl.build :prevision, fecha_inicial: Date.today
+    apartado = FactoryGirl.build :apartado, prevision: prevision
+    assert_equal Date.today, apartado.fecha_inicial
+
+    prevision.fecha_inicial = 1.month.ago
+    assert_equal 1.month.ago.to_date, apartado.fecha_inicial
+  end
+
+  test 'should return the fecha_final from prevision' do
+    prevision = FactoryGirl.build :prevision, fecha_final: Date.today
+    apartado = FactoryGirl.build :apartado, prevision: prevision
+    assert_equal Date.today, apartado.fecha_final
+
+    prevision.fecha_final = 1.month.ago
+    assert_equal 1.month.ago.to_date, apartado.fecha_final
+  end
 end
 
 # == Schema Information

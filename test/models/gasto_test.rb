@@ -18,7 +18,7 @@ class GastoTest < ActiveSupport::TestCase
     apartado = FactoryGirl.build_stubbed :apartado
     stub_fecha_inicial_and_fecha_final(apartado, Date.today, Date.today.tomorrow)
     gasto = FactoryGirl.build :gasto, fecha: 1.month.ago, apartado: apartado
-    gasto.valid?
+    refute gasto.valid?
     assert_equal 1, gasto.errors[:fecha].size
   end
 
@@ -26,7 +26,7 @@ class GastoTest < ActiveSupport::TestCase
     apartado = FactoryGirl.build_stubbed :apartado
     stub_fecha_inicial_and_fecha_final(apartado, Date.today, Date.today.tomorrow)
     gasto = FactoryGirl.build :gasto, fecha: 1.month.from_now, apartado: apartado
-    gasto.valid?
+    refute gasto.valid?
     assert_equal 1, gasto.errors[:fecha].size
   end
 end
