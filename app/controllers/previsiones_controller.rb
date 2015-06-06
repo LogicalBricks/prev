@@ -69,6 +69,12 @@ class PrevisionesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prevision_params
-      params.require(:prevision).permit(:fecha_inicial, :fecha_final, :monto)
+      params.require(:prevision).permit(
+        :fecha_inicial,
+        :fecha_final,
+        :monto,
+        apartados_attributes: [:rubro_id, :monto_maximo],
+        topes_attributes: [:socio_id, :monto],
+      )
     end
 end
