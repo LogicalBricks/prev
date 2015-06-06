@@ -1,0 +1,10 @@
+<%- nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
+
+%h2
+  %i.fa
+  &nbsp;
+  <%= "#{ nuevo } #{ singular_table_name.humanize }" %>
+
+%hr
+
+= render 'form'

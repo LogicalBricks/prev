@@ -1,0 +1,35 @@
+<%- nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
+.pull-right
+  = link_to new_<%= singular_table_name %>_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    <%= "#{ nuevo } #{ singular_table_name.humanize }" %>
+
+%h1
+  %i.fa
+  &nbsp;
+  <%= plural_table_name.humanize %>
+
+%hr
+
+%table.table
+  %thead
+    %tr
+    <%- attributes.each do |attribute| -%>
+      %th <%= attribute.name.humanize %>
+    <%- end -%>
+      %th Acciones
+      
+  %tbody
+    - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+      %tr
+      <%- attributes.each do |attribute| -%>
+        %td= <%= singular_table_name %>.<%= attribute.name %>
+      <%- end -%>
+        %td
+          .btn-group
+            = link_to <%= singular_table_name %>, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to <%= singular_table_name %>, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash
