@@ -2,6 +2,8 @@ require 'test_helper'
 
 class PrevisionTest < ActiveSupport::TestCase
   should have_many(:depositos)
+  should have_many(:apartados)
+  should have_many(:topes)
   should validate_presence_of(:fecha_inicial)
   should validate_presence_of(:fecha_final)
   should validate_presence_of(:monto)

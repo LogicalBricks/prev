@@ -1,6 +1,7 @@
 class Prevision < ActiveRecord::Base
   # == Associations ==
   has_many :depositos, inverse_of: :prevision
+  has_many :apartados, inverse_of: :prevision
   has_many :topes, inverse_of: :prevision
 
   validates :fecha_inicial, :fecha_final, :monto, presence: true
