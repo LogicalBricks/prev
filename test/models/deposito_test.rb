@@ -9,15 +9,22 @@ class DepositoTest < ActiveSupport::TestCase
   test "does not allow to set a fecha before the prevision's innitial date" do
     prevision = FactoryGirl.build_stubbed :prevision, fecha_inicial: Date.today, fecha_final: Date.today.tomorrow
     deposito = FactoryGirl.build :deposito, fecha: 1.month.ago, prevision: prevision
-    deposito.valid?
+    refute deposito.valid?
     assert_equal 1, deposito.errors[:fecha].size
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
     prevision = FactoryGirl.build_stubbed :prevision, fecha_inicial: Date.today, fecha_final: Date.today.tomorrow
     deposito = FactoryGirl.build :deposito, fecha: 1.month.from_now, prevision: prevision
-    deposito.valid?
+    refute deposito.valid?
     assert_equal 1, deposito.errors[:fecha].size
+  end
+
+  test "does not allow to set a monto greater than the prevision's monto" do
+    prevision = FactoryGirl.build_stubbed :prevision, monto: 100
+    deposito = FactoryGirl.build :deposito, monto: 101, prevision: prevision
+    refute deposito.valid?
+    assert_equal 1, deposito.errors[:monto].size
   end
 end
 
@@ -32,12 +39,4 @@ end
 #  prevision_id :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#
-# Indexes
-#
-#  index_depositos_on_prevision_id  (prevision_id)
-#
-# Foreign Keys
-#
-#  fk_rails_3728a922f6  (prevision_id => previsiones.id)
 #

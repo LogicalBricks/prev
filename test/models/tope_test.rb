@@ -22,8 +22,3 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-# Indexes
-#
-#  index_topes_on_prevision_id  (prevision_id)
-#  index_topes_on_socio_id      (socio_id)
-#

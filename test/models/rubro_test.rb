@@ -17,11 +17,3 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-# Indexes
-#
-#  index_rubros_on_agrupador_id  (agrupador_id)
-#
-# Foreign Keys
-#
-#  fk_rails_bdc357dada  (agrupador_id => agrupadores.id)
-#
