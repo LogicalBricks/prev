@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :socio do
     nombre "MyString"
-usuario nil
+    usuario nil
   end
 
 end
