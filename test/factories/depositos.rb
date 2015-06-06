@@ -20,11 +20,3 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-# Indexes
-#
-#  index_depositos_on_prevision_id  (prevision_id)
-#
-# Foreign Keys
-#
-#  fk_rails_3728a922f6  (prevision_id => previsiones.id)
-#
