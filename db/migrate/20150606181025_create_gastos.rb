@@ -6,7 +6,7 @@ class CreateGastos < ActiveRecord::Migration
       t.string :solicitud
       t.decimal :monto
       t.date :fecha
-      t.integer :metodo_pago
+      t.integer :metodo_pago, default: 0
       t.text :descripcion
       t.references :socio, index: true, foreign_key: true
       t.references :proveedor, index: true, foreign_key: true
