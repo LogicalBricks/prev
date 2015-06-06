@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class RubroTest < ActiveSupport::TestCase
-  should belong_to(:agrupador)
-  should validate_presence_of(:agrupador)
   should validate_presence_of(:nombre)
   should validate_presence_of(:descripcion)
 end
