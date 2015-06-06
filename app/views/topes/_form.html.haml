@@ -1,0 +1,12 @@
+= simple_form_for(@tope) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :socio
+    = f.input :monto
+    = f.association :prevision
+    = f.association :socio
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', topes_path, class: 'btn btn-danger'

@@ -1,0 +1,39 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Tope
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Socio:
+    .col-sm-9
+      %p.form-control-static
+        = @tope.socio
+  .form-group
+    %label.col-sm-3.control-label
+      Monto:
+    .col-sm-9
+      %p.form-control-static
+        = @tope.monto
+  .form-group
+    %label.col-sm-3.control-label
+      Prevision:
+    .col-sm-9
+      %p.form-control-static
+        = @tope.prevision
+  .form-group
+    %label.col-sm-3.control-label
+      Socio:
+    .col-sm-9
+      %p.form-control-static
+        = @tope.socio
+
+= link_to topes_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_tope_path(@tope), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

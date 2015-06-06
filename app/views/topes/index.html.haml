@@ -1,0 +1,36 @@
+.pull-right
+  = link_to new_tope_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Tope
+
+%h1
+  %i.fa
+  &nbsp;
+  Topes
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Socio
+      %th Monto
+      %th Prevision
+      %th Socio
+      %th Acciones
+      
+  %tbody
+    - @topes.each do |tope|
+      %tr
+        %td= tope.socio
+        %td= tope.monto
+        %td= tope.prevision
+        %td= tope.socio
+        %td
+          .btn-group
+            = link_to tope, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_tope_path(tope), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to tope, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

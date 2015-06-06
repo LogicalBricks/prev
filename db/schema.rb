@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606181025) do
+ActiveRecord::Schema.define(version: 20150606211229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,18 @@ ActiveRecord::Schema.define(version: 20150606181025) do
 
   add_index "socios", ["usuario_id"], name: "index_socios_on_usuario_id", using: :btree
 
+  create_table "topes", force: :cascade do |t|
+    t.string   "socio"
+    t.decimal  "monto"
+    t.integer  "prevision_id"
+    t.integer  "socio_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "topes", ["prevision_id"], name: "index_topes_on_prevision_id", using: :btree
+  add_index "topes", ["socio_id"], name: "index_topes_on_socio_id", using: :btree
+
   create_table "usuarios", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -134,4 +146,6 @@ ActiveRecord::Schema.define(version: 20150606181025) do
   add_foreign_key "gastos", "socios"
   add_foreign_key "rubros", "agrupadores"
   add_foreign_key "socios", "usuarios"
+  add_foreign_key "topes", "previsiones"
+  add_foreign_key "topes", "socios"
 end
