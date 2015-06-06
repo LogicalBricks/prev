@@ -29,6 +29,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'devise'
+gem 'redcarpet'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
