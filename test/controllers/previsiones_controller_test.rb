@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PrevisionesControllerTest < ActionController::TestCase
   setup do
-    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today, fecha_final: Date.today + 1.days
+    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today, fecha_final: Date.today + 1.days, monto: 100_000
     @rubro = FactoryGirl.create :rubro
     @socio = FactoryGirl.create :socio, usuario: FactoryGirl.create(:usuario)
   end
@@ -63,6 +63,28 @@ class PrevisionesControllerTest < ActionController::TestCase
   test "should update prevision" do
     patch :update, id: @prevision, prevision: { fecha_final: @prevision.fecha_final, fecha_inicial: @prevision.fecha_inicial, monto: @prevision.monto }
     assert_redirected_to prevision_path(assigns(:prevision))
+  end
+
+  test "should remove apartados" do
+    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500)
+    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000)
+    assert_difference("Apartado.count", -1) do
+      patch :update, id: @prevision.id, prevision: {
+        apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
+        topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+      }
+    end
+  end
+
+  test "should remove topes" do
+    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500)
+    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000)
+    assert_difference("Tope.count", -1) do
+      patch :update, id: @prevision.id, prevision: {
+        apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
+        topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+      }
+    end
   end
 
   test "should destroy prevision" do

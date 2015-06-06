@@ -1,11 +1,10 @@
 class Prevision < ActiveRecord::Base
   # == Associations ==
-  has_many :apartados, inverse_of: :prevision
   has_many :depositos, inverse_of: :prevision
   has_many :apartados, inverse_of: :prevision
   has_many :topes, inverse_of: :prevision
 
-  accepts_nested_attributes_for :apartados, :topes
+  accepts_nested_attributes_for :apartados, :topes, allow_destroy: true
 
   validates :fecha_inicial, :fecha_final, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }

@@ -13,10 +13,9 @@
 
 FactoryGirl.define do
   factory :tope do
-    socio "MyString"
-monto "9.99"
-prevision nil
-socio nil
+    monto "9.99"
+    prevision nil
+    socio nil
   end
 
 end

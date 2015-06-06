@@ -73,8 +73,8 @@ class PrevisionesController < ApplicationController
         :fecha_inicial,
         :fecha_final,
         :monto,
-        apartados_attributes: [:rubro_id, :monto_maximo],
-        topes_attributes: [:socio_id, :monto],
+        apartados_attributes: [:id, :rubro_id, :monto_maximo, :_destroy],
+        topes_attributes: [:id, :socio_id, :monto, :_destroy]
       )
     end
 end
