@@ -8,12 +8,17 @@ class Gasto < ActiveRecord::Base
   validates :socio, :apartado, presence: true
   validates :monto, numericality: { greater_than: 0 }
   validate :fecha_dentro_de_vigencia_de_prevision
+  validate :monto_no_mayor_a_monto_maximo_de_apartado
 
 private
 
   def fecha_dentro_de_vigencia_de_prevision
     errors.add :fecha, 'debe ser posterior al inicio de la prevision' if apartado and fecha < apartado.fecha_inicial
     errors.add :fecha, 'debe ser anterior al final de la prevision' if apartado and fecha > apartado.fecha_final
+  end
+
+  def monto_no_mayor_a_monto_maximo_de_apartado
+    errors.add :monto, 'no puede ser mayor al monto del apartado' if apartado and monto > apartado.monto_maximo
   end
 end
 

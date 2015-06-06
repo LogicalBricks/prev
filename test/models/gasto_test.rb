@@ -29,6 +29,20 @@ class GastoTest < ActiveSupport::TestCase
     refute gasto.valid?
     assert_equal 1, gasto.errors[:fecha].size
   end
+
+  test "should not allow save a monto greater than the apartado's monto " do
+    apartado = FactoryGirl.build :apartado, monto_maximo: 100
+    gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 101
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:monto].size
+  end
+
+  test "should allow save a monto fewer than the apartado's monto " do
+    apartado = FactoryGirl.build :apartado, monto_maximo: 100
+    gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 99
+    gasto.valid?
+    assert_equal 0, gasto.errors[:monto].size
+  end
 end
 
 # == Schema Information
