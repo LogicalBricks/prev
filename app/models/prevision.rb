@@ -1,4 +1,16 @@
 class Prevision < ActiveRecord::Base
+  has_many :depositos
+
+  validates :fecha_inicial, :fecha_final, :monto, presence: true
+  validates :monto, numericality: { greater_than: 0 }
+  validate :ensure_date_range
+
+  private
+
+  def ensure_date_range
+    return unless fecha_inicial && fecha_final && fecha_inicial >= fecha_final
+    errors.add :base, "La fecha final debe ser mayor a la fecha inicial"
+  end
 end
 
 # == Schema Information
