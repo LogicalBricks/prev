@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class ApartadoTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should validate_presence_of(:rubro)
+  should validate_presence_of(:prevision)
+  should validate_presence_of(:monto_maximo)
+  should validate_numericality_of(:monto_maximo).is_greater_than(0)
 end
 
 # == Schema Information

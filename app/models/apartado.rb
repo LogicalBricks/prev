@@ -1,6 +1,9 @@
 class Apartado < ActiveRecord::Base
   belongs_to :rubro
   belongs_to :prevision
+
+  validates :rubro, :prevision, :monto_maximo, presence: true
+  validates :monto_maximo, numericality: { greater_than: 0 }
 end
 
 # == Schema Information
