@@ -5,11 +5,11 @@ class Deposito < ActiveRecord::Base
   # == Validations ==
   validates :fecha, :prevision, presence: true
   validates :monto, numericality: { greater_than: 0 }
-  validate :fecha_no_anterior_a_prevision
+  validate :fecha_dentro_de_vigencia_de_prevision
 
 private
 
-  def fecha_no_anterior_a_prevision
+  def fecha_dentro_de_vigencia_de_prevision
     errors.add :fecha, 'debe ser posterior al inicio de la prevision' if prevision and fecha < prevision.fecha_inicial
     errors.add :fecha, 'debe ser anterior al final de la prevision' if prevision and fecha > prevision.fecha_final
   end
