@@ -56,3 +56,5 @@ group :development, :test do
   gem 'pry'
   gem "bullet"
 end
+
+gem 'annotate', group: :development
