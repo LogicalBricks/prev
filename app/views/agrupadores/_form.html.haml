@@ -1,0 +1,9 @@
+= simple_form_for(@agrupador) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nombre
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', agrupadores_path, class: 'btn btn-danger'

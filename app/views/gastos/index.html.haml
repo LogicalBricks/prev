@@ -1,0 +1,48 @@
+.pull-right
+  = link_to new_gasto_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Gasto
+
+%h1
+  %i.fa
+  &nbsp;
+  Gastos
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Factura xml
+      %th Factura pdf
+      %th Solicitud
+      %th Monto
+      %th Fecha
+      %th Metodo pago
+      %th Descripcion
+      %th Socio
+      %th Proveedor
+      %th Apartado
+      %th Acciones
+      
+  %tbody
+    - @gastos.each do |gasto|
+      %tr
+        %td= gasto.factura_xml
+        %td= gasto.factura_pdf
+        %td= gasto.solicitud
+        %td= gasto.monto
+        %td= gasto.fecha
+        %td= gasto.metodo_pago
+        %td= gasto.descripcion
+        %td= gasto.socio
+        %td= gasto.proveedor
+        %td= gasto.apartado
+        %td
+          .btn-group
+            = link_to gasto, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_gasto_path(gasto), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to gasto, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

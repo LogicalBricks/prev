@@ -1,0 +1,21 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Agrupador
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Nombre:
+    .col-sm-9
+      %p.form-control-static
+        = @agrupador.nombre
+
+= link_to agrupadores_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_agrupador_path(@agrupador), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

@@ -1,0 +1,75 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Gasto
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Factura xml:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.factura_xml
+  .form-group
+    %label.col-sm-3.control-label
+      Factura pdf:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.factura_pdf
+  .form-group
+    %label.col-sm-3.control-label
+      Solicitud:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.solicitud
+  .form-group
+    %label.col-sm-3.control-label
+      Monto:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.monto
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.fecha
+  .form-group
+    %label.col-sm-3.control-label
+      Metodo pago:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.metodo_pago
+  .form-group
+    %label.col-sm-3.control-label
+      Descripcion:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.descripcion
+  .form-group
+    %label.col-sm-3.control-label
+      Socio:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.socio
+  .form-group
+    %label.col-sm-3.control-label
+      Proveedor:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.proveedor
+  .form-group
+    %label.col-sm-3.control-label
+      Apartado:
+    .col-sm-9
+      %p.form-control-static
+        = @gasto.apartado
+
+= link_to gastos_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_gasto_path(@gasto), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

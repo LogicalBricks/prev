@@ -1,0 +1,34 @@
+.pull-right
+  = link_to new_apartado_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Apartado
+
+%h1
+  %i.fa
+  &nbsp;
+  Apartados
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Monto maximo
+      %th Rubro
+      %th Prevision
+      %th Acciones
+      
+  %tbody
+    - @apartados.each do |apartado|
+      %tr
+        %td= apartado.monto_maximo
+        %td= apartado.rubro
+        %td= apartado.prevision
+        %td
+          .btn-group
+            = link_to apartado, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_apartado_path(apartado), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to apartado, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

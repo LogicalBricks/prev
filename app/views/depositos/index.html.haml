@@ -1,0 +1,36 @@
+.pull-right
+  = link_to new_deposito_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Deposito
+
+%h1
+  %i.fa
+  &nbsp;
+  Depositos
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Monto
+      %th Fecha
+      %th Descripcion
+      %th Prevision
+      %th Acciones
+      
+  %tbody
+    - @depositos.each do |deposito|
+      %tr
+        %td= deposito.monto
+        %td= deposito.fecha
+        %td= deposito.descripcion
+        %td= deposito.prevision
+        %td
+          .btn-group
+            = link_to deposito, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_deposito_path(deposito), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to deposito, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

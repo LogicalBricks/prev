@@ -1,0 +1,18 @@
+= simple_form_for(@gasto) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :factura_xml
+    = f.input :factura_pdf
+    = f.input :solicitud
+    = f.input :monto
+    = f.input :fecha
+    = f.input :metodo_pago
+    = f.input :descripcion
+    = f.association :socio
+    = f.association :proveedor
+    = f.association :apartado
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', gastos_path, class: 'btn btn-danger'

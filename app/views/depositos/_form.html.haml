@@ -1,0 +1,12 @@
+= simple_form_for(@deposito) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :monto
+    = f.input :fecha
+    = f.input :descripcion
+    = f.association :prevision
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', depositos_path, class: 'btn btn-danger'

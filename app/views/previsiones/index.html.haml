@@ -1,0 +1,34 @@
+.pull-right
+  = link_to new_prevision_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Prevision
+
+%h1
+  %i.fa
+  &nbsp;
+  Previsiones
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Fecha inicial
+      %th Fecha final
+      %th Monto
+      %th Acciones
+      
+  %tbody
+    - @previsiones.each do |prevision|
+      %tr
+        %td= prevision.fecha_inicial
+        %td= prevision.fecha_final
+        %td= prevision.monto
+        %td
+          .btn-group
+            = link_to prevision, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_prevision_path(prevision), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to prevision, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

@@ -1,0 +1,33 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Apartado
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Monto maximo:
+    .col-sm-9
+      %p.form-control-static
+        = @apartado.monto_maximo
+  .form-group
+    %label.col-sm-3.control-label
+      Rubro:
+    .col-sm-9
+      %p.form-control-static
+        = @apartado.rubro
+  .form-group
+    %label.col-sm-3.control-label
+      Prevision:
+    .col-sm-9
+      %p.form-control-static
+        = @apartado.prevision
+
+= link_to apartados_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_apartado_path(@apartado), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

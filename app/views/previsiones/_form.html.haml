@@ -1,0 +1,11 @@
+= simple_form_for(@prevision) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :fecha_inicial
+    = f.input :fecha_final
+    = f.input :monto
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', previsiones_path, class: 'btn btn-danger'

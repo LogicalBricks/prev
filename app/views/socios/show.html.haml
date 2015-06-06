@@ -1,0 +1,27 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Socio
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Nombre:
+    .col-sm-9
+      %p.form-control-static
+        = @socio.nombre
+  .form-group
+    %label.col-sm-3.control-label
+      Usuario:
+    .col-sm-9
+      %p.form-control-static
+        = @socio.usuario
+
+= link_to socios_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_socio_path(@socio), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

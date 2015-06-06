@@ -1,0 +1,34 @@
+.pull-right
+  = link_to new_rubro_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Rubro
+
+%h1
+  %i.fa
+  &nbsp;
+  Rubros
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Nombre
+      %th Descripcion
+      %th Agrupador
+      %th Acciones
+      
+  %tbody
+    - @rubros.each do |rubro|
+      %tr
+        %td= rubro.nombre
+        %td= rubro.descripcion
+        %td= rubro.agrupador
+        %td
+          .btn-group
+            = link_to rubro, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_rubro_path(rubro), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to rubro, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

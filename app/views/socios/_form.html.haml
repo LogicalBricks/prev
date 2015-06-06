@@ -1,0 +1,10 @@
+= simple_form_for(@socio) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nombre
+    = f.association :usuario
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', socios_path, class: 'btn btn-danger'

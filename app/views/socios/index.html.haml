@@ -1,0 +1,32 @@
+.pull-right
+  = link_to new_socio_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Socio
+
+%h1
+  %i.fa
+  &nbsp;
+  Socios
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Nombre
+      %th Usuario
+      %th Acciones
+      
+  %tbody
+    - @socios.each do |socio|
+      %tr
+        %td= socio.nombre
+        %td= socio.usuario
+        %td
+          .btn-group
+            = link_to socio, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_socio_path(socio), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to socio, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

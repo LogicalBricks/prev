@@ -1,0 +1,11 @@
+= simple_form_for(@apartado) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :monto_maximo
+    = f.association :rubro
+    = f.association :prevision
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', apartados_path, class: 'btn btn-danger'

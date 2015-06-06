@@ -1,0 +1,11 @@
+= simple_form_for(@rubro) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nombre
+    = f.input :descripcion
+    = f.association :agrupador
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', rubros_path, class: 'btn btn-danger'

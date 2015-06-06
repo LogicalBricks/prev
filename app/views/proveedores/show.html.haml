@@ -1,0 +1,27 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Proveedor
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Nombre:
+    .col-sm-9
+      %p.form-control-static
+        = @proveedor.nombre
+  .form-group
+    %label.col-sm-3.control-label
+      Rfc:
+    .col-sm-9
+      %p.form-control-static
+        = @proveedor.rfc
+
+= link_to proveedores_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_proveedor_path(@proveedor), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

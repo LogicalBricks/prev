@@ -1,0 +1,2 @@
+module ApartadosHelper
+end

@@ -1,0 +1,30 @@
+.pull-right
+  = link_to new_agrupador_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nuevo Agrupador
+
+%h1
+  %i.fa
+  &nbsp;
+  Agrupadores
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Nombre
+      %th Acciones
+      
+  %tbody
+    - @agrupadores.each do |agrupador|
+      %tr
+        %td= agrupador.nombre
+        %td
+          .btn-group
+            = link_to agrupador, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_agrupador_path(agrupador), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to agrupador, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash

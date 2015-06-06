@@ -1,0 +1,39 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Deposito
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Monto:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.monto
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.fecha
+  .form-group
+    %label.col-sm-3.control-label
+      Descripcion:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.descripcion
+  .form-group
+    %label.col-sm-3.control-label
+      Prevision:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.prevision
+
+= link_to depositos_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_deposito_path(@deposito), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

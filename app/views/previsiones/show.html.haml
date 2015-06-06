@@ -1,0 +1,33 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Prevision
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha inicial:
+    .col-sm-9
+      %p.form-control-static
+        = @prevision.fecha_inicial
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha final:
+    .col-sm-9
+      %p.form-control-static
+        = @prevision.fecha_final
+  .form-group
+    %label.col-sm-3.control-label
+      Monto:
+    .col-sm-9
+      %p.form-control-static
+        = @prevision.monto
+
+= link_to previsiones_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_prevision_path(@prevision), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

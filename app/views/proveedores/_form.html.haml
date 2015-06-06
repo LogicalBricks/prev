@@ -1,0 +1,10 @@
+= simple_form_for(@proveedor) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nombre
+    = f.input :rfc
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', proveedores_path, class: 'btn btn-danger'

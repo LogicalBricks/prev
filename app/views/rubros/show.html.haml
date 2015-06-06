@@ -1,0 +1,33 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Rubro
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Nombre:
+    .col-sm-9
+      %p.form-control-static
+        = @rubro.nombre
+  .form-group
+    %label.col-sm-3.control-label
+      Descripcion:
+    .col-sm-9
+      %p.form-control-static
+        = @rubro.descripcion
+  .form-group
+    %label.col-sm-3.control-label
+      Agrupador:
+    .col-sm-9
+      %p.form-control-static
+        = @rubro.agrupador
+
+= link_to rubros_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_rubro_path(@rubro), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar
