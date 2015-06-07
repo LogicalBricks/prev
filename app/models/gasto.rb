@@ -1,6 +1,10 @@
 class Gasto < ActiveRecord::Base
   enum metodo_pago: [:transferencia, :tarjeta, :efectivo, :otro]
 
+  mount_uploader :factura_xml, FacturaXmlUploader
+  mount_uploader :factura_pdf, FacturaPdfUploader
+  mount_uploader :solicitud, SolicitudUploader
+
   # == Associations ==
   belongs_to :socio
   belongs_to :proveedor

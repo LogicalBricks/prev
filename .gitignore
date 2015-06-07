@@ -15,3 +15,5 @@
 /config/database.yml
 /tags
 /config/secrets.yml
+
+/public/uploads
