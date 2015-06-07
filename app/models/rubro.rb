@@ -2,6 +2,10 @@ class Rubro < ActiveRecord::Base
   belongs_to :agrupador
 
   validates :nombre, :descripcion, presence: true
+
+  def to_s
+    nombre
+  end
 end
 
 # == Schema Information

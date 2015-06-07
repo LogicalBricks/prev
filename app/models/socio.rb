@@ -8,6 +8,10 @@ class Socio < ActiveRecord::Base
 
   def monto
   end
+
+  def to_s
+    nombre
+  end
 end
 
 # == Schema Information

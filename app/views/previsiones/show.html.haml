@@ -1,33 +1,86 @@
 %h2
-  %i.fa
+  %i.fa.fa-bank
   &nbsp;
-  Detalles de Prevision
+  Detalles de Previsión
 
 %hr
 
-.form-horizontal
-  .form-group
-    %label.col-sm-3.control-label
-      Fecha inicial:
-    .col-sm-9
-      %p.form-control-static
-        = @prevision.fecha_inicial
-  .form-group
-    %label.col-sm-3.control-label
-      Fecha final:
-    .col-sm-9
-      %p.form-control-static
-        = @prevision.fecha_final
-  .form-group
-    %label.col-sm-3.control-label
-      Monto:
-    .col-sm-9
-      %p.form-control-static
-        = @prevision.monto
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        Información general
+      .panel-body.form-horizontal
+        .form-group
+          %label.col-sm-3.control-label
+            Fecha inicial:
+          .col-sm-9
+            %p.form-control-static
+              = l @prevision.fecha_inicial, format: :long
+        .form-group
+          %label.col-sm-3.control-label
+            Fecha final:
+          .col-sm-9
+            %p.form-control-static
+              = l @prevision.fecha_final, format: :long
+        .form-group
+          %label.col-sm-3.control-label
+            Monto:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto
 
-= link_to previsiones_path, class: 'btn btn-default' do
-  %i.fa.fa-arrow-left
-  Regresar
-= link_to edit_prevision_path(@prevision), class: 'btn btn-primary' do
-  %i.fa.fa-edit
-  Modificar
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-line-chart
+        &nbsp;
+        Estado de previsión
+      .panel-body.form-horizontal
+        %h2 Indicadores
+
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-dollar
+        &nbsp;
+        Topes
+      %table.table
+        %thead
+          %tr
+            %th Socio
+            %th Monto
+            %th
+        %tbody
+          - @prevision.topes.each do |tope|
+            %tr
+              %td= tope.socio
+              %td= number_to_currency tope.monto
+              %td
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-archive
+        &nbsp;
+        Apartados
+      %table.table
+        %thead
+          %tr
+            %th Rubro
+            %th Monto
+            %th
+        %tbody
+          - @prevision.apartados.each do |apartado|
+            %tr
+              %td= apartado.rubro
+              %td= number_to_currency apartado.monto_maximo
+              %td
+
+.pull-right
+  = link_to previsiones_path, class: 'btn btn-default' do
+    %i.fa.fa-arrow-left
+    Regresar
+  = link_to edit_prevision_path(@prevision), class: 'btn btn-primary' do
+    %i.fa.fa-edit
+    Modificar

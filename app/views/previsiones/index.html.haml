@@ -21,9 +21,9 @@
   %tbody
     - @previsiones.each do |prevision|
       %tr
-        %td= prevision.fecha_inicial
-        %td= prevision.fecha_final
-        %td= prevision.monto
+        %td= l prevision.fecha_inicial, format: :long
+        %td= l prevision.fecha_final, format: :long
+        %td= number_to_currency prevision.monto
         %td
           .btn-group
             = link_to prevision, class: 'btn btn-sm btn-default', title: 'Detalles' do
