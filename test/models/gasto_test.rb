@@ -89,6 +89,15 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
+  test "should not save a monto that makes it to rebase socio's monto" do
+    tope = FactoryGirl.create :tope, monto: 10
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 9
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:forzar_monto].size
+    assert gasto.supera_monto_socio?
+  end
+
 end
 
 # == Schema Information

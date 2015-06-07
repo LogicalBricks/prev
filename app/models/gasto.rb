@@ -1,4 +1,5 @@
 class Gasto < ActiveRecord::Base
+  # == Enums ==
   enum metodo_pago: [:transferencia, :tarjeta, :efectivo, :otro]
 
   # == Associations ==
@@ -13,8 +14,10 @@ class Gasto < ActiveRecord::Base
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_maximo_de_apartado
 
+  # == Methods ==
+
   def supera_monto_socio?
-    socio and socio.monto and monto.to_f > socio.monto
+    socio and socio.monto and monto.to_f + socio.gastos.sum(:monto) > socio.monto
   end
 
 private
