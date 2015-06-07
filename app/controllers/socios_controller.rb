@@ -15,6 +15,7 @@ class SociosController < ApplicationController
   # GET /socios/new
   def new
     @socio = Socio.new
+    @socio.build_usuario
   end
 
   # GET /socios/1/edit
@@ -69,6 +70,9 @@ class SociosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def socio_params
-      params.require(:socio).permit(:nombre, :usuario_id)
+      params.require(:socio).permit(
+        :nombre,
+        usuario_attributes: [:email, :password, :password_confirmation]
+      )
     end
 end

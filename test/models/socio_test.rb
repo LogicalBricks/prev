@@ -2,6 +2,7 @@ require 'test_helper'
 
 class SocioTest < ActiveSupport::TestCase
   should belong_to(:usuario)
+  should accept_nested_attributes_for(:usuario)
   should have_many(:gastos)
   should have_one(:tope)
   should validate_presence_of(:nombre)

@@ -4,6 +4,8 @@ class Socio < ActiveRecord::Base
   has_many :gastos
   has_one :tope
 
+  accepts_nested_attributes_for :usuario
+
   # == Validations ==
   validates :nombre, :usuario, presence: true
 
