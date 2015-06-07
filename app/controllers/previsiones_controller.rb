@@ -15,6 +15,8 @@ class PrevisionesController < ApplicationController
   # GET /previsiones/new
   def new
     @prevision = Prevision.new
+    @prevision.topes.build
+    @prevision.apartados.build
   end
 
   # GET /previsiones/1/edit

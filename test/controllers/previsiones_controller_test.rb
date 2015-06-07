@@ -18,6 +18,16 @@ class PrevisionesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should load an new tope" do
+    get :new
+    refute_empty assigns(:prevision).topes
+  end
+
+  test "should load an new apartado" do
+    get :new
+    refute_empty assigns(:prevision).apartados
+  end
+
   test "should create prevision" do
     assert_difference('Prevision.count') do
       post :create, prevision: { fecha_final: @prevision.fecha_final, fecha_inicial: @prevision.fecha_inicial, monto: @prevision.monto }

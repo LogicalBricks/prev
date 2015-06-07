@@ -30,6 +30,7 @@ gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'devise'
 gem 'redcarpet'
+gem 'nested_form'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-showdown'
