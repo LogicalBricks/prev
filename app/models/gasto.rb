@@ -29,7 +29,11 @@ private
   end
 
   def monto_no_mayor_a_monto_socio
-    errors.add :monto, 'supera el monto del socio' if supera_monto_socio? and !forzar_monto
+    errors.add :monto, 'supera el monto del socio' if supera_monto_socio? and !forzar_monto?
+  end
+
+  def forzar_monto?
+    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? forzar_monto
   end
 end
 

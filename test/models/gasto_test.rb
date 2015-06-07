@@ -68,6 +68,24 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
+  test "should be valid if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
+    socio = FactoryGirl.build_stubbed :socio
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101, forzar_monto: '1'
+    socio.stub :monto, 100 do
+      gasto.valid?
+      assert_equal 0, gasto.errors[:monto].size
+    end
+  end
+
+  test "should not be valid if monto is greater than socio's monto but forzar_monto flag is set to '0'" do
+    socio = FactoryGirl.build_stubbed :socio
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101, forzar_monto: '0'
+    socio.stub :monto, 100 do
+      refute gasto.valid?
+      assert_equal 1, gasto.errors[:monto].size
+    end
+  end
+
 end
 
 # == Schema Information
