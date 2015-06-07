@@ -1,5 +1,5 @@
 %h2
-  %i.fa
+  %i.fa.fa-user
   &nbsp;
   Detalles de Socio
 
@@ -19,9 +19,10 @@
       %p.form-control-static
         = @socio.usuario
 
-= link_to socios_path, class: 'btn btn-default' do
-  %i.fa.fa-arrow-left
-  Regresar
-= link_to edit_socio_path(@socio), class: 'btn btn-primary' do
-  %i.fa.fa-edit
-  Modificar
+.pull-right
+  = link_to socios_path, class: 'btn btn-default' do
+    %i.fa.fa-arrow-left
+    Regresar
+  = link_to edit_socio_path(@socio), class: 'btn btn-primary' do
+    %i.fa.fa-edit
+    Modificar

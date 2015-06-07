@@ -64,7 +64,10 @@ class SociosControllerTest < ActionController::TestCase
   end
 
   test "should update socio" do
-    patch :update, id: @socio, socio: { nombre: @socio.nombre, usuario_id: @socio.usuario_id }
+    usuario = @socio.usuario
+    patch :update, id: @socio, socio: {
+      nombre: @socio.nombre + '1'
+    }
     assert_redirected_to socio_path(assigns(:socio))
   end
 

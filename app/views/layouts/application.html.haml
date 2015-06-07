@@ -28,6 +28,11 @@
                 %i.fa.fa-calendar
                 &nbsp;
                 Previsiones
+            %li{ class: controller_name == 'socios' ? 'active' : '' }
+              = link_to socios_path do
+                %i.fa.fa-users
+                &nbsp;
+                Socios
           %ul.nav.navbar-nav.navbar-right
             %li
               = link_to destroy_usuario_session_path, method: :delete do

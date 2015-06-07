@@ -3,8 +3,13 @@
 
   .form-inputs
     = f.input :nombre
-    = f.association :usuario
 
-  .form-actions
+    - unless @socio.persisted?
+      = f.simple_fields_for :usuario do |fu|
+        = fu.input :email
+        = fu.input :password
+        = fu.input :password_confirmation
+
+  .form-actions.pull-right
     = f.button :submit
     = link_to 'Cancelar', socios_path, class: 'btn btn-danger'
