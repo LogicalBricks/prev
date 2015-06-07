@@ -1,4 +1,6 @@
 class Gasto < ActiveRecord::Base
+  attr_accessor :forzar_monto
+
   # == Associations ==
   belongs_to :socio
   belongs_to :proveedor
@@ -9,6 +11,11 @@ class Gasto < ActiveRecord::Base
   validates :monto, numericality: { greater_than: 0 }
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_maximo_de_apartado
+  validate :monto_no_mayor_a_monto_socio
+
+  def supera_monto_socio?
+    socio and monto > socio.monto
+  end
 
 private
 
@@ -19,6 +26,10 @@ private
 
   def monto_no_mayor_a_monto_maximo_de_apartado
     errors.add :monto, 'no puede ser mayor al monto del apartado' if apartado and monto > apartado.monto_maximo
+  end
+
+  def monto_no_mayor_a_monto_socio
+    errors.add :monto, 'supera el monto del socio' if supera_monto_socio? and !forzar_monto
   end
 end
 

@@ -5,6 +5,9 @@ class Socio < ActiveRecord::Base
 
   # == Validations ==
   validates :nombre, :usuario, presence: true
+
+  def monto
+  end
 end
 
 # == Schema Information

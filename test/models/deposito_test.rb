@@ -26,6 +26,14 @@ class DepositoTest < ActiveSupport::TestCase
     refute deposito.valid?
     assert_equal 1, deposito.errors[:monto].size
   end
+
+  test "does not allow to set a monto that rebases the prevision's monto" do
+    prevision = FactoryGirl.create :prevision, monto: 100
+    FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    deposito = FactoryGirl.build :deposito, monto: 2, prevision: prevision
+    refute deposito.valid?
+    assert_equal 1, deposito.errors[:monto].size
+  end
 end
 
 # == Schema Information
