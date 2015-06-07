@@ -1,4 +1,5 @@
 class Gasto < ActiveRecord::Base
+  enum metodo_pago: [:transferencia, :tarjeta, :efectivo, :otro]
 
   # == Associations ==
   belongs_to :socio
@@ -6,7 +7,7 @@ class Gasto < ActiveRecord::Base
   belongs_to :apartado
 
   # == Validations ==
-  validates :socio, :apartado, presence: true
+  validates :socio, :apartado, :fecha, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
   validates :forzar_monto, acceptance: true, presence: true, if: :supera_monto_socio?
   validate :fecha_dentro_de_vigencia_de_prevision

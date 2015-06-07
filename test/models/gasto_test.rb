@@ -8,7 +8,11 @@ class GastoTest < ActiveSupport::TestCase
 
   should validate_presence_of :socio
   should validate_presence_of :apartado
+  should validate_presence_of :fecha
+  should validate_presence_of :monto
   should validate_numericality_of(:monto).is_greater_than(0)
+
+  should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :efectivo, :otro])
 
   test "does not allow to set a fecha before the prevision's innitial date" do
     apartado = FactoryGirl.build_stubbed :apartado
