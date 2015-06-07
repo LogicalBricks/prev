@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class UsuarioTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should validate_presence_of :rol
+  should define_enum_for(:rol).with([:socio, :contador, :admin])
 end
 
 # == Schema Information
@@ -11,6 +10,7 @@ end
 # Table name: usuarios
 #
 #  id                     :integer          not null, primary key
+#  rol                    :integer          default(0)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string

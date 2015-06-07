@@ -1,6 +1,7 @@
 class DeviseCreateUsuarios < ActiveRecord::Migration
   def change
     create_table(:usuarios) do |t|
+      t.integer :rol, default: 0
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

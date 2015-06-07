@@ -1,11 +1,10 @@
 class Usuario < ActiveRecord::Base
+  enum rol: [:socio, :contador, :admin]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # == Associations ==
-  has_and_belongs_to_many :roles
 end
 
 # == Schema Information
@@ -13,6 +12,7 @@ end
 # Table name: usuarios
 #
 #  id                     :integer          not null, primary key
+#  rol                    :integer          default(0)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string

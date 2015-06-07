@@ -78,12 +78,6 @@ ActiveRecord::Schema.define(version: 20150606211229) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "roles_usuarios", id: false, force: :cascade do |t|
     t.integer "rol_id",     null: false
     t.integer "usuario_id", null: false
@@ -121,6 +115,7 @@ ActiveRecord::Schema.define(version: 20150606211229) do
   add_index "topes", ["socio_id"], name: "index_topes_on_socio_id", using: :btree
 
   create_table "usuarios", force: :cascade do |t|
+    t.integer  "rol",                    default: 0
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
