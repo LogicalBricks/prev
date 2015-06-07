@@ -44,8 +44,8 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not save a monto greater than socio's monto" do
     socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101
-    socio.stub :monto, 100 do
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
+    socio.stub :monto, 10 do
       refute gasto.valid?
       assert_equal 1, gasto.errors[:monto].size
     end
@@ -53,16 +53,16 @@ class GastoTest < ActiveSupport::TestCase
 
   test "#supera_monto_socio? should be true if monto is greater than socio's monto" do
     socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101
-    socio.stub :monto, 100 do
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
+    socio.stub :monto, 10 do
       assert gasto.supera_monto_socio?
     end
   end
 
   test "should be valid if monto is greater than socio's monto but forzar_monto flag is set" do
     socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101, forzar_monto: true
-    socio.stub :monto, 100 do
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: true
+    socio.stub :monto, 10 do
       gasto.valid?
       assert_equal 0, gasto.errors[:monto].size
     end
@@ -70,8 +70,8 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should be valid if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
     socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101, forzar_monto: '1'
-    socio.stub :monto, 100 do
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
+    socio.stub :monto, 10 do
       gasto.valid?
       assert_equal 0, gasto.errors[:monto].size
     end
@@ -79,8 +79,8 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not be valid if monto is greater than socio's monto but forzar_monto flag is set to '0'" do
     socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 101, forzar_monto: '0'
-    socio.stub :monto, 100 do
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '0'
+    socio.stub :monto, 10 do
       refute gasto.valid?
       assert_equal 1, gasto.errors[:monto].size
     end

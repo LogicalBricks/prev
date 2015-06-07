@@ -9,7 +9,7 @@ FactoryGirl.define do
     descripcion "MyText"
     socio nil
     proveedor nil
-    apartado nil
+    apartado
   end
 
 end
