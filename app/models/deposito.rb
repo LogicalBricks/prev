@@ -16,7 +16,7 @@ private
   end
 
   def monto_no_mayor_a_monto_de_prevision
-    errors.add :monto, 'no debe superar el mnto de la previsión' if prevision and monto > prevision.monto
+    errors.add :monto, 'no debe superar el monto de la previsión' if prevision and monto + prevision.depositos.sum(:monto) > prevision.monto
   end
 end
 
