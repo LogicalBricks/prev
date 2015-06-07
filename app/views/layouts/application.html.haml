@@ -31,6 +31,11 @@
                 %i.fa.fa-bank
                 &nbsp;
                 Previsiones
+            %li{ class: controller_name == 'gastos' ? 'active' : '' }
+              = link_to gastos_path do
+                %i.fa.fa-dollar
+                &nbsp;
+                Gastos
             %li{ class: controller_name == 'socios' ? 'active' : '' }
               = link_to socios_path do
                 %i.fa.fa-users

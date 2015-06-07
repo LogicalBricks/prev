@@ -14,7 +14,7 @@ class GastosController < ApplicationController
 
   # GET /gastos/new
   def new
-    @gasto = Gasto.new
+    @gasto = Gasto.new apartado_id: params[:apartado_id]
   end
 
   # GET /gastos/1/edit

@@ -76,6 +76,10 @@
               %td= apartado.rubro
               %td= number_to_currency apartado.monto_maximo
               %td
+                = link_to new_gasto_path(apartado_id: apartado.id), class: 'btn btn-sm btn-success' do
+                  %i.fa.fa-plus
+                  Agregar gasto
+
 
 .pull-right
   = link_to previsiones_path, class: 'btn btn-default' do
