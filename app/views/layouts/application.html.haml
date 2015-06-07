@@ -7,7 +7,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+    %nav.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
       .container
         .navbar-header
           %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
@@ -15,7 +15,10 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to 'Menus-lite', root_path, class: 'navbar-brand'
+          = link_to root_path, class: 'navbar-brand' do
+            %i.fa.fa-heartbeat
+            &nbsp;
+            Prev
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
             %li{ class: controller_name == 'rubros' ? 'active' : '' }
