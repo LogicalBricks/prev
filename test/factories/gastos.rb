@@ -7,8 +7,8 @@ FactoryGirl.define do
     fecha "2015-06-06"
     metodo_pago 1
     descripcion "MyText"
-    socio nil
     proveedor nil
+    socio
     apartado
   end
 

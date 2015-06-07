@@ -75,23 +75,26 @@ class GastosControllerTest < ActionController::TestCase
   end
 
   test "should show gasto" do
-    get :show, id: @gasto
+    tope = FactoryGirl.create :tope
+    get :show, id: FactoryGirl.create(:gasto, socio: FactoryGirl.create(:tope).socio)
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @gasto
+    get :edit, id: FactoryGirl.create(:gasto, socio: FactoryGirl.create(:tope).socio)
     assert_response :success
   end
 
   test "should update gasto" do
-    patch :update, id: @gasto, gasto: { apartado_id: @gasto.apartado_id, descripcion: @gasto.descripcion, factura_pdf: @gasto.factura_pdf, factura_xml: @gasto.factura_xml, fecha: @gasto.fecha, metodo_pago: @gasto.metodo_pago, monto: @gasto.monto, proveedor_id: @gasto.proveedor_id, socio_id: @gasto.socio_id, solicitud: @gasto.solicitud }
+    gasto = FactoryGirl.create :gasto, socio: FactoryGirl.create(:tope).socio
+    patch :update, id: gasto, gasto: { apartado_id: gasto.apartado_id, descripcion: gasto.descripcion, factura_pdf: gasto.factura_pdf, factura_xml: gasto.factura_xml, fecha: gasto.fecha, metodo_pago: gasto.metodo_pago, monto: gasto.monto, proveedor_id: gasto.proveedor_id, socio_id: gasto.socio_id, solicitud: gasto.solicitud }
     assert_redirected_to gasto_path(assigns(:gasto))
   end
 
   test "should destroy gasto" do
+    gasto = FactoryGirl.create :gasto, socio: FactoryGirl.create(:tope).socio
     assert_difference('Gasto.count', -1) do
-      delete :destroy, id: @gasto
+      delete :destroy, id: gasto
     end
 
     assert_redirected_to gastos_path

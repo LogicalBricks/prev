@@ -3,7 +3,6 @@ FactoryGirl.define do
     nombre "MyString"
     usuario
   end
-
 end
 
 # == Schema Information
