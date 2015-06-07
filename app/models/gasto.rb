@@ -32,7 +32,15 @@ private
   end
 
   def monto_no_mayor_a_monto_maximo_de_apartado
-    errors.add :monto, 'no puede ser mayor al monto del apartado' if apartado and monto.to_f > apartado.monto_maximo
+    errors.add :monto, 'no puede ser mayor al monto del apartado' if supera_monto_apartado?
+  end
+
+  def supera_monto_apartado?
+    apartado and monto.to_f + monto_consumido > apartado.monto_maximo
+  end
+
+  def monto_consumido
+    socio.gastos.where(apartado: apartado).sum(:monto)
   end
 end
 

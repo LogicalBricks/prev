@@ -46,6 +46,15 @@ class GastoTest < ActiveSupport::TestCase
     assert_equal 0, gasto.errors[:monto].size
   end
 
+  test "should not allow save a monto that makes total greater than the apartado's monto " do
+    socio = FactoryGirl.create :socio
+    apartado = FactoryGirl.create :apartado, monto_maximo: 10
+    FactoryGirl.create :gasto, apartado: apartado, monto: 9, socio: socio
+    gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 2, socio: socio
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:monto].size
+  end
+
   test "should not save a monto greater than socio's monto" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
