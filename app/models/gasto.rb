@@ -14,7 +14,7 @@ class Gasto < ActiveRecord::Base
   validate :monto_no_mayor_a_monto_socio
 
   def supera_monto_socio?
-    socio and monto > socio.monto
+    socio and socio.monto and monto > socio.monto
   end
 
 private
