@@ -2,17 +2,26 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :factura_xml
-    = f.input :factura_pdf
-    = f.input :solicitud
-    = f.input :monto
-    = f.input :fecha
-    = f.input :metodo_pago
-    = f.input :descripcion
-    = f.association :socio
-    = f.association :proveedor
-    = f.association :apartado
+    .row
+      .col-md-6
+        %fieldset
+          %legend Información del pago
+          = f.association :socio
+          = f.association :apartado
+          = f.input :monto
+          = f.input :metodo_pago, collection: Gasto.metodo_pagos.keys
+          = f.input :fecha, as: :datepicker
+      .col-md-6
+        %fieldset
+          %legend Información adicional
+          = f.input :factura_xml
+          = f.input :factura_pdf
+          = f.input :solicitud
+          = f.association :proveedor
+          = f.input :descripcion
+    - if @gasto.supera_monto_socio?
+      = f.input :forzar_monto, as: :boolean
 
-  .form-actions
+  .form-actions.pull-right
     = f.button :submit
     = link_to 'Cancelar', gastos_path, class: 'btn btn-danger'

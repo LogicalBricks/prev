@@ -4,6 +4,10 @@ class Proveedor < ActiveRecord::Base
 
   # == Validations ==
   validates :nombre, presence: true
+
+  def to_s
+    nombre
+  end
 end
 
 # == Schema Information

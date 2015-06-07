@@ -16,6 +16,10 @@ class Apartado < ActiveRecord::Base
     prevision.fecha_final
   end
 
+  def to_s
+    "#{ rubro } - #{ prevision.fecha_inicial.year }"
+  end
+
 private
 
   def monto_no_rebasa_monto_de_prevision
