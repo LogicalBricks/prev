@@ -31,3 +31,11 @@ table {
 .panel .panel-body + .panel-body {
   border-top: 1px solid #ddd;
 }
+
+.form-group.datepicker {
+  padding: 0px;
+}
+
+.form-group input[type="file"] {
+  padding: 6px 12px 6px 0;
+}
