@@ -55,6 +55,25 @@ class GastosControllerTest < ActionController::TestCase
     assert_template :new
   end
 
+  test "should save gasto when rebasing socios monto but forzar_monto flag is set" do
+    assert_difference('Gasto.count') do
+      apartado = FactoryGirl.create :apartado
+      socio = FactoryGirl.create :socio
+      tope = FactoryGirl.create :tope, socio: socio, monto: 9
+      params = {
+        apartado_id: apartado.id,
+        descripcion: "Una descripción",
+        fecha:       Date.today,
+        metodo_pago: "Efectivo",
+        monto:       "10",
+        socio_id:    socio.id,
+        forzar_monto: "1",
+      }
+      post :create, gasto: params
+    end
+    assert_redirected_to gasto_path(assigns(:gasto))
+  end
+
   test "should show gasto" do
     get :show, id: @gasto
     assert_response :success

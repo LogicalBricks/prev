@@ -69,8 +69,9 @@ class GastosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gasto_params
-      params.require(:gasto).permit(:factura_xml, :factura_pdf, :solicitud,
-                                    :monto, :fecha, :metodo_pago, :descripcion,
-                                    :socio_id, :proveedor_id, :apartado_id)
+      params.require(:gasto).permit(
+        :factura_xml, :factura_pdf, :solicitud, :monto, :fecha, :metodo_pago,
+        :descripcion, :socio_id, :proveedor_id, :apartado_id, :forzar_monto
+      )
     end
 end
