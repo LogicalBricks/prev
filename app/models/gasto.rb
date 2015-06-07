@@ -1,5 +1,4 @@
 class Gasto < ActiveRecord::Base
-  attr_accessor :forzar_monto
 
   # == Associations ==
   belongs_to :socio
@@ -9,12 +8,12 @@ class Gasto < ActiveRecord::Base
   # == Validations ==
   validates :socio, :apartado, presence: true
   validates :monto, numericality: { greater_than: 0 }
+  validates :forzar_monto, acceptance: true, presence: true, if: :supera_monto_socio?
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_maximo_de_apartado
-  validate :monto_no_mayor_a_monto_socio
 
   def supera_monto_socio?
-    socio and socio.monto and monto > socio.monto
+    socio and socio.monto and monto.to_f > socio.monto
   end
 
 private
@@ -25,15 +24,7 @@ private
   end
 
   def monto_no_mayor_a_monto_maximo_de_apartado
-    errors.add :monto, 'no puede ser mayor al monto del apartado' if apartado and monto > apartado.monto_maximo
-  end
-
-  def monto_no_mayor_a_monto_socio
-    errors.add :monto, 'supera el monto del socio' if supera_monto_socio? and !forzar_monto?
-  end
-
-  def forzar_monto?
-    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? forzar_monto
+    errors.add :monto, 'no puede ser mayor al monto del apartado' if apartado and monto.to_f > apartado.monto_maximo
   end
 end
 

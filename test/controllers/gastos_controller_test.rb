@@ -49,7 +49,7 @@ class GastosControllerTest < ActionController::TestCase
       }
       post :create, gasto: params
     end
-    assert_equal 1, assigns(:gasto).errors[:monto].size
+    assert_equal 1, assigns(:gasto).errors[:forzar_monto].size
     assert assigns(:gasto).supera_monto_socio?
 
     assert_template :new

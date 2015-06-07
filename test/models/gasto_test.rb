@@ -47,7 +47,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
     socio.stub :monto, 10 do
       refute gasto.valid?
-      assert_equal 1, gasto.errors[:monto].size
+      assert_equal 1, gasto.errors[:forzar_monto].size
     end
   end
 
@@ -56,6 +56,14 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
     socio.stub :monto, 10 do
       assert gasto.supera_monto_socio?
+    end
+  end
+
+  test "should be valid if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
+    socio = FactoryGirl.build_stubbed :socio
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
+    socio.stub :monto, 10 do
+      assert gasto.valid?
     end
   end
 
@@ -68,21 +76,12 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be valid if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
-    socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
-    socio.stub :monto, 10 do
-      gasto.valid?
-      assert_equal 0, gasto.errors[:monto].size
-    end
-  end
-
   test "should not be valid if monto is greater than socio's monto but forzar_monto flag is set to '0'" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '0'
     socio.stub :monto, 10 do
       refute gasto.valid?
-      assert_equal 1, gasto.errors[:monto].size
+      assert_equal 1, gasto.errors[:forzar_monto].size
     end
   end
 
