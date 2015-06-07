@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class ApartadoTest < ActiveSupport::TestCase
+  should belong_to(:rubro)
+  should belong_to(:prevision)
+  should have_many(:gastos)
   should validate_presence_of(:rubro)
   should validate_presence_of(:prevision)
   should validate_presence_of(:monto_maximo)

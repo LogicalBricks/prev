@@ -2,6 +2,7 @@ class Apartado < ActiveRecord::Base
   # == Associations ==
   belongs_to :rubro
   belongs_to :prevision
+  has_many :gastos
 
   # == Validations ==
   validates :rubro, :prevision, :monto_maximo, presence: true
