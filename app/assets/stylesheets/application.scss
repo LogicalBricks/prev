@@ -15,8 +15,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
+@import "bootstrap-datepicker";
 @import "rubros";
 
 body {
   padding-top: 60px;
+}
+
+table {
+  div.form-group, span.help-block {
+    margin-bottom: 0px;
+  }
 }

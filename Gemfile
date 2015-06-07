@@ -34,6 +34,7 @@ gem 'nested_form'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-showdown'
+  gem 'rails-assets-bootstrap-datepicker'
 end
 
 # Use ActiveModel has_secure_password
