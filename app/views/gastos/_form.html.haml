@@ -20,7 +20,14 @@
           = f.association :proveedor
           = f.input :descripcion
     - if @gasto.supera_monto_socio?
-      = f.input :forzar_monto, as: :boolean
+      .alert.alert-warning
+        %p
+          %b
+            %i.fa.fa-warning
+            &nbsp;
+            ¡Alerta!
+          Este gasto excede el monto total autorizado para el socio en este apartado:
+          = f.input :forzar_monto, as: :boolean, wrapper: false
 
   .form-actions.pull-right
     = f.button :submit
