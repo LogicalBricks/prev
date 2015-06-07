@@ -3,9 +3,9 @@
 
   .row.form-inputs
     .col-md-4
-      = f.input :fecha_inicial, as: :string
+      = f.input :fecha_inicial, as: :datepicker
     .col-md-4
-      = f.input :fecha_final, as: :string
+      = f.input :fecha_final, as: :datepicker
     .col-md-4
       = f.input :monto
 
@@ -13,50 +13,10 @@
 
   .row
     .col-md-6
-      .panel.panel-default
-        .panel-heading
-          Socios
-          .pull-right
-            = f.link_to_add :topes, class: 'btn btn-xs btn-success', data: { target: '#socios-prevision' } do
-              %i.fa.fa-user-plus
-              Agregar socio
-        %table.table
-          %thead
-            %tr
-              %th Nombre
-              %th Monto
-              %th
-          %tbody#socios-prevision
-            = f.simple_fields_for :topes, wrapper: false, defaults: { label: false, input_html: { class: 'form-control' } } do |fs|
-              %tr.fields
-                %td= fs.association :socio
-                %td= fs.input :monto
-                %td
-                  = fs.link_to_remove class: 'btn btn-sm btn-danger' do
-                    %i.fa.fa-times
+      = render 'topes', f: f
 
     .col-md-6
-      .panel.panel-default
-        .panel-heading
-          Rubros
-          .pull-right
-            = f.link_to_add :apartados, class: 'btn btn-xs btn-success', data: { target: '#apartados-prevision' } do
-              %i.fa.fa-archive
-              Agregar apartado
-        %table.table
-          %thead
-            %tr
-              %th Nombre
-              %th Monto
-              %th
-          %tbody#apartados-prevision
-            = f.simple_fields_for :apartados, wrapper: false, defaults: { label: false, input_html: { class: 'form-control' } } do |fs|
-              %tr.fields
-                %td= fs.association :rubro
-                %td= fs.input :monto_maximo
-                %td
-                  = fs.link_to_remove class: 'btn btn-sm btn-danger' do
-                    %i.fa.fa-times
+      = render 'apartados', f: f
 
   .form-actions.pull-right
     = f.button :submit

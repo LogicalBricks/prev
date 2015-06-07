@@ -1,0 +1,21 @@
+.panel.panel-default
+  .panel-heading
+    Rubros
+    .pull-right
+      = f.link_to_add :apartados, class: 'btn btn-xs btn-success', data: { target: '#apartados-prevision' } do
+        %i.fa.fa-archive
+        Agregar apartado
+  %table.table
+    %thead
+      %tr
+        %th Nombre
+        %th Monto
+        %th
+    %tbody#apartados-prevision
+      = f.simple_fields_for :apartados, wrapper: false, defaults: { label: false, input_html: { class: 'form-control' } } do |fs|
+        %tr.fields
+          %td= fs.association :rubro
+          %td= fs.input :monto_maximo
+          %td
+            = fs.link_to_remove class: 'btn btn-sm btn-danger' do
+              %i.fa.fa-times
