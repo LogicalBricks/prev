@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :apartado do
-    monto_maximo "9.99"
+    monto_maximo "99.99"
     rubro
     prevision
   end

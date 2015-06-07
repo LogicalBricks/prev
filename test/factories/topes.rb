@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :tope do
-    monto "9.99"
-    prevision nil
-    socio nil
+    monto "19.99"
+    prevision
+    socio
   end
 
 end

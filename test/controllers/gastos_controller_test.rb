@@ -2,7 +2,6 @@ require 'test_helper'
 
 class GastosControllerTest < ActionController::TestCase
   setup do
-    @gasto = gastos(:one)
   end
 
   test "should get index" do
@@ -18,10 +17,42 @@ class GastosControllerTest < ActionController::TestCase
 
   test "should create gasto" do
     assert_difference('Gasto.count') do
-      post :create, gasto: { apartado_id: @gasto.apartado_id, descripcion: @gasto.descripcion, factura_pdf: @gasto.factura_pdf, factura_xml: @gasto.factura_xml, fecha: @gasto.fecha, metodo_pago: @gasto.metodo_pago, monto: @gasto.monto, proveedor_id: @gasto.proveedor_id, socio_id: @gasto.socio_id, solicitud: @gasto.solicitud }
+      apartado = FactoryGirl.create :apartado
+      socio = FactoryGirl.create :socio
+      tope = FactoryGirl.create :tope, socio: socio
+      params = {
+        apartado_id: apartado.id,
+        descripcion: "Una descripción",
+        fecha:       Date.today,
+        metodo_pago: "Efectivo",
+        monto:       "10",
+        socio_id:    socio.id
+      }
+      post :create, gasto: params
     end
 
     assert_redirected_to gasto_path(assigns(:gasto))
+  end
+
+  test "should not save gasto when rebasing socios monto" do
+    assert_no_difference('Gasto.count') do
+      apartado = FactoryGirl.create :apartado
+      socio = FactoryGirl.create :socio
+      tope = FactoryGirl.create :tope, socio: socio, monto: 9
+      params = {
+        apartado_id: apartado.id,
+        descripcion: "Una descripción",
+        fecha:       Date.today,
+        metodo_pago: "Efectivo",
+        monto:       "10",
+        socio_id:    socio.id
+      }
+      post :create, gasto: params
+    end
+    assert_equal 1, assigns(:gasto).errors[:monto].size
+    assert assigns(:gasto).supera_monto_socio?
+
+    assert_template :new
   end
 
   test "should show gasto" do
