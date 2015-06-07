@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsuarioTest < ActiveSupport::TestCase
-  should validate_presence_of :rol
   should define_enum_for(:rol).with([:socio, :contador, :admin])
 end
 
