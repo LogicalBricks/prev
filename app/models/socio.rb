@@ -2,11 +2,15 @@ class Socio < ActiveRecord::Base
   # == Associations ==
   belongs_to :usuario
   has_many :gastos
+  has_one :tope
 
   # == Validations ==
   validates :nombre, :usuario, presence: true
 
+  # == Methods ==
+
   def monto
+    tope.monto if tope
   end
 
   def to_s
