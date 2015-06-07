@@ -1,36 +1,36 @@
 %h2
-  %i.fa.fa-list
+  %i.fa.fa-archive
   &nbsp;
   Detalles de Rubro
 
 %hr
 
-.form-horizontal
-  .form-group
-    %label.col-sm-3.control-label
-      Nombre:
-    .col-sm-9
-      %p.form-control-static
-        = @rubro.nombre
-  .form-group
-    %label.col-sm-3.control-label
-      Agrupador:
-    .col-sm-9
-      %p.form-control-static
-        = @rubro.agrupador
+.panel.panel-default
+  .panel-heading
+    %i.fa.fa-list-alt
+    &nbsp;
+    Descripción
+  .panel-body.form-horizontal
+    .row
+      .form-group.col-md-6
+        %label.col-sm-3.control-label
+          Nombre:
+        .col-sm-9
+          %p.form-control-static
+            = @rubro.nombre
+      .form-group.col-md-6
+        %label.col-sm-3.control-label
+          Agrupador:
+        .col-sm-9
+          %p.form-control-static
+            = @rubro.agrupador
+  .panel-body
+    = markdown @rubro.descripcion
 
-%h2
-  %i.fa.fa-list-alt
-  &nbsp;
-  Descripción
-
-%hr
-
-= markdown @rubro.descripcion
-
-= link_to rubros_path, class: 'btn btn-default' do
-  %i.fa.fa-arrow-left
-  Regresar
-= link_to edit_rubro_path(@rubro), class: 'btn btn-primary' do
-  %i.fa.fa-edit
-  Modificar
+.pull-right
+  = link_to rubros_path, class: 'btn btn-default' do
+    %i.fa.fa-arrow-left
+    Regresar
+  = link_to edit_rubro_path(@rubro), class: 'btn btn-primary' do
+    %i.fa.fa-edit
+    Modificar
