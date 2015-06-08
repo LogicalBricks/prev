@@ -37,28 +37,24 @@
         &nbsp;
         Estado de previsión
       .panel-body.form-horizontal
-        %h2 Indicadores
-        Monto total
-        = number_to_currency @prevision.monto
-        %br/
-        Monto gastado
-        = number_to_currency @prevision.monto_gastado
-        %br/
-        Monto restante
-        = number_to_currency @prevision.monto - @prevision.monto_gastado
-        %br/
-        Monto depositado
-        = number_to_currency @prevision.monto_depositado
-        %br/
-        Montos gastados por apartados
-        - @prevision.apartados.each do |apartado|
-          = apartado
-          = number_to_currency apartado.monto_gastado
-        %br/
-        Montos gastados por socios
-        - Socio.all.each do |socio|
-          = socio
-          = socio.gastos.joins(:apartado).where("apartados.prevision_id" => @prevision.id).sum(:monto)
+        .form-group
+          %label.col-sm-3.control-label
+            Monto gastado:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto_gastado
+        .form-group
+          %label.col-sm-3.control-label
+            Monto restante:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto - @prevision.monto_gastado
+        .form-group
+          %label.col-sm-3.control-label
+            Monto depositado:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto_depositado
 .row
   .col-md-6
     .panel.panel-default

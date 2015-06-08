@@ -1,2 +1,9 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+= prevision = Prevision.first
+- prevision.apartados.each do |apartado|
+  = apartado
+  = number_to_currency apartado.monto_gastado
+%br/
+Montos gastados por socios
+- Socio.all.each do |socio|
+  = socio
+  = socio.gastos.joins(:apartado).where("apartados.prevision_id" => prevision.id).sum(:monto)
