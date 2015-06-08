@@ -21,6 +21,10 @@ class Apartado < ActiveRecord::Base
     "#{ rubro } - #{ prevision.fecha_inicial.year }"
   end
 
+  def monto_gastado
+    gastos.sum(:monto)
+  end
+
 private
 
   def monto_no_rebasa_monto_de_prevision
