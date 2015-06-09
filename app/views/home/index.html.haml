@@ -12,6 +12,8 @@
             .col-sm-9
               %p.form-control-static
                 = number_to_currency apartado.monto_gastado
+                \/
+                = number_to_currency apartado.monto_maximo
 
   .col-md-6
     .panel.panel-default
@@ -24,4 +26,4 @@
               = socio
             .col-sm-9
               %p.form-control-static
-                = number_to_currency socio.monto_gastos_de_prevision(prevision)
+                = number_to_currency socio.monto_gastado_de_prevision(prevision)

@@ -19,7 +19,7 @@ class Socio < ActiveRecord::Base
     nombre
   end
 
-  def monto_gastos_de_prevision(prevision)
+  def monto_gastado_de_prevision(prevision)
     gastos.de_prevision(prevision).sum(:monto)
   end
 end
