@@ -18,6 +18,9 @@ class Gasto < ActiveRecord::Base
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_maximo_de_apartado
 
+  # == Scopes ==
+  scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
+
   # == Methods ==
 
   def supera_monto_socio?

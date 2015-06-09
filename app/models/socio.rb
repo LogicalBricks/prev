@@ -18,6 +18,10 @@ class Socio < ActiveRecord::Base
   def to_s
     nombre
   end
+
+  def monto_gastos_de_prevision(prevision)
+    gastos.de_prevision(prevision).sum(:monto)
+  end
 end
 
 # == Schema Information

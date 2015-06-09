@@ -1,9 +1,27 @@
-= prevision = Prevision.first
-- prevision.apartados.each do |apartado|
-  = apartado
-  = number_to_currency apartado.monto_gastado
-%br/
-Montos gastados por socios
-- Socio.all.each do |socio|
-  = socio
-  = socio.gastos.joins(:apartado).where("apartados.prevision_id" => prevision.id).sum(:monto)
+- prevision = Prevision.first
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        Montos por apartado
+      .panel-body.form-horizontal
+        - prevision.apartados.each do |apartado|
+          .form-group
+            %label.col-sm-3.control-label
+              = apartado
+            .col-sm-9
+              %p.form-control-static
+                = number_to_currency apartado.monto_gastado
+
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        Montos por socio
+      .panel-body.form-horizontal
+        - Socio.all.each do |socio|
+          .form-group
+            %label.col-sm-3.control-label
+              = socio
+            .col-sm-9
+              %p.form-control-static
+                = number_to_currency socio.monto_gastos_de_prevision(prevision)
