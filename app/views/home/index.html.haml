@@ -1,11 +1,10 @@
-- prevision = Prevision.first
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
         Montos por apartado
       .panel-body.form-horizontal
-        - prevision.apartados.each do |apartado|
+        - @prevision.apartados.each do |apartado|
           .form-group
             %label.col-sm-3.control-label
               = apartado
