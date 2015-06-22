@@ -41,6 +41,11 @@
                 %i.fa.fa-users
                 &nbsp;
                 Socios
+            %li{ class: controller_name == 'depositos' ? 'active' : '' }
+              = link_to depositos_path do
+                %i.fa.fa-check-square-o
+                &nbsp;
+                Depositos
           %ul.nav.navbar-nav.navbar-right
             %li
               = link_to destroy_usuario_session_path, method: :delete do
