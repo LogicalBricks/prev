@@ -3,6 +3,14 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/pride'
 
+class ActionController::TestCase
+  include Devise::TestHelpers
+
+  setup do
+    sign_in FactoryGirl.create :usuario
+  end
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
