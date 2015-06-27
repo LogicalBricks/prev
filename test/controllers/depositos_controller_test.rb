@@ -2,7 +2,8 @@ require 'test_helper'
 
 class DepositosControllerTest < ActionController::TestCase
   setup do
-    @deposito = depositos(:one)
+    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today, fecha_final: Date.today + 10.days, monto: 100_000
+    @deposito = FactoryGirl.create :deposito, prevision: @prevision, fecha: Date.today + 1.days
   end
 
   test "should get index" do

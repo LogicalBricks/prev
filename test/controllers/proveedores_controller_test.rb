@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProveedoresControllerTest < ActionController::TestCase
   setup do
-    @proveedor = proveedores(:one)
+    @proveedor = FactoryGirl.create :proveedor
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TopesControllerTest < ActionController::TestCase
   setup do
-    @tope = topes(:one)
+    @tope = FactoryGirl.create :tope
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class TopesControllerTest < ActionController::TestCase
 
   test "should create tope" do
     assert_difference('Tope.count') do
-      post :create, tope: { monto: @tope.monto, prevision_id: @tope.prevision_id, socio: @tope.socio, socio_id: @tope.socio_id }
+      post :create, tope: { monto: @tope.monto, prevision_id: @tope.prevision_id, socio_id: @tope.socio_id }
     end
 
     assert_redirected_to tope_path(assigns(:tope))
@@ -35,7 +35,7 @@ class TopesControllerTest < ActionController::TestCase
   end
 
   test "should update tope" do
-    patch :update, id: @tope, tope: { monto: @tope.monto, prevision_id: @tope.prevision_id, socio: @tope.socio, socio_id: @tope.socio_id }
+    patch :update, id: @tope, tope: { monto: @tope.monto, prevision_id: @tope.prevision_id, socio_id: @tope.socio_id }
     assert_redirected_to tope_path(assigns(:tope))
   end
 

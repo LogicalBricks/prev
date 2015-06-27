@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AgrupadoresControllerTest < ActionController::TestCase
   setup do
-    @agrupador = agrupadores(:one)
+    @agrupador = FactoryGirl.create :agrupador
   end
 
   test "should get index" do

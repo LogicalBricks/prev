@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ApartadosControllerTest < ActionController::TestCase
   setup do
-    @apartado = apartados(:one)
+    @apartado = FactoryGirl.create :apartado
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RubrosControllerTest < ActionController::TestCase
   setup do
-    @rubro = rubros(:one)
+    @rubro = FactoryGirl.create :rubro
   end
 
   test "should get index" do
