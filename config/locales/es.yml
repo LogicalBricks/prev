@@ -203,3 +203,11 @@ es-MX:
       long: "%A, %d de %B de %Y a las %I:%M %p"
       short: "%d de %b a las %H:%M hrs"
     pm: pm
+  activerecord:
+    errors:
+      models:
+        gasto:
+          attributes:
+            monto:
+              greater_than_monto_apartado: "no puede ser mayor al monto del apartado"
+              greater_than_monto_depositado: "no puede ser mayor al monto depositado a la previsión"

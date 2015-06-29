@@ -76,7 +76,8 @@ class GastoTest < ActiveSupport::TestCase
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
     socio.stub :monto, 10 do
-      assert gasto.valid?
+      gasto.valid?
+      refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
     end
   end
 
@@ -85,7 +86,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: true
     socio.stub :monto, 10 do
       gasto.valid?
-      assert_equal 0, gasto.errors[:monto].size
+      refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
     end
   end
 
@@ -98,7 +99,7 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not save a monto that makes it to rebase socio's monto" do
+  test "should not save a monto that makes it exceed socio's monto" do
     tope = FactoryGirl.create :tope, monto: 10
     FactoryGirl.create :gasto, socio: tope.socio, monto: 9
     gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2

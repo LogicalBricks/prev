@@ -22,6 +22,11 @@ class Socio < ActiveRecord::Base
   def monto_gastado_de_prevision(prevision)
     gastos.de_prevision(prevision).sum(:monto)
   end
+
+  def monto_gastado(apartado=nil)
+    apartado ? gastos.where(apartado: apartado).sum(:monto) : gastos.sum(:monto)
+  end
+
 end
 
 # == Schema Information
