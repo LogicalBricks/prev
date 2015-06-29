@@ -5,6 +5,7 @@ class GastoTest < ActiveSupport::TestCase
   should belong_to :socio
   should belong_to :proveedor
   should belong_to :apartado
+  should have_one(:prevision).through(:apartado)
 
   should validate_presence_of :socio
   should validate_presence_of :apartado
@@ -32,27 +33,28 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not allow save a monto greater than the apartado's monto " do
+  test "should not allow save a monto greater than the apartado's monto" do
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 101
     refute gasto.valid?
     assert_equal 1, gasto.errors[:monto].size
   end
 
-  test "should allow save a monto fewer than the apartado's monto " do
+  test "should allow save a monto fewer than the apartado's monto" do
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 99
     gasto.valid?
     assert_equal 0, gasto.errors[:monto].size
   end
 
-  test "should not allow save a monto that makes total greater than the apartado's monto " do
+  test "should not allow save a monto that makes total greater than the apartado's monto" do
     socio = FactoryGirl.create :socio
     apartado = FactoryGirl.create :apartado, monto_maximo: 10
+    FactoryGirl.create :deposito, monto: 10, prevision: apartado.prevision
     FactoryGirl.create :gasto, apartado: apartado, monto: 9, socio: socio
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 2, socio: socio
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:monto].size
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
   end
 
   test "should not save a monto greater than socio's monto" do
@@ -72,7 +74,7 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be valid if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
+  test "monto should not have the error of being grater than apartado's monto if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
     socio.stub :monto, 10 do
@@ -81,7 +83,7 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be valid if monto is greater than socio's monto but forzar_monto flag is set" do
+  test "monto should not have the error of being greater than apartado's monto if monto is greater than socio's monto but forzar_monto flag is set" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: true
     socio.stub :monto, 10 do
@@ -101,13 +103,30 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not save a monto that makes it exceed socio's monto" do
     tope = FactoryGirl.create :tope, monto: 10
-    FactoryGirl.create :gasto, socio: tope.socio, monto: 9
+    FactoryGirl.create :deposito, monto: 15, prevision: tope.prevision
+    apartado = FactoryGirl.create :apartado, monto_maximo: 15, prevision: tope.prevision
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
     gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2
     refute gasto.valid?
     assert_equal 1, gasto.errors[:forzar_monto].size
     assert gasto.supera_monto_socio?
   end
 
+  test "should have an error on monto when it exceeds the prevision's monto depositado" do
+    tope = FactoryGirl.create :tope
+    FactoryGirl.create :deposito, prevision: tope.prevision, monto: 8
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 9
+    gasto.valid?
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
+  end
+
+  test "should not have an error on monto when it does not exceed the prevision's monto depositado" do
+    tope = FactoryGirl.create :tope
+    FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 8, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto.valid?
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
+  end
 end
 
 # == Schema Information

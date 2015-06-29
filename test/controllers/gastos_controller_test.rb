@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class GastosControllerTest < ActionController::TestCase
-  setup do
-  end
-
   test "should get index" do
     get :index
     assert_response :success
@@ -18,6 +15,7 @@ class GastosControllerTest < ActionController::TestCase
   test "should create gasto" do
     assert_difference('Gasto.count') do
       apartado = FactoryGirl.create :apartado
+      FactoryGirl.create :deposito, prevision: apartado.prevision, monto: 10
       socio = FactoryGirl.create :socio
       tope = FactoryGirl.create :tope, socio: socio
       params = {
@@ -59,6 +57,7 @@ class GastosControllerTest < ActionController::TestCase
     assert_difference('Gasto.count') do
       apartado = FactoryGirl.create :apartado
       socio = FactoryGirl.create :socio
+      FactoryGirl.create :deposito, prevision: apartado.prevision, monto: 10
       tope = FactoryGirl.create :tope, socio: socio, monto: 9
       params = {
         apartado_id: apartado.id,
@@ -76,23 +75,42 @@ class GastosControllerTest < ActionController::TestCase
 
   test "should show gasto" do
     tope = FactoryGirl.create :tope
-    get :show, id: FactoryGirl.create(:gasto, socio: FactoryGirl.create(:tope).socio)
+    FactoryGirl.create :deposito, prevision: tope.prevision, monto: 10
+    get :show, id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision))
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: FactoryGirl.create(:gasto, socio: FactoryGirl.create(:tope).socio)
+    tope = FactoryGirl.create(:tope)
+    FactoryGirl.create :deposito, prevision: tope.prevision, monto: 10
+    get :edit, id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision))
     assert_response :success
   end
 
   test "should update gasto" do
-    gasto = FactoryGirl.create :gasto, socio: FactoryGirl.create(:tope).socio
-    patch :update, id: gasto, gasto: { apartado_id: gasto.apartado_id, descripcion: gasto.descripcion, factura_pdf: gasto.factura_pdf, factura_xml: gasto.factura_xml, fecha: gasto.fecha, metodo_pago: gasto.metodo_pago, monto: gasto.monto, proveedor_id: gasto.proveedor_id, socio_id: gasto.socio_id, solicitud: gasto.solicitud }
+    tope = FactoryGirl.create(:tope)
+    FactoryGirl.create(:deposito, prevision: tope.prevision, monto: 10)
+    gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto_params = {
+      apartado_id: gasto.apartado_id,
+      descripcion: gasto.descripcion,
+      factura_pdf: gasto.factura_pdf,
+      factura_xml: gasto.factura_xml,
+      fecha: gasto.fecha,
+      metodo_pago: gasto.metodo_pago,
+      monto: 4,
+      proveedor_id: gasto.proveedor_id,
+      socio_id: gasto.socio_id,
+      solicitud: gasto.solicitud
+    }
+    patch :update, id: gasto, gasto: gasto_params
     assert_redirected_to gasto_path(assigns(:gasto))
   end
 
   test "should destroy gasto" do
-    gasto = FactoryGirl.create :gasto, socio: FactoryGirl.create(:tope).socio
+    tope = FactoryGirl.create(:tope)
+    FactoryGirl.create(:deposito, prevision: tope.prevision, monto: 10)
+    gasto = FactoryGirl.create :gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     assert_difference('Gasto.count', -1) do
       delete :destroy, id: gasto
     end

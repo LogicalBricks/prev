@@ -10,6 +10,7 @@ class Gasto < ActiveRecord::Base
   belongs_to :socio
   belongs_to :proveedor
   belongs_to :apartado
+  has_one :prevision, through: :apartado
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
@@ -17,6 +18,7 @@ class Gasto < ActiveRecord::Base
   validates :forzar_monto, acceptance: true, presence: true, if: :supera_monto_socio?
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_supera_monto_maximo_de_apartado
+  validate :monto_no_supera_monto_depositado
 
   # == Scopes ==
   scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
@@ -45,6 +47,15 @@ private
   def monto_gastado_en_apartado
     socio.monto_gastado(apartado)
   end
+
+  def monto_no_supera_monto_depositado
+    errors.add :monto, :greater_than_monto_depositado if supera_monto_depositado?
+  end
+
+  def supera_monto_depositado?
+    socio and prevision and monto.to_f + socio.monto_gastado > prevision.monto_depositado
+  end
+
 end
 
 # == Schema Information
