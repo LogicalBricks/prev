@@ -19,6 +19,14 @@ class PrevisionTest < ActiveSupport::TestCase
     )
     prevision.save
     assert_includes prevision.errors[:base], "La fecha final debe ser mayor a la fecha inicial"
+
+  test '#monto_depositado is the sum of depositos' do
+    prevision = FactoryGirl.create :prevision
+    FactoryGirl.create :deposito, prevision: prevision, monto: 3
+    FactoryGirl.create :deposito, prevision: prevision, monto: 2
+    FactoryGirl.create :deposito, prevision: prevision, monto: 6
+    assert_equal 11, prevision.reload.monto_depositado
+  end
   end
 end
 
