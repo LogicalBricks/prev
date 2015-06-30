@@ -1,1 +1,8 @@
-Aún no ingresas una previsión.
+.no-prevision
+  %h1.text-center.text-error Aún no has ingresado una previsión al sistema.
+
+  .text-center
+    .control-group
+      = link_to new_prevision_path, class: 'btn btn-lg btn-primary' do
+        %i.fa.fa-plus
+        Nueva Previsión
