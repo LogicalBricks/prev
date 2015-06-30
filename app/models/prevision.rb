@@ -3,6 +3,7 @@ class Prevision < ActiveRecord::Base
   has_many :depositos, inverse_of: :prevision
   has_many :apartados, inverse_of: :prevision
   has_many :topes, inverse_of: :prevision
+  has_many :comisiones, inverse_of: :prevision
   has_many :gastos, through: :apartados
 
   accepts_nested_attributes_for :apartados, :topes, allow_destroy: true
@@ -15,7 +16,7 @@ class Prevision < ActiveRecord::Base
   # == Methods ==
 
   def monto_gastado
-    gastos.sum(:monto)
+    gastos.sum(:monto) + comisiones.sum(:monto)
   end
 
   def monto_depositado

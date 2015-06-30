@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606211229) do
+ActiveRecord::Schema.define(version: 20150629181044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20150606211229) do
 
   add_index "apartados", ["prevision_id"], name: "index_apartados_on_prevision_id", using: :btree
   add_index "apartados", ["rubro_id"], name: "index_apartados_on_rubro_id", using: :btree
+
+  create_table "comisiones", force: :cascade do |t|
+    t.decimal  "monto"
+    t.string   "descripcion"
+    t.date     "fecha"
+    t.integer  "prevision_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "comisiones", ["prevision_id"], name: "index_comisiones_on_prevision_id", using: :btree
 
   create_table "depositos", force: :cascade do |t|
     t.decimal  "monto"
@@ -135,6 +146,7 @@ ActiveRecord::Schema.define(version: 20150606211229) do
 
   add_foreign_key "apartados", "previsiones"
   add_foreign_key "apartados", "rubros"
+  add_foreign_key "comisiones", "previsiones"
   add_foreign_key "depositos", "previsiones"
   add_foreign_key "gastos", "apartados"
   add_foreign_key "gastos", "proveedores"

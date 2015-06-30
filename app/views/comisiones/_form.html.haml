@@ -1,0 +1,12 @@
+= simple_form_for(@comision) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :monto
+    = f.input :descripcion
+    = f.input :fecha
+    = f.association :prevision
+
+  .form-actions
+    = f.button :submit
+    = link_to 'Cancelar', comisiones_path, class: 'btn btn-danger'

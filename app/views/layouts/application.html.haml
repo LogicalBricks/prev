@@ -46,6 +46,11 @@
                 %i.fa.fa-check-square-o
                 &nbsp;
                 Depositos
+            %li{ class: controller_name == 'comisiones' ? 'active' : '' }
+              = link_to comisiones_path do
+                %i.fa.fa-credit-card
+                &nbsp;
+                Comisiones
           %ul.nav.navbar-nav.navbar-right
             %li
               = link_to destroy_usuario_session_path, method: :delete do

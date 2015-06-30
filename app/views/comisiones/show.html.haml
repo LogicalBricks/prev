@@ -1,0 +1,39 @@
+%h2
+  %i.fa
+  &nbsp;
+  Detalles de Comisión
+
+%hr
+
+.form-horizontal
+  .form-group
+    %label.col-sm-3.control-label
+      Monto:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.monto
+  .form-group
+    %label.col-sm-3.control-label
+      Descripción:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.descripcion
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.fecha
+  .form-group
+    %label.col-sm-3.control-label
+      Previsión:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.prevision
+
+= link_to comisiones_path, class: 'btn btn-default' do
+  %i.fa.fa-arrow-left
+  Regresar
+= link_to edit_comision_path(@comision), class: 'btn btn-primary' do
+  %i.fa.fa-edit
+  Modificar

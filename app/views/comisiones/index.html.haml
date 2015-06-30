@@ -1,0 +1,36 @@
+.pull-right
+  = link_to new_comision_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-plus
+    Nueva Comisión
+
+%h1
+  %i.fa.fa-credit-card
+  &nbsp;
+  Comisiones
+
+%hr
+
+%table.table
+  %thead
+    %tr
+      %th Monto
+      %th Descripción
+      %th Fecha
+      %th Previsión
+      %th Acciones
+      
+  %tbody
+    - @comisiones.each do |comision|
+      %tr
+        %td= comision.monto
+        %td= comision.descripcion
+        %td= comision.fecha
+        %td= comision.prevision
+        %td
+          .btn-group
+            = link_to comision, class: 'btn btn-sm btn-default', title: 'Detalles' do
+              %i.fa.fa-search-plus
+            = link_to edit_comision_path(comision), class: 'btn btn-sm btn-default', title: 'Modificar' do
+              %i.fa.fa-edit
+            = link_to comision, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
+              %i.fa.fa-trash
