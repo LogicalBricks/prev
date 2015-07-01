@@ -1,0 +1,9 @@
+#home
+  .no-data
+    %h1.text-center.text-error Aún no has ingresado un rubro al sistema.
+
+    .text-center
+      .control-group
+        = link_to new_rubro_path, class: 'btn btn-lg btn-primary' do
+          %i.fa.fa-plus
+          Nuevo Rubro

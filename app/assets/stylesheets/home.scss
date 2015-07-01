@@ -3,12 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.no-prevision {
-  h1 {
-    margin: 4em 0;
-  }
+#home {
+  .no-data {
+    h1 {
+      margin: 4em 0;
+    }
 
-  .control-group {
-    margin-bottom: 10em;
+    .control-group {
+      margin-bottom: 10em;
+    }
   }
 }
