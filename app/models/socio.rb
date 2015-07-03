@@ -3,7 +3,7 @@ class Socio < ActiveRecord::Base
   belongs_to :usuario
   has_one :tope
   has_many :gastos
-  has_many :apartados, through: :gastos
+  has_many :apartados, -> { uniq }, through: :gastos
 
   accepts_nested_attributes_for :usuario
 
