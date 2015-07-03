@@ -1,7 +1,8 @@
 class Rubro < ActiveRecord::Base
-  belongs_to :agrupador
-
+  # == Validations ==
   validates :nombre, presence: true
+
+  # == Methods ==
 
   def to_s
     nombre
