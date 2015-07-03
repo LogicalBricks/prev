@@ -1,8 +1,9 @@
 class Socio < ActiveRecord::Base
   # == Associations ==
   belongs_to :usuario
-  has_many :gastos
   has_one :tope
+  has_many :gastos
+  has_many :apartados, through: :gastos
 
   accepts_nested_attributes_for :usuario
 

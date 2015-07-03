@@ -10,7 +10,6 @@ class Gasto < ActiveRecord::Base
   belongs_to :socio
   belongs_to :proveedor
   belongs_to :apartado
-  has_one :prevision, through: :apartado
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
@@ -22,11 +21,16 @@ class Gasto < ActiveRecord::Base
 
   # == Scopes ==
   scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
+  scope :de_socio,     -> socio { joins(:socio).where(socio_id: socio) }
 
   # == Methods ==
 
   def supera_monto_socio?
     socio and socio.monto and monto.to_f + socio.monto_gastado > socio.monto
+  end
+
+  def prevision
+    apartado.prevision if apartado
   end
 
 private

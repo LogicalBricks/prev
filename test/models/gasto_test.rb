@@ -5,7 +5,6 @@ class GastoTest < ActiveSupport::TestCase
   should belong_to :socio
   should belong_to :proveedor
   should belong_to :apartado
-  should have_one(:prevision).through(:apartado)
 
   should validate_presence_of :socio
   should validate_presence_of :apartado
@@ -17,14 +16,14 @@ class GastoTest < ActiveSupport::TestCase
 
   test "does not allow to set a fecha before the prevision's innitial date" do
     prevision = FactoryGirl.create :prevision, periodo: 2016
-    gasto = FactoryGirl.build :gasto, fecha: Date.today, prevision: prevision
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert_equal 1, gasto.errors[:fecha].size
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
     prevision = FactoryGirl.create :prevision, periodo: 2014
-    gasto = FactoryGirl.build :gasto, fecha: Date.today, prevision: prevision
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert_equal 1, gasto.errors[:fecha].size
   end
@@ -33,14 +32,13 @@ class GastoTest < ActiveSupport::TestCase
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 101
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:monto].size
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
   end
 
   test "should allow save a monto fewer than the apartado's monto" do
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 99
-    gasto.valid?
-    assert_equal 0, gasto.errors[:monto].size
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
   end
 
   test "should not allow save a monto that makes total greater than the apartado's monto" do

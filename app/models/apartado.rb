@@ -25,6 +25,10 @@ class Apartado < ActiveRecord::Base
     gastos.sum(:monto)
   end
 
+  def monto_gastado_por_socio(socio)
+    gastos.de_socio(socio).sum(:monto)
+  end
+
 private
 
   def monto_no_rebasa_monto_de_prevision
