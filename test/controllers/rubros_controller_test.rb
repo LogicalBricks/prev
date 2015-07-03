@@ -18,7 +18,7 @@ class RubrosControllerTest < ActionController::TestCase
 
   test "should create rubro" do
     assert_difference('Rubro.count') do
-      post :create, rubro: { agrupador_id: @rubro.agrupador_id, descripcion: @rubro.descripcion, nombre: @rubro.nombre }
+      post :create, rubro: { descripcion: @rubro.descripcion, nombre: @rubro.nombre }
     end
 
     assert_redirected_to rubro_path(assigns(:rubro))
@@ -35,7 +35,7 @@ class RubrosControllerTest < ActionController::TestCase
   end
 
   test "should update rubro" do
-    patch :update, id: @rubro, rubro: { agrupador_id: @rubro.agrupador_id, descripcion: @rubro.descripcion, nombre: @rubro.nombre }
+    patch :update, id: @rubro, rubro: { descripcion: @rubro.descripcion, nombre: @rubro.nombre }
     assert_redirected_to rubro_path(assigns(:rubro))
   end
 
