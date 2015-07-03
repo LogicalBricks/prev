@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PrevisionesControllerTest < ActionController::TestCase
   setup do
-    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today, fecha_final: Date.today + 1.days, monto: 100_000
+    @prevision = FactoryGirl.create :prevision, monto: 100_000
     @rubro = FactoryGirl.create :rubro
     @socio = FactoryGirl.create :socio, usuario: FactoryGirl.create(:usuario)
   end
@@ -30,7 +30,7 @@ class PrevisionesControllerTest < ActionController::TestCase
 
   test "should create prevision" do
     assert_difference('Prevision.count') do
-      post :create, prevision: { fecha_final: @prevision.fecha_final, fecha_inicial: @prevision.fecha_inicial, monto: @prevision.monto }
+      post :create, prevision: { periodo: @prevision.periodo, monto: @prevision.monto }
     end
 
     assert_redirected_to prevision_path(assigns(:prevision))
@@ -39,8 +39,7 @@ class PrevisionesControllerTest < ActionController::TestCase
   test "should create apartados" do
     assert_difference("Apartado.count") do
       post :create, prevision: {
-        fecha_final: @prevision.fecha_final,
-        fecha_inicial: @prevision.fecha_inicial,
+        periodo: @prevision.periodo,
         monto: @prevision.monto,
         apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
         topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
@@ -51,8 +50,7 @@ class PrevisionesControllerTest < ActionController::TestCase
   test "should create topes" do
     assert_difference("Tope.count") do
       post :create, prevision: {
-        fecha_final: @prevision.fecha_final,
-        fecha_inicial: @prevision.fecha_inicial,
+        periodo: @prevision.periodo,
         monto: @prevision.monto,
         apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
         topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
@@ -71,7 +69,7 @@ class PrevisionesControllerTest < ActionController::TestCase
   end
 
   test "should update prevision" do
-    patch :update, id: @prevision, prevision: { fecha_final: @prevision.fecha_final, fecha_inicial: @prevision.fecha_inicial, monto: @prevision.monto }
+    patch :update, id: @prevision, prevision: { periodo: @prevision.periodo, monto: @prevision.monto }
     assert_redirected_to prevision_path(assigns(:prevision))
   end
 

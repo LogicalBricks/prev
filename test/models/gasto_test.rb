@@ -16,21 +16,17 @@ class GastoTest < ActiveSupport::TestCase
   should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :efectivo, :otro])
 
   test "does not allow to set a fecha before the prevision's innitial date" do
-    apartado = FactoryGirl.build_stubbed :apartado
-    gasto = FactoryGirl.build :gasto, fecha: 1.month.ago, apartado: apartado
-    apartado.stub :fecha_inicial, Date.today do
-      refute gasto.valid?
-      assert_equal 1, gasto.errors[:fecha].size
-    end
+    prevision = FactoryGirl.create :prevision, periodo: 2016
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, prevision: prevision
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:fecha].size
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
-    apartado = FactoryGirl.build_stubbed :apartado
-    gasto = FactoryGirl.build :gasto, fecha: 1.month.from_now, apartado: apartado
-    apartado.stub :fecha_final, Date.today.tomorrow do
-      refute gasto.valid?
-      assert_equal 1, gasto.errors[:fecha].size
-    end
+    prevision = FactoryGirl.create :prevision, periodo: 2014
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, prevision: prevision
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:fecha].size
   end
 
   test "should not allow save a monto greater than the apartado's monto" do

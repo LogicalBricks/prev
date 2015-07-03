@@ -21,7 +21,7 @@ class DepositoTest < ActiveSupport::TestCase
   end
 
   test "does not allow to set a monto greater than the prevision's monto" do
-    prevision = FactoryGirl.build_stubbed :prevision, monto: 100
+    prevision = FactoryGirl.create :prevision, monto: 100
     deposito = FactoryGirl.build :deposito, monto: 101, prevision: prevision
     refute deposito.valid?
     assert_equal 1, deposito.errors[:monto].size
