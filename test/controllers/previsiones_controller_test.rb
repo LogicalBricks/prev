@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PrevisionesControllerTest < ActionController::TestCase
   setup do
-    @prevision = FactoryGirl.create :prevision, monto: 100_000
+    @prevision = FactoryGirl.create :prevision, monto_presupuestado: 100_000
     @rubro = FactoryGirl.create :rubro
     @socio = FactoryGirl.create :socio, usuario: FactoryGirl.create(:usuario)
   end
@@ -30,7 +30,7 @@ class PrevisionesControllerTest < ActionController::TestCase
 
   test "should create prevision" do
     assert_difference('Prevision.count') do
-      post :create, prevision: { periodo: @prevision.periodo, monto: @prevision.monto }
+      post :create, prevision: { periodo: @prevision.periodo, monto_presupuestado: @prevision.monto_presupuestado }
     end
 
     assert_redirected_to prevision_path(assigns(:prevision))
@@ -40,7 +40,7 @@ class PrevisionesControllerTest < ActionController::TestCase
     assert_difference("Apartado.count") do
       post :create, prevision: {
         periodo: @prevision.periodo,
-        monto: @prevision.monto,
+        monto_presupuestado: @prevision.monto_presupuestado,
         apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
         topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
       }
@@ -51,7 +51,7 @@ class PrevisionesControllerTest < ActionController::TestCase
     assert_difference("Tope.count") do
       post :create, prevision: {
         periodo: @prevision.periodo,
-        monto: @prevision.monto,
+        monto_presupuestado: @prevision.monto_presupuestado,
         apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
         topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
       }
@@ -69,7 +69,7 @@ class PrevisionesControllerTest < ActionController::TestCase
   end
 
   test "should update prevision" do
-    patch :update, id: @prevision, prevision: { periodo: @prevision.periodo, monto: @prevision.monto }
+    patch :update, id: @prevision, prevision: { periodo: @prevision.periodo, monto_presupuestado: @prevision.monto_presupuestado }
     assert_redirected_to prevision_path(assigns(:prevision))
   end
 

@@ -5,8 +5,8 @@ class PrevisionTest < ActiveSupport::TestCase
   should have_many(:apartados)
   should have_many(:topes)
   should have_many(:comisiones)
-  should validate_presence_of(:monto)
-  should validate_numericality_of(:monto).is_greater_than(0)
+  should validate_presence_of(:monto_presupuestado)
+  should validate_numericality_of(:monto_presupuestado).is_greater_than(0)
   should accept_nested_attributes_for(:apartados).allow_destroy(true)
   should accept_nested_attributes_for(:topes).allow_destroy(true)
 
@@ -43,13 +43,13 @@ class PrevisionTest < ActiveSupport::TestCase
   end
 
   test 'la fecha es válida si está dentro del rango del periodo' do
-    prevision = Prevision.new periodo: 2015
+    prevision = FactoryGirl.build :prevision, periodo: 2015
     prevision.valid?
     assert prevision.fecha_valida?("2015/02/11".to_date)
   end
 
   test 'la fecha no es válida si no está dentro del rango del periodo ' do
-    prevision = Prevision.new periodo: 2015
+    prevision = FactoryGirl.build :prevision, periodo: 2015
     prevision.valid?
     refute prevision.fecha_valida?("2016/02/11".to_date)
     refute prevision.fecha_valida?("2014/02/11".to_date)
@@ -60,10 +60,12 @@ end
 #
 # Table name: previsiones
 #
-#  id            :integer          not null, primary key
-#  fecha_inicial :date
-#  fecha_final   :date
-#  monto         :decimal(, )
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                  :integer          not null, primary key
+#  fecha_inicial       :date
+#  fecha_final         :date
+#  monto               :decimal(, )
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  monto_remanente     :decimal(, )
+#  monto_presupuestado :decimal(, )
 #

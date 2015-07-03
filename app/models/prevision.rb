@@ -11,12 +11,14 @@ class Prevision < ActiveRecord::Base
   accepts_nested_attributes_for :apartados, :topes, allow_destroy: true
 
   # == Validations ==
-  validates :periodo, :monto, presence: true
-  validates :monto, numericality: { greater_than: 0 }
+  validates :periodo, :monto_presupuestado, presence: true
+  validates :monto_remanente, numericality: true, if: "monto_remanente.present?"
+  validates :monto_presupuestado, numericality: { greater_than: 0 }
 
   # == Callbacks ==
   after_initialize :calcula_periodo
   before_validation :calcula_fechas
+  before_validation :calcula_monto
 
   # == Methods ==
 
@@ -46,16 +48,22 @@ private
     self.fecha_inicial = "#{periodo}/01/01".to_date
     self.fecha_final = "#{periodo}/12/31".to_date
   end
+
+  def calcula_monto
+    self.monto = monto_remanente.to_f + monto_presupuestado.to_f
+  end
 end
 
 # == Schema Information
 #
 # Table name: previsiones
 #
-#  id            :integer          not null, primary key
-#  fecha_inicial :date
-#  fecha_final   :date
-#  monto         :decimal(, )
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                  :integer          not null, primary key
+#  fecha_inicial       :date
+#  fecha_final         :date
+#  monto               :decimal(, )
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  monto_remanente     :decimal(, )
+#  monto_presupuestado :decimal(, )
 #

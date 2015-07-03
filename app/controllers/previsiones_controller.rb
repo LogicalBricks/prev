@@ -73,7 +73,8 @@ class PrevisionesController < ApplicationController
     def prevision_params
       params.require(:prevision).permit(
         :periodo,
-        :monto,
+        :monto_remanente,
+        :monto_presupuestado,
         apartados_attributes: [:id, :rubro_id, :monto_maximo, :_destroy],
         topes_attributes: [:id, :socio_id, :monto, :_destroy]
       )
