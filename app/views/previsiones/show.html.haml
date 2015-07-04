@@ -25,10 +25,23 @@
               = l @prevision.fecha_final, format: :long
         .form-group
           %label.col-sm-3.control-label
-            Monto:
+            Monto remanente:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto_remanente
+        .form-group
+          %label.col-sm-3.control-label
+            Monto presupuestado:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @prevision.monto_presupuestado
+        .form-group
+          %label.col-sm-3.control-label
+            Monto total:
           .col-sm-9
             %p.form-control-static
               = number_to_currency @prevision.monto
+
 
   .col-md-6
     .panel.panel-default

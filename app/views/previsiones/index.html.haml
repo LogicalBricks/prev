@@ -15,7 +15,9 @@
     %tr
       %th Fecha inicial
       %th Fecha final
-      %th Monto
+      %th Remanente
+      %th Presupuestado
+      %th Monto total
       %th Acciones
       
   %tbody
@@ -23,6 +25,8 @@
       %tr
         %td= l prevision.fecha_inicial, format: :long
         %td= l prevision.fecha_final, format: :long
+        %td= number_to_currency prevision.monto_remanente
+        %td= number_to_currency prevision.monto_presupuestado
         %td= number_to_currency prevision.monto
         %td
           .btn-group
