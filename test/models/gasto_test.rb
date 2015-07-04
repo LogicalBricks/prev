@@ -109,7 +109,8 @@ class GastoTest < ActiveSupport::TestCase
   test "should have an error on monto when it exceeds the prevision's monto depositado" do
     tope = FactoryGirl.create :tope
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 8
-    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 9
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 6, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto.valid?
     assert gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
   end
@@ -117,7 +118,8 @@ class GastoTest < ActiveSupport::TestCase
   test "should not have an error on monto when it does not exceed the prevision's monto depositado" do
     tope = FactoryGirl.create :tope
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
-    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 8, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 5, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto.valid?
     refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
   end

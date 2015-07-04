@@ -56,9 +56,8 @@ private
   end
 
   def supera_monto_depositado?
-    socio and prevision and monto.to_f + socio.monto_gastado > prevision.monto_depositado
+    socio and prevision and monto.to_f + prevision.monto_gastado > prevision.monto_depositado
   end
-
 end
 
 # == Schema Information
