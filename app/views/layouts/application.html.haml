@@ -22,6 +22,11 @@
         - if usuario_actual
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
+              %li{ class: controller_name == 'socios' ? 'active' : '' }
+                = link_to socios_path do
+                  %i.fa.fa-users
+                  &nbsp;
+                  Socios
               %li{ class: controller_name == 'rubros' ? 'active' : '' }
                 = link_to rubros_path do
                   %i.fa.fa-archive
@@ -32,21 +37,16 @@
                   %i.fa.fa-bank
                   &nbsp;
                   Previsiones
-              %li{ class: controller_name == 'gastos' ? 'active' : '' }
-                = link_to gastos_path do
-                  %i.fa.fa-dollar
-                  &nbsp;
-                  Gastos
-              %li{ class: controller_name == 'socios' ? 'active' : '' }
-                = link_to socios_path do
-                  %i.fa.fa-users
-                  &nbsp;
-                  Socios
               %li{ class: controller_name == 'depositos' ? 'active' : '' }
                 = link_to depositos_path do
                   %i.fa.fa-check-square-o
                   &nbsp;
                   Depositos
+              %li{ class: controller_name == 'gastos' ? 'active' : '' }
+                = link_to gastos_path do
+                  %i.fa.fa-dollar
+                  &nbsp;
+                  Gastos
               %li{ class: controller_name == 'comisiones' ? 'active' : '' }
                 = link_to comisiones_path do
                   %i.fa.fa-credit-card
