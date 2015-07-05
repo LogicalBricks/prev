@@ -13,9 +13,9 @@
       .panel-body.form-horizontal
         - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
           .form-group
-            %label.col-sm-3.control-label
+            %label.col-sm-6.control-label
               = apartado
-            .col-sm-9
+            .col-sm-6
               %p.form-control-static
                 = number_to_currency apartado.suma_monto_gastado
                 \/
@@ -28,9 +28,9 @@
       .panel-body.form-horizontal
         - Socio.all.each do |socio|
           .form-group
-            %label.col-sm-3.control-label
+            %label.col-sm-6.control-label
               = link_to socio, socio
-            .col-sm-9
+            .col-sm-6
               %p.form-control-static
                 = number_to_currency socio.monto_gastado_de_prevision(@prevision)
 
