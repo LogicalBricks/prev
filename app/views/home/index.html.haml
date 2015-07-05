@@ -1,16 +1,23 @@
+%h1
+  %i.fa.fa-heartbeat
+  &nbsp;
+  Panel de control
+
+%hr
+
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
         Montos por apartado
       .panel-body.form-horizontal
-        - @prevision.apartados.each do |apartado|
+        - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
           .form-group
             %label.col-sm-3.control-label
               = apartado
             .col-sm-9
               %p.form-control-static
-                = number_to_currency apartado.monto_gastado
+                = number_to_currency apartado.suma_monto_gastado
                 \/
                 = number_to_currency apartado.monto_maximo
 
@@ -22,7 +29,56 @@
         - Socio.all.each do |socio|
           .form-group
             %label.col-sm-3.control-label
-              = socio
+              = link_to socio, socio
             .col-sm-9
               %p.form-control-static
                 = number_to_currency socio.monto_gastado_de_prevision(@prevision)
+
+%hr/
+
+%h2 Estado de cuenta
+
+%hr/
+
+%h3 Depósitos
+
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Previsión
+      %th Monto
+
+  %tbody
+    - @prevision.depositos.each do |deposito|
+      %tr
+        %td= deposito.fecha
+        %td= deposito.prevision
+        %td= number_to_currency deposito.monto
+  %tfoot
+    %th
+    %th
+    %th= number_to_currency @prevision.monto_depositado
+
+%h3 Gastos
+
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Socio
+      %th Apartado
+      %th Monto
+
+  %tbody
+    - Gasto.para_listado.each do |gasto|
+      %tr
+        %td= gasto.fecha
+        %td= gasto.socio
+        %td= gasto.apartado
+        %td= number_to_currency gasto.monto
+  %tfoot
+    %th
+    %th
+    %th
+    %th= number_to_currency Gasto.sum(:monto)

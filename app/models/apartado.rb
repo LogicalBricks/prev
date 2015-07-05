@@ -25,6 +25,10 @@ class Apartado < ActiveRecord::Base
     gastos.sum(:monto)
   end
 
+  def suma_monto_gastado
+    gastos.to_a.sum(&:monto)
+  end
+
   def monto_gastado_por_socio(socio)
     gastos.de_socio(socio).sum(:monto)
   end
