@@ -10,6 +10,7 @@ class PrevisionesController < ApplicationController
   # GET /previsiones/1
   # GET /previsiones/1.json
   def show
+    @prevision = Prevision.includes(topes: :socio, apartados: :rubro).find(params[:id])
   end
 
   # GET /previsiones/new
