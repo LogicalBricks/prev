@@ -18,8 +18,6 @@
             .col-sm-6
               %p.form-control-static
                 = number_to_currency apartado.suma_monto_gastado
-                \/
-                = number_to_currency apartado.monto_maximo
 
   .col-md-6
     .panel.panel-default
@@ -33,6 +31,8 @@
             .col-sm-6
               %p.form-control-static
                 = number_to_currency socio.monto_gastado_de_prevision(@prevision)
+                \/
+                = number_to_currency socio.tope.monto
 
 %hr/
 
