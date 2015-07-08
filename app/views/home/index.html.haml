@@ -14,7 +14,7 @@
         - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
           .form-group
             %label.col-sm-6.control-label
-              = apartado
+              = link_to apartado, apartado
             .col-sm-6
               %p.form-control-static
                 = number_to_currency apartado.suma_monto_gastado
