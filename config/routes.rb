@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :socios
   resources :proveedores
   resources :depositos
-  resources :apartados
+  resources :apartados, only: [:show]
   resources :previsiones
   resources :rubros
   resources :agrupadores

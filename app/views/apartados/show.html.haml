@@ -1,5 +1,5 @@
 %h2
-  %i.fa
+  %i.fa.fa-bicycle
   &nbsp;
   Detalles de Apartado
 
@@ -33,9 +33,6 @@
           %p.form-control-static
             = number_to_currency socio.monto_gastado(@apartado)
 
-= link_to apartados_path, class: 'btn btn-default' do
+= link_to root_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left
   Regresar
-= link_to edit_apartado_path(@apartado), class: 'btn btn-primary' do
-  %i.fa.fa-edit
-  Modificar
