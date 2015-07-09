@@ -6,12 +6,16 @@
   %thead
     %tr
       %th Fecha
-      %th Tipo
-      %th Monto
+      %th Descripción
+      %th Método de pago
+      %th Cargo
+      %th Abono
 
   %tbody
     - @movimientos.each do |movimiento|
       %tr
         %td= movimiento.fecha
-        %td= movimiento.model_name.human
-        %td= number_to_currency movimiento.monto
+        %td= movimiento.descripcion
+        %td= movimiento.metodo
+        %td= number_to_currency movimiento.cargo
+        %td= number_to_currency movimiento.abono

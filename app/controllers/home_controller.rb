@@ -12,14 +12,56 @@ class HomeController < ApplicationController
 private
 
   def depositos
-    @prevision.depositos
+    @prevision.depositos.map{|d| DepositoPresenter.new(d) }
   end
 
   def gastos
-    @prevision.gastos
+    @prevision.gastos.includes(:socio, :apartado).map{|g| GastoPresenter.new(g) }
   end
 
   def comisiones
-    @prevision.comisiones
+    @prevision.comisiones.map{|c| ComisionPresenter.new(c) }
+  end
+
+  module MovimientoPresenter
+    def cargo; end
+    def abono; end
+    def metodo; end
+
+    def tipo
+      model_name.human
+    end
+  end
+
+  class DepositoPresenter < SimpleDelegator
+    include MovimientoPresenter
+
+    def cargo
+      monto
+    end
+  end
+
+  class GastoPresenter < SimpleDelegator
+    include MovimientoPresenter
+
+    def abono
+      monto
+    end
+
+    def descripcion
+      "#{apartado.rubro} - #{socio}"
+    end
+
+    def metodo
+      metodo_pago.capitalize
+    end
+  end
+
+  class ComisionPresenter < SimpleDelegator
+    include MovimientoPresenter
+
+    def abono
+      monto
+    end
   end
 end
