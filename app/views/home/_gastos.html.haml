@@ -1,0 +1,22 @@
+%h3 Gastos
+
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Socio
+      %th Apartado
+      %th Monto
+
+  %tbody
+    - Gasto.para_listado.each do |gasto|
+      %tr
+        %td= gasto.fecha
+        %td= gasto.socio
+        %td= gasto.apartado
+        %td= number_to_currency gasto.monto
+  %tfoot
+    %th
+    %th
+    %th
+    %th= number_to_currency Gasto.sum(:monto)

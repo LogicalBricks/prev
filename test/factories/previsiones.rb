@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :prevision do
-    fecha_inicial "2015-06-06"
-    fecha_final "2016-06-06"
-    monto "199.99"
+    periodo "2015"
+    monto_remanente "9.99"
+    monto_presupuestado "190"
   end
 
 end
@@ -11,10 +11,12 @@ end
 #
 # Table name: previsiones
 #
-#  id            :integer          not null, primary key
-#  fecha_inicial :date
-#  fecha_final   :date
-#  monto         :decimal(, )
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                  :integer          not null, primary key
+#  fecha_inicial       :date
+#  fecha_final         :date
+#  monto               :decimal(, )
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  monto_remanente     :decimal(, )
+#  monto_presupuestado :decimal(, )
 #

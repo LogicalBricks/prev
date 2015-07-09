@@ -1,0 +1,19 @@
+%h3 Depósitos
+
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Previsión
+      %th Monto
+
+  %tbody
+    - @prevision.depositos.each do |deposito|
+      %tr
+        %td= deposito.fecha
+        %td= deposito.prevision
+        %td= number_to_currency deposito.monto
+  %tfoot
+    %th
+    %th
+    %th= number_to_currency @prevision.monto_depositado

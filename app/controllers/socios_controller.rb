@@ -4,12 +4,13 @@ class SociosController < ApplicationController
   # GET /socios
   # GET /socios.json
   def index
-    @socios = Socio.all
+    @socios = Socio.includes(:usuario)
   end
 
   # GET /socios/1
   # GET /socios/1.json
   def show
+    @socio = Socio.includes(apartados: [:rubro, :prevision]).find(params[:id])
   end
 
   # GET /socios/new

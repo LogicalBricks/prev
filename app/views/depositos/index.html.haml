@@ -1,31 +1,31 @@
 .pull-right
   = link_to new_deposito_path, class: 'btn btn-lg btn-primary' do
     %i.fa.fa-plus
-    Nuevo Deposito
+    Nuevo Depósito
 
 %h1
-  %i.fa
+  %i.fa.fa-check-square-o
   &nbsp;
-  Depositos
+  Depósitos
 
 %hr
 
 %table.table
   %thead
     %tr
-      %th Monto
       %th Fecha
-      %th Descripcion
-      %th Prevision
+      %th Descripción
+      %th Previsión
       %th Acciones
-      
+      %th Monto
+
   %tbody
     - @depositos.each do |deposito|
       %tr
-        %td= deposito.monto
         %td= deposito.fecha
         %td= deposito.descripcion
         %td= deposito.prevision
+        %td= number_to_currency deposito.monto
         %td
           .btn-group
             = link_to deposito, class: 'btn btn-sm btn-default', title: 'Detalles' do

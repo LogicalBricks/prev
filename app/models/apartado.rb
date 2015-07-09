@@ -3,6 +3,7 @@ class Apartado < ActiveRecord::Base
   belongs_to :rubro
   belongs_to :prevision
   has_many :gastos
+  has_many :socios, -> { uniq }, through: :gastos
 
   # == Validations ==
   validates :rubro, :prevision, :monto_maximo, presence: true
@@ -23,6 +24,14 @@ class Apartado < ActiveRecord::Base
 
   def monto_gastado
     gastos.sum(:monto)
+  end
+
+  def suma_monto_gastado
+    gastos.to_a.sum(&:monto)
+  end
+
+  def monto_gastado_por_socio(socio)
+    gastos.de_socio(socio).sum(:monto)
   end
 
 private

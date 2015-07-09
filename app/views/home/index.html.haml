@@ -1,18 +1,23 @@
+%h1
+  %i.fa.fa-heartbeat
+  &nbsp;
+  Panel de control
+
+%hr
+
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
         Montos por apartado
       .panel-body.form-horizontal
-        - @prevision.apartados.each do |apartado|
+        - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
           .form-group
-            %label.col-sm-3.control-label
-              = apartado
-            .col-sm-9
+            %label.col-sm-6.control-label
+              = link_to apartado, apartado
+            .col-sm-6
               %p.form-control-static
-                = number_to_currency apartado.monto_gastado
-                \/
-                = number_to_currency apartado.monto_maximo
+                = number_to_currency apartado.suma_monto_gastado
 
   .col-md-6
     .panel.panel-default
@@ -21,8 +26,14 @@
       .panel-body.form-horizontal
         - Socio.all.each do |socio|
           .form-group
-            %label.col-sm-3.control-label
-              = socio
-            .col-sm-9
+            %label.col-sm-6.control-label
+              = link_to socio, socio
+            .col-sm-6
               %p.form-control-static
                 = number_to_currency socio.monto_gastado_de_prevision(@prevision)
+                \/
+                = number_to_currency socio.tope.monto
+
+%hr/
+
+= render 'estado_cuenta'

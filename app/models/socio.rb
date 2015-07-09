@@ -1,8 +1,9 @@
 class Socio < ActiveRecord::Base
   # == Associations ==
   belongs_to :usuario
-  has_many :gastos
   has_one :tope
+  has_many :gastos
+  has_many :apartados, -> { uniq }, through: :gastos
 
   accepts_nested_attributes_for :usuario
 
@@ -24,9 +25,21 @@ class Socio < ActiveRecord::Base
   end
 
   def monto_gastado(apartado=nil)
-    apartado ? gastos.where(apartado: apartado).sum(:monto) : gastos.sum(:monto)
+    apartado ? monto_gastado_de_apartado(apartado) : monto_gastado_total
   end
 
+  def monto_tope(prevision)
+    #TODO: take into account the prevision to calculate the correct monto_tope
+    tope.monto
+  end
+
+  def monto_gastado_total
+    gastos.sum(:monto)
+  end
+
+  def monto_gastado_de_apartado(apartado)
+    gastos.where(apartado: apartado).sum(:monto)
+  end
 end
 
 # == Schema Information

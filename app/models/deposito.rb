@@ -11,8 +11,7 @@ class Deposito < ActiveRecord::Base
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, 'debe ser posterior al inicio de la prevision' if prevision and fecha < prevision.fecha_inicial
-    errors.add :fecha, 'debe ser anterior al final de la prevision' if prevision and fecha > prevision.fecha_final
+    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' if prevision and !prevision.fecha_valida?(fecha)
   end
 
   def monto_no_mayor_a_monto_de_prevision

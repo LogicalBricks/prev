@@ -1,0 +1,21 @@
+%h2 Estado de cuenta
+
+%hr/
+
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Descripción
+      %th Método de pago
+      %th Cargo
+      %th Abono
+
+  %tbody
+    - @movimientos.each do |movimiento|
+      %tr
+        %td= movimiento.fecha
+        %td= movimiento.descripcion
+        %td= movimiento.metodo
+        %td= number_to_currency movimiento.cargo
+        %td= number_to_currency movimiento.abono

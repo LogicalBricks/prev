@@ -10,6 +10,7 @@ class PrevisionesController < ApplicationController
   # GET /previsiones/1
   # GET /previsiones/1.json
   def show
+    @prevision = Prevision.includes(topes: :socio, apartados: :rubro).find(params[:id])
   end
 
   # GET /previsiones/new
@@ -72,9 +73,9 @@ class PrevisionesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def prevision_params
       params.require(:prevision).permit(
-        :fecha_inicial,
-        :fecha_final,
-        :monto,
+        :periodo,
+        :monto_remanente,
+        :monto_presupuestado,
         apartados_attributes: [:id, :rubro_id, :monto_maximo, :_destroy],
         topes_attributes: [:id, :socio_id, :monto, :_destroy]
       )

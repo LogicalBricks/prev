@@ -22,7 +22,7 @@ class GastosControllerTest < ActionController::TestCase
         apartado_id: apartado.id,
         descripcion: "Una descripción",
         fecha:       Date.today,
-        metodo_pago: "efectivo",
+        metodo_pago: "reposicion",
         monto:       "10",
         socio_id:    socio.id
       }
@@ -41,7 +41,7 @@ class GastosControllerTest < ActionController::TestCase
         apartado_id: apartado.id,
         descripcion: "Una descripción",
         fecha:       Date.today,
-        metodo_pago: "efectivo",
+        metodo_pago: "reposicion",
         monto:       "10",
         socio_id:    socio.id
       }
@@ -63,7 +63,7 @@ class GastosControllerTest < ActionController::TestCase
         apartado_id: apartado.id,
         descripcion: "Una descripción",
         fecha:       Date.today,
-        metodo_pago: "efectivo",
+        metodo_pago: "reposicion",
         monto:       "10",
         socio_id:    socio.id,
         forzar_monto: "1",

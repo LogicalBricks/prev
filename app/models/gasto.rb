@@ -1,6 +1,6 @@
 class Gasto < ActiveRecord::Base
   # == Enums ==
-  enum metodo_pago: [:transferencia, :tarjeta, :efectivo, :otro]
+  enum metodo_pago: [:transferencia, :tarjeta, :reposicion]
 
   mount_uploader :factura_xml, FacturaXmlUploader
   mount_uploader :factura_pdf, FacturaPdfUploader
@@ -10,7 +10,6 @@ class Gasto < ActiveRecord::Base
   belongs_to :socio
   belongs_to :proveedor
   belongs_to :apartado
-  has_one :prevision, through: :apartado
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
@@ -22,6 +21,8 @@ class Gasto < ActiveRecord::Base
 
   # == Scopes ==
   scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
+  scope :de_socio,     -> socio { joins(:socio).where(socio_id: socio) }
+  scope :para_listado, -> { includes(:socio, apartado: [:rubro, :prevision]) }
 
   # == Methods ==
 
@@ -29,11 +30,14 @@ class Gasto < ActiveRecord::Base
     socio and socio.monto and monto.to_f + socio.monto_gastado > socio.monto
   end
 
+  def prevision
+    apartado.prevision if apartado
+  end
+
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, 'debe ser posterior al inicio de la prevision' if apartado and fecha < apartado.fecha_inicial
-    errors.add :fecha, 'debe ser anterior al final de la prevision' if apartado and fecha > apartado.fecha_final
+    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' if prevision and !prevision.fecha_valida?(fecha)
   end
 
   def monto_no_supera_monto_maximo_de_apartado
@@ -53,9 +57,8 @@ private
   end
 
   def supera_monto_depositado?
-    socio and prevision and monto.to_f + socio.monto_gastado > prevision.monto_depositado
+    socio and prevision and monto.to_f + prevision.monto_gastado > prevision.monto_depositado
   end
-
 end
 
 # == Schema Information

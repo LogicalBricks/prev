@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comisiones
   resources :topes
   get 'home/index'
 
@@ -6,10 +7,9 @@ Rails.application.routes.draw do
   resources :socios
   resources :proveedores
   resources :depositos
-  resources :apartados
+  resources :apartados, only: [:show]
   resources :previsiones
   resources :rubros
-  resources :agrupadores
   devise_for :usuarios, skip: [:registrations]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

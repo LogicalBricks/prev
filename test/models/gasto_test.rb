@@ -5,7 +5,6 @@ class GastoTest < ActiveSupport::TestCase
   should belong_to :socio
   should belong_to :proveedor
   should belong_to :apartado
-  should have_one(:prevision).through(:apartado)
 
   should validate_presence_of :socio
   should validate_presence_of :apartado
@@ -13,38 +12,33 @@ class GastoTest < ActiveSupport::TestCase
   should validate_presence_of :monto
   should validate_numericality_of(:monto).is_greater_than(0)
 
-  should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :efectivo, :otro])
+  should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :reposicion])
 
   test "does not allow to set a fecha before the prevision's innitial date" do
-    apartado = FactoryGirl.build_stubbed :apartado
-    gasto = FactoryGirl.build :gasto, fecha: 1.month.ago, apartado: apartado
-    apartado.stub :fecha_inicial, Date.today do
-      refute gasto.valid?
-      assert_equal 1, gasto.errors[:fecha].size
-    end
+    prevision = FactoryGirl.create :prevision, periodo: 2016
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:fecha].size
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
-    apartado = FactoryGirl.build_stubbed :apartado
-    gasto = FactoryGirl.build :gasto, fecha: 1.month.from_now, apartado: apartado
-    apartado.stub :fecha_final, Date.today.tomorrow do
-      refute gasto.valid?
-      assert_equal 1, gasto.errors[:fecha].size
-    end
+    prevision = FactoryGirl.create :prevision, periodo: 2014
+    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:fecha].size
   end
 
   test "should not allow save a monto greater than the apartado's monto" do
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 101
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:monto].size
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
   end
 
   test "should allow save a monto fewer than the apartado's monto" do
     apartado = FactoryGirl.build :apartado, monto_maximo: 100
     gasto = FactoryGirl.build :gasto, apartado: apartado, monto: 99
-    gasto.valid?
-    assert_equal 0, gasto.errors[:monto].size
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
   end
 
   test "should not allow save a monto that makes total greater than the apartado's monto" do
@@ -115,7 +109,8 @@ class GastoTest < ActiveSupport::TestCase
   test "should have an error on monto when it exceeds the prevision's monto depositado" do
     tope = FactoryGirl.create :tope
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 8
-    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 9
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 6, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto.valid?
     assert gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
   end
@@ -123,7 +118,8 @@ class GastoTest < ActiveSupport::TestCase
   test "should not have an error on monto when it does not exceed the prevision's monto depositado" do
     tope = FactoryGirl.create :tope
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
-    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 8, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 5, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto.valid?
     refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
   end
