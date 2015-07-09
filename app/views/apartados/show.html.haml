@@ -33,6 +33,7 @@
           %p.form-control-static
             = number_to_currency socio.monto_gastado(@apartado)
 
-= link_to root_path, class: 'btn btn-default' do
-  %i.fa.fa-arrow-left
-  Regresar
+.pull-right
+  = link_to root_path, class: 'btn btn-default' do
+    %i.fa.fa-arrow-left
+    Regresar
