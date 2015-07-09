@@ -16,12 +16,6 @@ ActiveRecord::Schema.define(version: 20150703172326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "agrupadores", force: :cascade do |t|
-    t.string   "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "apartados", force: :cascade do |t|
     t.decimal  "monto_maximo"
     t.integer  "rubro_id"
@@ -99,12 +93,9 @@ ActiveRecord::Schema.define(version: 20150703172326) do
   create_table "rubros", force: :cascade do |t|
     t.string   "nombre"
     t.text     "descripcion"
-    t.integer  "agrupador_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
-
-  add_index "rubros", ["agrupador_id"], name: "index_rubros_on_agrupador_id", using: :btree
 
   create_table "socios", force: :cascade do |t|
     t.string   "nombre"
@@ -153,7 +144,6 @@ ActiveRecord::Schema.define(version: 20150703172326) do
   add_foreign_key "gastos", "apartados"
   add_foreign_key "gastos", "proveedores"
   add_foreign_key "gastos", "socios"
-  add_foreign_key "rubros", "agrupadores"
   add_foreign_key "socios", "usuarios"
   add_foreign_key "topes", "previsiones"
   add_foreign_key "topes", "socios"
