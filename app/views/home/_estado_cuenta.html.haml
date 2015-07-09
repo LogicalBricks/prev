@@ -2,6 +2,16 @@
 
 %hr/
 
-= render 'depositos'
+%table.table
+  %thead
+    %tr
+      %th Fecha
+      %th Tipo
+      %th Monto
 
-= render 'gastos'
+  %tbody
+    - @movimientos.each do |movimiento|
+      %tr
+        %td= movimiento.fecha
+        %td= movimiento.model_name.human
+        %td= number_to_currency movimiento.monto

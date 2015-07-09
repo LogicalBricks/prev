@@ -6,5 +6,20 @@ class HomeController < ApplicationController
     render :no_deposito and return if Deposito.count == 0
 
     @prevision = Prevision.first
+    @movimientos = (depositos + gastos + comisiones).sort_by(&:fecha)
+  end
+
+private
+
+  def depositos
+    @prevision.depositos
+  end
+
+  def gastos
+    @prevision.gastos
+  end
+
+  def comisiones
+    @prevision.comisiones
   end
 end
