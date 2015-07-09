@@ -12,7 +12,7 @@ class GastoTest < ActiveSupport::TestCase
   should validate_presence_of :monto
   should validate_numericality_of(:monto).is_greater_than(0)
 
-  should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :efectivo, :otro])
+  should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :reposicion])
 
   test "does not allow to set a fecha before the prevision's innitial date" do
     prevision = FactoryGirl.create :prevision, periodo: 2016
