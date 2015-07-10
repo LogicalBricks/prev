@@ -28,7 +28,7 @@ class GastosController < ApplicationController
 
     respond_to do |format|
       if @gasto.save
-        format.html { redirect_to @gasto, notice: 'Gasto was successfully created.' }
+        format.html { redirect_to @gasto, notice: 'Gasto guardado correctamente.' }
         format.json { render :show, status: :created, location: @gasto }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class GastosController < ApplicationController
   def update
     respond_to do |format|
       if @gasto.update(gasto_params)
-        format.html { redirect_to @gasto, notice: 'Gasto was successfully updated.' }
+        format.html { redirect_to @gasto, notice: 'Gasto actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @gasto }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class GastosController < ApplicationController
   def destroy
     @gasto.destroy
     respond_to do |format|
-      format.html { redirect_to gastos_url, notice: 'Gasto was successfully destroyed.' }
+      format.html { redirect_to gastos_url, notice: 'Gasto eliminado correctamente.' }
       format.json { head :no_content }
     end
   end

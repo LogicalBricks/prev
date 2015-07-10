@@ -30,7 +30,7 @@ class SociosController < ApplicationController
 
     respond_to do |format|
       if @socio.save
-        format.html { redirect_to @socio, notice: 'Socio was successfully created.' }
+        format.html { redirect_to @socio, notice: 'Socio guardado correctamente.' }
         format.json { render :show, status: :created, location: @socio }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class SociosController < ApplicationController
   def update
     respond_to do |format|
       if @socio.update(socio_params)
-        format.html { redirect_to @socio, notice: 'Socio was successfully updated.' }
+        format.html { redirect_to @socio, notice: 'Socio actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @socio }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class SociosController < ApplicationController
   def destroy
     @socio.destroy
     respond_to do |format|
-      format.html { redirect_to socios_url, notice: 'Socio was successfully destroyed.' }
+      format.html { redirect_to socios_url, notice: 'Socio eliminado correctamente.' }
       format.json { head :no_content }
     end
   end

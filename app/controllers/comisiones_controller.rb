@@ -28,7 +28,7 @@ class ComisionesController < ApplicationController
 
     respond_to do |format|
       if @comision.save
-        format.html { redirect_to @comision, notice: 'Comision was successfully created.' }
+        format.html { redirect_to @comision, notice: 'Comisión guardada correctamente.' }
         format.json { render :show, status: :created, location: @comision }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ComisionesController < ApplicationController
   def update
     respond_to do |format|
       if @comision.update(comision_params)
-        format.html { redirect_to @comision, notice: 'Comision was successfully updated.' }
+        format.html { redirect_to @comision, notice: 'Comisión actualizada correctamente.' }
         format.json { render :show, status: :ok, location: @comision }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ComisionesController < ApplicationController
   def destroy
     @comision.destroy
     respond_to do |format|
-      format.html { redirect_to comisiones_url, notice: 'Comision was successfully destroyed.' }
+      format.html { redirect_to comisiones_url, notice: 'Comisión eliminada correctamente.' }
       format.json { head :no_content }
     end
   end

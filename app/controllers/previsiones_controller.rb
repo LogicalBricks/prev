@@ -31,7 +31,7 @@ class PrevisionesController < ApplicationController
 
     respond_to do |format|
       if @prevision.save
-        format.html { redirect_to @prevision, notice: 'Prevision was successfully created.' }
+        format.html { redirect_to @prevision, notice: 'Previsión guardada correctamente.' }
         format.json { render :show, status: :created, location: @prevision }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class PrevisionesController < ApplicationController
   def update
     respond_to do |format|
       if @prevision.update(prevision_params)
-        format.html { redirect_to @prevision, notice: 'Prevision was successfully updated.' }
+        format.html { redirect_to @prevision, notice: 'Previsión actualizada correctamente.' }
         format.json { render :show, status: :ok, location: @prevision }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class PrevisionesController < ApplicationController
   def destroy
     @prevision.destroy
     respond_to do |format|
-      format.html { redirect_to previsiones_url, notice: 'Prevision was successfully destroyed.' }
+      format.html { redirect_to previsiones_url, notice: 'Previsión eliminada correctamente.' }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class DepositosController < ApplicationController
 
     respond_to do |format|
       if @deposito.save
-        format.html { redirect_to @deposito, notice: 'Deposito was successfully created.' }
+        format.html { redirect_to @deposito, notice: 'Deposito guardado correctamente.' }
         format.json { render :show, status: :created, location: @deposito }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DepositosController < ApplicationController
   def update
     respond_to do |format|
       if @deposito.update(deposito_params)
-        format.html { redirect_to @deposito, notice: 'Deposito was successfully updated.' }
+        format.html { redirect_to @deposito, notice: 'Deposito actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @deposito }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DepositosController < ApplicationController
   def destroy
     @deposito.destroy
     respond_to do |format|
-      format.html { redirect_to depositos_url, notice: 'Deposito was successfully destroyed.' }
+      format.html { redirect_to depositos_url, notice: 'Deposito eliminado correctamente.' }
       format.json { head :no_content }
     end
   end

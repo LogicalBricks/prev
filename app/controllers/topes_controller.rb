@@ -28,7 +28,7 @@ class TopesController < ApplicationController
 
     respond_to do |format|
       if @tope.save
-        format.html { redirect_to @tope, notice: 'Tope was successfully created.' }
+        format.html { redirect_to @tope, notice: 'Tope guardado correctamente.' }
         format.json { render :show, status: :created, location: @tope }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TopesController < ApplicationController
   def update
     respond_to do |format|
       if @tope.update(tope_params)
-        format.html { redirect_to @tope, notice: 'Tope was successfully updated.' }
+        format.html { redirect_to @tope, notice: 'Tope actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @tope }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TopesController < ApplicationController
   def destroy
     @tope.destroy
     respond_to do |format|
-      format.html { redirect_to topes_url, notice: 'Tope was successfully destroyed.' }
+      format.html { redirect_to topes_url, notice: 'Tope eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
