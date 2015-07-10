@@ -56,7 +56,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
     socio.stub :monto, 10 do
       refute gasto.valid?
-      assert_equal 1, gasto.errors[:monto].size
+      assert gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
     end
   end
 
@@ -73,9 +73,9 @@ class GastoTest < ActiveSupport::TestCase
     FactoryGirl.create :deposito, monto: 15, prevision: tope.prevision
     apartado = FactoryGirl.create :apartado, monto_maximo: 15, prevision: tope.prevision
     FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
-    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2
+    gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2, apartado: apartado
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:monto].size
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
     assert gasto.supera_monto_socio?
   end
 
@@ -96,6 +96,34 @@ class GastoTest < ActiveSupport::TestCase
     gasto.valid?
     refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
   end
+
+  test "should not have an error on monto when it is modified but not exceed the prevision's monto depositado" do
+    tope = FactoryGirl.create :tope
+    FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
+    gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 8, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
+    gasto.update monto: 3
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
+  end
+
+  test "should not have an error on monto when it is modified but not exceed socio's apartado's monto" do
+    tope = FactoryGirl.create :tope, monto: 10
+    FactoryGirl.create :deposito, monto: 15, prevision: tope.prevision
+    apartado = FactoryGirl.create :apartado, monto_maximo: 15, prevision: tope.prevision
+    gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
+    gasto.update monto: 7
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
+  end
+
+  test "should not have an error on monto when it is modified but not exceed socio's monto" do
+    tope = FactoryGirl.create :tope, monto: 10
+    FactoryGirl.create :deposito, monto: 15, prevision: tope.prevision
+    apartado = FactoryGirl.create :apartado, monto_maximo: 15, prevision: tope.prevision
+    gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
+    gasto.update monto: 2
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
+    refute gasto.supera_monto_socio?
+  end
+
 end
 
 # == Schema Information

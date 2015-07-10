@@ -34,9 +34,10 @@ class GastosControllerTest < ActionController::TestCase
 
   test "should not save gasto when rebasing socios' monto" do
     assert_no_difference('Gasto.count') do
-      apartado = FactoryGirl.create :apartado
       socio = FactoryGirl.create :socio
       tope = FactoryGirl.create :tope, socio: socio, monto: 9
+      apartado = FactoryGirl.create :apartado, prevision: tope.prevision
+      deposito = FactoryGirl.create :deposito, prevision: tope.prevision, monto: 10
       params = {
         apartado_id: apartado.id,
         descripcion: "Una descripción",

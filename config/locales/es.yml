@@ -211,3 +211,4 @@ es-MX:
             monto:
               greater_than_monto_apartado: "no puede ser mayor al monto del apartado"
               greater_than_monto_depositado: "no puede ser mayor al monto depositado a la previsión"
+              greater_than_monto_tope: "no puede ser mayor al monto tope del socio"
