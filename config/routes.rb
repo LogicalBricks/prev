@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :comisiones
   resources :topes
   get 'home/index'
+  get 'home/estado_cuenta', as: :estado_cuenta
 
   resources :gastos
   resources :socios

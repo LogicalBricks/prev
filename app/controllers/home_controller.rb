@@ -6,10 +6,31 @@ class HomeController < ApplicationController
     render :no_deposito and return if Deposito.count == 0
 
     @prevision = Prevision.first
-    @movimientos = (depositos + gastos + comisiones).sort_by(&:fecha)
+  end
+
+  def estado_cuenta
+    @prevision = Prevision.first
+    @movimientos = movimientos
+
+    respond_to do |format|
+      format.html
+      format.xls do
+        send_data(
+          @movimientos.to_xls(
+            columns: %i[fecha descripcion metodo cargo abono],
+            headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
+          ),
+          filename: 'estado_cuenta.xls'
+        )
+      end
+    end
   end
 
 private
+
+  def movimientos
+    (depositos + gastos + comisiones).sort_by(&:fecha)
+  end
 
   def depositos
     @prevision.depositos.map{|d| DepositoPresenter.new(d) }

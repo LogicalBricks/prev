@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/LogicalBricks/to_xls.git
+  revision: b280df2265f8e5255cfef65168e73cb54baa4bc1
+  specs:
+    to_xls (1.5.3)
+      spreadsheet
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -185,6 +192,7 @@ GEM
     redcarpet (3.3.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    ruby-ole (1.2.11.8)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
     sass (3.4.15)
@@ -208,6 +216,8 @@ GEM
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slop (3.6.0)
+    spreadsheet (1.0.3)
+      ruby-ole (>= 1.0)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -272,6 +282,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   spring
+  to_xls!
   turbolinks
   uglifier (>= 1.3.0)
   unicorn

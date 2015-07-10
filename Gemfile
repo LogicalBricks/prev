@@ -64,3 +64,4 @@ group :development, :test do
 end
 
 gem 'annotate', group: :development
+gem 'to_xls', github: 'LogicalBricks/to_xls'

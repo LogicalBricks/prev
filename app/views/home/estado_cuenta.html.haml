@@ -19,3 +19,7 @@
         %td= movimiento.metodo
         %td= number_to_currency movimiento.cargo
         %td= number_to_currency movimiento.abono
+
+= link_to estado_cuenta_path(format: :xls), class: 'btn btn-lg btn-primary' do
+  %i.fa.fa-file-excel-o
+  Descargar xls
