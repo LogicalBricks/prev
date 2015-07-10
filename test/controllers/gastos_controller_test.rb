@@ -32,7 +32,7 @@ class GastosControllerTest < ActionController::TestCase
     assert_redirected_to gasto_path(assigns(:gasto))
   end
 
-  test "should not save gasto when rebasing socios monto" do
+  test "should not save gasto when rebasing socios' monto" do
     assert_no_difference('Gasto.count') do
       apartado = FactoryGirl.create :apartado
       socio = FactoryGirl.create :socio
@@ -47,30 +47,10 @@ class GastosControllerTest < ActionController::TestCase
       }
       post :create, gasto: params
     end
-    assert_equal 1, assigns(:gasto).errors[:forzar_monto].size
+    assert_equal 1, assigns(:gasto).errors[:monto].size
     assert assigns(:gasto).supera_monto_socio?
 
     assert_template :new
-  end
-
-  test "should save gasto when rebasing socios monto but forzar_monto flag is set" do
-    assert_difference('Gasto.count') do
-      apartado = FactoryGirl.create :apartado
-      socio = FactoryGirl.create :socio
-      FactoryGirl.create :deposito, prevision: apartado.prevision, monto: 10
-      tope = FactoryGirl.create :tope, socio: socio, monto: 9
-      params = {
-        apartado_id: apartado.id,
-        descripcion: "Una descripción",
-        fecha:       Date.today,
-        metodo_pago: "reposicion",
-        monto:       "10",
-        socio_id:    socio.id,
-        forzar_monto: "1",
-      }
-      post :create, gasto: params
-    end
-    assert_redirected_to gasto_path(assigns(:gasto))
   end
 
   test "should show gasto" do

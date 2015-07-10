@@ -56,7 +56,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
     socio.stub :monto, 10 do
       refute gasto.valid?
-      assert_equal 1, gasto.errors[:forzar_monto].size
+      assert_equal 1, gasto.errors[:monto].size
     end
   end
 
@@ -68,33 +68,6 @@ class GastoTest < ActiveSupport::TestCase
     end
   end
 
-  test "monto should not have the error of being grater than apartado's monto if monto is greater than socio's monto but forzar_monto flag is set to '1'" do
-    socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '1'
-    socio.stub :monto, 10 do
-      gasto.valid?
-      refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
-    end
-  end
-
-  test "monto should not have the error of being greater than apartado's monto if monto is greater than socio's monto but forzar_monto flag is set" do
-    socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: true
-    socio.stub :monto, 10 do
-      gasto.valid?
-      refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
-    end
-  end
-
-  test "should not be valid if monto is greater than socio's monto but forzar_monto flag is set to '0'" do
-    socio = FactoryGirl.build_stubbed :socio
-    gasto = FactoryGirl.build :gasto, socio: socio, monto: 11, forzar_monto: '0'
-    socio.stub :monto, 10 do
-      refute gasto.valid?
-      assert_equal 1, gasto.errors[:forzar_monto].size
-    end
-  end
-
   test "should not save a monto that makes it exceed socio's monto" do
     tope = FactoryGirl.create :tope, monto: 10
     FactoryGirl.create :deposito, monto: 15, prevision: tope.prevision
@@ -102,7 +75,7 @@ class GastoTest < ActiveSupport::TestCase
     FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
     gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:forzar_monto].size
+    assert_equal 1, gasto.errors[:monto].size
     assert gasto.supera_monto_socio?
   end
 

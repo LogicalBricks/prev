@@ -14,7 +14,6 @@ class Gasto < ActiveRecord::Base
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
-  validates :forzar_monto, acceptance: true, presence: true, if: :supera_monto_socio?
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_supera_monto_maximo_de_apartado
   validate :monto_no_supera_monto_depositado
