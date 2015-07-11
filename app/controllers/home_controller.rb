@@ -14,19 +14,18 @@ class HomeController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xls do
-        send_data(
-          @movimientos.to_xls(
-            columns: %i[fecha descripcion metodo cargo abono],
-            headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
-          ),
-          filename: 'estado_cuenta.xls'
-        )
-      end
+      format.xls { send_data(xls_file, filename: 'estado_cuenta.xls') }
     end
   end
 
 private
+
+  def xls_file
+    @movimientos.to_xls(
+      columns: %i[fecha descripcion metodo cargo abono],
+      headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
+    )
+  end
 
   def movimientos
     (depositos + gastos + comisiones).sort_by(&:fecha)
@@ -85,4 +84,5 @@ private
       monto
     end
   end
+
 end
