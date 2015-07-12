@@ -4,7 +4,7 @@
   .form-inputs
     = f.input :monto
     = f.input :descripcion
-    = f.input :fecha
+    = f.input :fecha, as: :datepicker
     = f.association :prevision
 
   .form-actions
