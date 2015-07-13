@@ -54,6 +54,13 @@ class PrevisionTest < ActiveSupport::TestCase
     refute prevision.fecha_valida?("2016/02/11".to_date)
     refute prevision.fecha_valida?("2014/02/11".to_date)
   end
+
+  test '.de_periodo should return the prevision of this periodo ' do
+    FactoryGirl.create :prevision, periodo: 2014
+    FactoryGirl.create :prevision, periodo: 2015
+    assert_equal 2014, Prevision.de_periodo(2014).periodo
+    assert_equal 2015, Prevision.de_periodo(2015).periodo
+  end
 end
 
 # == Schema Information

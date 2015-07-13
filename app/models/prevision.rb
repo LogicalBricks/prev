@@ -38,6 +38,11 @@ class Prevision < ActiveRecord::Base
     fecha >= fecha_inicial && fecha <= fecha_final
   end
 
+  def self.de_periodo(year)
+    date_range = DateRange.new(year: year)
+    where(fecha_inicial: date_range.initial, fecha_final: date_range.final).first
+  end
+
 private
 
   def calcula_periodo

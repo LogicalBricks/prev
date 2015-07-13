@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_usuario!
 
-  helper_method :usuario_actual
-
 private
 
   def usuario_actual
     current_usuario
   end
+  helper_method :usuario_actual
+
+  def prevision_actual
+    @prevision_actual ||= Prevision.de_periodo(Date.today.year)
+  end
+  helper_method :prevision_actual
 end
