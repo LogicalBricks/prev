@@ -35,7 +35,7 @@ class Prevision < ActiveRecord::Base
   end
 
   def fecha_valida?(fecha)
-    fecha >= fecha_inicial && fecha <= fecha_final
+    fecha && fecha >= fecha_inicial && fecha <= fecha_final
   end
 
   def self.de_periodo(year)
