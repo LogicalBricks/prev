@@ -3,7 +3,7 @@ class Deposito < ActiveRecord::Base
   belongs_to :prevision, inverse_of: :depositos
 
   # == Validations ==
-  validates :fecha, :prevision, presence: true
+  validates :fecha, :prevision, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision
@@ -15,7 +15,7 @@ private
   end
 
   def monto_no_mayor_a_monto_de_prevision
-    errors.add :monto, 'no debe superar el monto de la previsión' if prevision and monto + prevision.depositos.sum(:monto) > prevision.monto
+    errors.add :monto, 'no debe superar el monto de la previsión' if prevision and monto and monto + prevision.depositos.sum(:monto) > prevision.monto
   end
 end
 

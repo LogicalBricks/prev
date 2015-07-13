@@ -4,6 +4,7 @@ class DepositoTest < ActiveSupport::TestCase
   should belong_to :prevision
   should validate_presence_of :fecha
   should validate_presence_of :prevision
+  should validate_presence_of :monto
   should validate_numericality_of(:monto).is_greater_than(0)
 
   test "does not allow to set a fecha before the prevision's innitial date" do
