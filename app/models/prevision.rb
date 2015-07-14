@@ -35,12 +35,15 @@ class Prevision < ActiveRecord::Base
   end
 
   def fecha_valida?(fecha)
-    fecha && fecha >= fecha_inicial && fecha <= fecha_final
+    rango_fechas.includes?(fecha)
   end
 
   def self.de_periodo(year)
     date_range = DateRange.new(year: year)
-    where(fecha_inicial: date_range.initial, fecha_final: date_range.final).first
+    where(
+      fecha_inicial: date_range.initial,
+      fecha_final: date_range.final
+    ).first
   end
 
 private
@@ -56,6 +59,10 @@ private
 
   def calcula_monto
     self.monto = monto_remanente.to_f + monto_presupuestado.to_f
+  end
+
+  def rango_fechas
+    @rango_fechas ||= DateRange.new(initial: fecha_inicial, final: fecha_final)
   end
 end
 
