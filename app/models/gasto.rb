@@ -26,18 +26,23 @@ class Gasto < ActiveRecord::Base
 
   # == Methods ==
 
+  delegate :fecha_valida?, to: :prevision, allow_nil: true
+  delegate :monto_gastado, :monto_depositado, to: :prevision, allow_nil: true, prefix: true
+  delegate :monto_maximo, :prevision, to: :apartado, allow_nil: true, prefix: true
+  delegate :monto_gastado, :monto, to: :socio, allow_nil: true, prefix: true
+
   def supera_monto_socio?
-    socio and socio.monto and monto_a_aumentar + socio.monto_gastado > socio.monto
+    monto_a_aumentar + socio_monto_gastado.to_f > socio_monto.to_f
   end
 
   def prevision
-    apartado.prevision if apartado
+    apartado_prevision
   end
 
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, :invalid if prevision and !prevision.fecha_valida?(fecha)
+    errors.add :fecha, :invalid unless fecha_valida?(fecha)
   end
 
   def monto_no_supera_monto_maximo_de_apartado
@@ -45,11 +50,11 @@ private
   end
 
   def supera_monto_apartado?
-    apartado and monto_a_aumentar + monto_gastado_en_apartado > apartado.monto_maximo
+    monto_a_aumentar + monto_socio_gastado_en_apartado > apartado_monto_maximo.to_f
   end
 
-  def monto_gastado_en_apartado
-    socio.monto_gastado(apartado)
+  def monto_socio_gastado_en_apartado
+    socio_monto_gastado(apartado).to_f
   end
 
   def monto_no_supera_monto_depositado
@@ -57,7 +62,7 @@ private
   end
 
   def supera_monto_depositado?
-    socio and prevision and monto_a_aumentar + prevision.monto_gastado > prevision.monto_depositado
+    monto_a_aumentar + prevision_monto_gastado.to_f > prevision_monto_depositado.to_f
   end
 
   def monto_no_supera_monto_tope
