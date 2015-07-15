@@ -10,6 +10,10 @@ class Apartado < ActiveRecord::Base
   validates :monto_maximo, numericality: { greater_than: 0 }
   validate :monto_no_rebasa_monto_de_prevision
 
+  delegate :monto, to: :prevision, prefix: true, allow_nil: true
+
+  # == Methods ==
+
   def fecha_inicial
     prevision.fecha_inicial
   end
@@ -37,7 +41,7 @@ class Apartado < ActiveRecord::Base
 private
 
   def monto_no_rebasa_monto_de_prevision
-    errors.add :monto_maximo, :exceeds_monto_prevision if prevision and prevision.monto.to_f < monto_maximo.to_f
+    errors.add :monto_maximo, :exceeds_monto_prevision if prevision_monto.to_f < monto_maximo.to_f
   end
 end
 
