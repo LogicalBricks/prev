@@ -1,9 +1,1 @@
-#home
-  .no-data
-    %h1.text-center.text-error Aún no has ingresado una previsión al sistema.
-
-    .text-center
-      .control-group
-        = link_to new_prevision_path, class: 'btn btn-lg btn-primary' do
-          %i.fa.fa-plus
-          Nueva Previsión
+= render 'no_resource', message: "Aún no has ingrersado una previsión al sistema.", new_resource_path: new_prevision_path, button_label: "Nueva previsión"

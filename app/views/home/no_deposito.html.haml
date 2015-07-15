@@ -1,9 +1,1 @@
-#home
-  .no-data
-    %h1.text-center.text-error Aún no has registrado depósitos en el sistema.
-
-    .text-center
-      .control-group
-        = link_to new_deposito_path, class: 'btn btn-lg btn-primary' do
-          %i.fa.fa-plus
-          Nuevo Depósito
+= render 'no_resource', message: "Aún no has registrado depósitos en el sistema.", new_resource_path: new_deposito_path, button_label: "Nuevo depósito"

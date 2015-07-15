@@ -1,0 +1,9 @@
+#home
+  .no-data
+    %h1.text-center.text-error= message
+
+    .text-center
+      .control-group
+        = link_to new_resource_path, class: 'btn btn-lg btn-primary' do
+          %i.fa.fa-plus
+          button_label
