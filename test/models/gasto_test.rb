@@ -43,6 +43,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not allow save a monto that makes total greater than the apartado's monto" do
     socio = FactoryGirl.create :socio
+    FactoryGirl.create :tope, socio: socio, monto: 10
     apartado = FactoryGirl.create :apartado, monto_maximo: 10
     FactoryGirl.create :deposito, monto: 10, prevision: apartado.prevision
     FactoryGirl.create :gasto, apartado: apartado, monto: 9, socio: socio
