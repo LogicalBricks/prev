@@ -8,14 +8,21 @@ class Deposito < ActiveRecord::Base
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision
 
+  delegate :monto_depositado, :fecha_valida?, to: :prevision, allow_nil: true
+  delegate :monto, to: :prevision, prefix: true, allow_nil: true
+
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' if prevision and !prevision.fecha_valida?(fecha)
+    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' unless fecha_valida?(fecha)
   end
 
   def monto_no_mayor_a_monto_de_prevision
-    errors.add :monto, 'no debe superar el monto de la previsión' if prevision and monto and monto + prevision.depositos.sum(:monto) > prevision.monto
+    errors.add :monto, 'no debe superar el monto de la previsión' if monto_excede_monto_de_prevision?
+  end
+
+  def monto_excede_monto_de_prevision?
+    monto.to_f + monto_depositado.to_f > prevision_monto.to_f
   end
 end
 
