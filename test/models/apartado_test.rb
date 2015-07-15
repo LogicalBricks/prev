@@ -13,11 +13,11 @@ class ApartadoTest < ActiveSupport::TestCase
     prevision = FactoryGirl.build :prevision, monto: 100
     apartado = prevision.apartados.build monto_maximo: 99
     apartado.valid?
-    assert_equal 0, apartado.errors[:monto].size
+    refute apartado.errors[:monto_maximo].include?("rebasa el monto total de la previsión")
 
     apartado.monto_maximo = 101
     apartado.valid?
-    assert_equal 1, apartado.errors[:monto].size
+    assert apartado.errors[:monto_maximo].include?("rebasa el monto total de la previsión")
   end
 
   test 'should return the fecha_inicial from prevision' do

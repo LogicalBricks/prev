@@ -18,14 +18,14 @@ class GastoTest < ActiveSupport::TestCase
     prevision = FactoryGirl.create :prevision, periodo: 2016
     gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:fecha].size
+    assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
     prevision = FactoryGirl.create :prevision, periodo: 2014
     gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
-    assert_equal 1, gasto.errors[:fecha].size
+    assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
   end
 
   test "should not allow save a monto greater than the apartado's monto" do

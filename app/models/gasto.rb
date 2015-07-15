@@ -37,11 +37,11 @@ class Gasto < ActiveRecord::Base
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' if prevision and !prevision.fecha_valida?(fecha)
+    errors.add :fecha, :invalid if prevision and !prevision.fecha_valida?(fecha)
   end
 
   def monto_no_supera_monto_maximo_de_apartado
-    errors.add :monto, :greater_than_monto_apartado if supera_monto_apartado?
+    errors.add :monto, :exceeds_monto_apartado if supera_monto_apartado?
   end
 
   def supera_monto_apartado?
@@ -53,7 +53,7 @@ private
   end
 
   def monto_no_supera_monto_depositado
-    errors.add :monto, :greater_than_monto_depositado if supera_monto_depositado?
+    errors.add :monto, :exceeds_monto_depositado if supera_monto_depositado?
   end
 
   def supera_monto_depositado?
@@ -61,7 +61,7 @@ private
   end
 
   def monto_no_supera_monto_tope
-    errors.add :monto, :greater_than_monto_tope if supera_monto_socio?
+    errors.add :monto, :exceeds_monto_tope if supera_monto_socio?
   end
 
   def monto_a_aumentar

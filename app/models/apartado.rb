@@ -37,7 +37,7 @@ class Apartado < ActiveRecord::Base
 private
 
   def monto_no_rebasa_monto_de_prevision
-    errors.add :monto, 'rebasa el monto total del apartado' if prevision and prevision.monto.to_f < monto_maximo.to_f
+    errors.add :monto_maximo, :exceeds_monto_prevision if prevision and prevision.monto.to_f < monto_maximo.to_f
   end
 end
 
