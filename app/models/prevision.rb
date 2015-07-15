@@ -53,8 +53,9 @@ private
   end
 
   def calcula_fechas
-    self.fecha_inicial = "#{periodo}/01/01".to_date
-    self.fecha_final = "#{periodo}/12/31".to_date
+    date_range = DateRange.new(year: periodo.to_i)
+    self.fecha_inicial = date_range.initial
+    self.fecha_final = date_range.final
   end
 
   def calcula_monto
