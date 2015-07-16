@@ -2,8 +2,8 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :monto
     = f.input :fecha, as: :datepicker
+    = f.input :monto
     = f.input :descripcion
     = f.association :prevision, selected: prevision_actual
 
