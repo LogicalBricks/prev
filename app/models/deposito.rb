@@ -14,11 +14,11 @@ class Deposito < ActiveRecord::Base
 private
 
   def fecha_dentro_de_vigencia_de_prevision
-    errors.add :fecha, 'debe estar en el rango de fechas de la previsión' unless fecha_valida?(fecha)
+    errors.add :fecha, :invalid unless fecha_valida?(fecha)
   end
 
   def monto_no_mayor_a_monto_de_prevision
-    errors.add :monto, 'no debe superar el monto de la previsión' if monto_excede_monto_de_prevision?
+    errors.add :monto, :exceeds_monto_prevision if monto_excede_monto_de_prevision?
   end
 
   def monto_excede_monto_de_prevision?

@@ -218,3 +218,9 @@ es-MX:
           attributes:
             monto_maximo:
               exceeds_monto_prevision: "rebasa el monto total de la previsión"
+        deposito:
+          attributes:
+            fecha:
+              invalid: "debe estar en el rango de fechas de la previsión"
+            monto:
+              exceeds_monto_prevision: "rebasa el monto total de la previsión"
