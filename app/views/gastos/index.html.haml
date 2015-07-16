@@ -25,13 +25,13 @@
   %tbody
     - @gastos.each do |gasto|
       %tr
-        %td= gasto.fecha
+        %td= l gasto.fecha, format: :short
         %td= gasto.socio
         %td= gasto.apartado
         %td= number_to_currency gasto.monto
-        %td= mark_for gasto.factura_xml?
-        %td= mark_for gasto.factura_pdf?
-        %td= mark_for gasto.solicitud?
+        %td= link_to_file gasto, :factura_xml, format: :short
+        %td= link_to_file gasto, :factura_pdf, format: :short
+        %td= link_to_file gasto, :solicitud, format: :short
         %td
           .btn-group
             = link_to gasto, class: 'btn btn-sm btn-default', title: 'Detalles' do
