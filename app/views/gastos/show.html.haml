@@ -13,6 +13,12 @@
       .panel-body.form-horizontal
         .form-group
           %label.col-sm-3.control-label
+            Fecha:
+          .col-sm-9
+            %p.form-control-static
+              = l @gasto.fecha, format: :long
+        .form-group
+          %label.col-sm-3.control-label
             Socio:
           .col-sm-9
             %p.form-control-static
@@ -35,12 +41,6 @@
           .col-sm-9
             %p.form-control-static
               = @gasto.metodo_pago
-        .form-group
-          %label.col-sm-3.control-label
-            Fecha:
-          .col-sm-9
-            %p.form-control-static
-              = l @gasto.fecha, format: :long
 
   .col-md-6
     .panel.panel-default
