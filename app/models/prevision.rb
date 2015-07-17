@@ -39,7 +39,7 @@ class Prevision < ActiveRecord::Base
   end
 
   def self.de_periodo(year)
-    date_range = DateRange.new(year: year)
+    date_range = DateRange.new(year)
     where(
       fecha_inicial: date_range.initial,
       fecha_final: date_range.final
@@ -53,7 +53,9 @@ private
   end
 
   def calcula_fechas
-    date_range = DateRange.new(year: periodo.to_i)
+    return unless periodo
+
+    date_range = DateRange.new(periodo)
     self.fecha_inicial = date_range.initial
     self.fecha_final = date_range.final
   end
@@ -63,7 +65,7 @@ private
   end
 
   def rango_fechas
-    @rango_fechas ||= DateRange.new(initial: fecha_inicial, final: fecha_final)
+    @rango_fechas ||= DateRange.new(fecha_inicial, fecha_final)
   end
 end
 

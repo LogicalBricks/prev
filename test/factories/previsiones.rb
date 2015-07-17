@@ -4,7 +4,6 @@ FactoryGirl.define do
     monto_remanente "9.99"
     monto_presupuestado "190"
   end
-
 end
 
 # == Schema Information
