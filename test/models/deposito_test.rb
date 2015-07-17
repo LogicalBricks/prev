@@ -35,6 +35,13 @@ class DepositoTest < ActiveSupport::TestCase
     refute deposito.valid?
     assert_equal 1, deposito.errors[:monto].size
   end
+
+  test "should allow update monto if this does not exceed prevision's monto" do
+    prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
+    deposito = FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    deposito.update monto: 2
+    refute deposito.errors[:monto].include?("rebasa el monto total de la previsión")
+  end
 end
 
 # == Schema Information

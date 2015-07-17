@@ -22,7 +22,11 @@ private
   end
 
   def monto_excede_monto_de_prevision?
-    monto.to_f + monto_depositado.to_f > prevision_monto.to_f
+    monto_a_aumentar + monto_depositado.to_f > prevision_monto.to_f
+  end
+
+  def monto_a_aumentar
+    monto.to_f - monto_was.to_f
   end
 end
 
