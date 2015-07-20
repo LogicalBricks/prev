@@ -8,6 +8,8 @@ class Deposito < ActiveRecord::Base
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision
 
+  # == Methods ==
+
   delegate :monto_depositado, :fecha_valida?, to: :prevision, allow_nil: true
   delegate :monto, to: :prevision, prefix: true, allow_nil: true
 

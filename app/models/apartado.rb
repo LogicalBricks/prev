@@ -10,9 +10,9 @@ class Apartado < ActiveRecord::Base
   validates :monto_maximo, numericality: { greater_than: 0 }
   validate :monto_no_rebasa_monto_de_prevision
 
-  delegate :monto, to: :prevision, prefix: true, allow_nil: true
-
   # == Methods ==
+
+  delegate :monto, to: :prevision, prefix: true, allow_nil: true
 
   def fecha_inicial
     prevision.fecha_inicial

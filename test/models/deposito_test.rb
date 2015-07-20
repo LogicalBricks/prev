@@ -28,7 +28,7 @@ class DepositoTest < ActiveSupport::TestCase
     assert_equal 1, deposito.errors[:monto].size
   end
 
-  test "does not allow to set a monto that rebases the prevision's monto" do
+  test "does not allow to set a monto that exceeds prevision's monto" do
     prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
     FactoryGirl.create :deposito, monto: 99, prevision: prevision
     deposito = FactoryGirl.build :deposito, monto: 2, prevision: prevision
