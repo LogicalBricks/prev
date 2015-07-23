@@ -67,4 +67,5 @@ end
 group :development do
   gem 'annotate'
   gem 'railroady'
+  gem 'ruby-graphviz', require: 'graphviz'
 end
