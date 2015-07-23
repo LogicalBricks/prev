@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class RubroTest < ActiveSupport::TestCase
+  should have_many(:apartados)
   should validate_presence_of(:nombre)
 end
 

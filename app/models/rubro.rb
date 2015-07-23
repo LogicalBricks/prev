@@ -1,4 +1,7 @@
 class Rubro < ActiveRecord::Base
+  # == Associations ==
+  has_many :apartados
+
   # == Validations ==
   validates :nombre, presence: true
 
