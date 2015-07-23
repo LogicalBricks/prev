@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record
@@ -31,6 +30,8 @@ gem 'carrierwave'
 gem 'devise'
 gem 'redcarpet'
 gem 'nested_form'
+
+gem 'to_xls', github: 'LogicalBricks/to_xls'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-showdown'
@@ -63,5 +64,7 @@ group :development, :test do
   gem "bullet"
 end
 
-gem 'annotate', group: :development
-gem 'to_xls', github: 'LogicalBricks/to_xls'
+group :development do
+  gem 'annotate'
+  gem 'railroady'
+end

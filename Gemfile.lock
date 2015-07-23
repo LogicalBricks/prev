@@ -47,8 +47,8 @@ GEM
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
-    arel (6.0.0)
-    autoprefixer-rails (5.2.1)
+    arel (6.0.2)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
     bcrypt (3.1.10)
@@ -121,7 +121,7 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
-    jbuilder (2.3.0)
+    jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (4.0.4)
@@ -138,7 +138,7 @@ GEM
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -154,6 +154,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    railroady (1.3.1)
     rails (4.2.3)
       actionmailer (= 4.2.3)
       actionpack (= 4.2.3)
@@ -171,7 +172,7 @@ GEM
       rails-assets-bootstrap (>= 2.0.4, < 4.0)
       rails-assets-jquery (>= 1.7.1)
     rails-assets-jquery (2.1.4)
-    rails-assets-showdown (1.1.0)
+    rails-assets-showdown (1.2.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -185,7 +186,7 @@ GEM
       activesupport (= 4.2.3)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    raindrops (0.14.0)
+    raindrops (0.15.0)
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
@@ -195,7 +196,7 @@ GEM
     ruby-ole (1.2.11.8)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
-    sass (3.4.15)
+    sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -216,7 +217,7 @@ GEM
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slop (3.6.0)
-    spreadsheet (1.0.3)
+    spreadsheet (1.0.4)
       ruby-ole (>= 1.0)
     spring (1.3.6)
     sprockets (3.2.0)
@@ -246,7 +247,7 @@ GEM
     uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
-    web-console (2.1.3)
+    web-console (2.2.1)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
@@ -272,6 +273,7 @@ DEPENDENCIES
   nested_form
   pg
   pry
+  railroady
   rails (= 4.2.3)
   rails-assets-bootstrap-datepicker!
   rails-assets-showdown!
