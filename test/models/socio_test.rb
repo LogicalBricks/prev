@@ -11,7 +11,7 @@ class SocioTest < ActiveSupport::TestCase
   test "monto should have the same value as tope's monto" do
     socio = FactoryGirl.build :socio
     tope = FactoryGirl.build :tope, socio: socio
-    assert_equal tope.monto, socio.monto
+    assert_equal tope.monto, socio.monto_disponible
   end
 end
 

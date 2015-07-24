@@ -25,7 +25,7 @@
       %p.form-control-static
         = number_to_currency @socio.monto_gastado
         \/
-        = number_to_currency @socio.monto
+        = number_to_currency @socio.monto_tope
 
   .form-group
     - @socio.apartados.each do |apartado|

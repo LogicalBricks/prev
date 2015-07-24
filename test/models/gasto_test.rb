@@ -55,7 +55,7 @@ class GastoTest < ActiveSupport::TestCase
   test "should not save a monto greater than socio's monto" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
-    socio.stub :monto, 10 do
+    socio.stub :monto_tope, 10 do
       refute gasto.valid?
       assert gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
     end
@@ -64,7 +64,7 @@ class GastoTest < ActiveSupport::TestCase
   test "#supera_monto_socio? should be true if monto is greater than socio's monto" do
     socio = FactoryGirl.build_stubbed :socio
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
-    socio.stub :monto, 10 do
+    socio.stub :monto_tope, 10 do
       assert gasto.supera_monto_socio?
     end
   end

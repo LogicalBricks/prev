@@ -12,8 +12,8 @@ class Socio < ActiveRecord::Base
 
   # == Methods ==
 
-  def monto
-    tope.monto if tope
+  def monto_disponible
+    tope ? tope.monto.to_f : 0
   end
 
   def to_s
@@ -28,9 +28,9 @@ class Socio < ActiveRecord::Base
     apartado ? monto_gastado_de_apartado(apartado) : monto_gastado_total
   end
 
-  def monto_tope(prevision)
+  def monto_tope(prevision=nil)
     #TODO: take into account the prevision to calculate the correct monto_tope
-    tope.monto
+    monto_disponible
   end
 
   def monto_gastado_total
