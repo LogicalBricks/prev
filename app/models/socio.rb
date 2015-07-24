@@ -13,7 +13,7 @@ class Socio < ActiveRecord::Base
   # == Methods ==
 
   def monto_disponible
-    tope ? tope.monto.to_f : 0
+    tope ? tope.monto.to_f - tope.monto_reservado.to_f : 0
   end
 
   def to_s
