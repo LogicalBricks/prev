@@ -68,4 +68,6 @@ group :development do
   gem 'annotate'
   gem 'railroady'
   gem 'ruby-graphviz', require: 'graphviz'
+  gem 'guard'
+  gem 'guard-minitest'
 end
