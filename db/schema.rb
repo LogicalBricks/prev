@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703172326) do
+ActiveRecord::Schema.define(version: 20150724220923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,16 @@ ActiveRecord::Schema.define(version: 20150703172326) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reservas", force: :cascade do |t|
+    t.decimal  "monto"
+    t.integer  "tope_id"
+    t.text     "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "reservas", ["tope_id"], name: "index_reservas_on_tope_id", using: :btree
+
   create_table "roles_usuarios", id: false, force: :cascade do |t|
     t.integer "rol_id",     null: false
     t.integer "usuario_id", null: false
@@ -111,8 +121,9 @@ ActiveRecord::Schema.define(version: 20150703172326) do
     t.decimal  "monto"
     t.integer  "prevision_id"
     t.integer  "socio_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.decimal  "monto_reservado"
   end
 
   add_index "topes", ["prevision_id"], name: "index_topes_on_prevision_id", using: :btree
@@ -144,6 +155,7 @@ ActiveRecord::Schema.define(version: 20150703172326) do
   add_foreign_key "gastos", "apartados"
   add_foreign_key "gastos", "proveedores"
   add_foreign_key "gastos", "socios"
+  add_foreign_key "reservas", "topes"
   add_foreign_key "socios", "usuarios"
   add_foreign_key "topes", "previsiones"
   add_foreign_key "topes", "socios"
