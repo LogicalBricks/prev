@@ -8,6 +8,22 @@ class SocioTest < ActiveSupport::TestCase
   should validate_presence_of(:nombre)
   should validate_presence_of(:usuario)
 
+  test 'monto_tope is 0 if there is no tope' do
+    socio = FactoryGirl.build :socio
+    assert_equal 0, socio.monto_tope
+  end
+
+  test "monto_tope should have the same value as tope's monto" do
+    socio = FactoryGirl.build :socio
+    tope = FactoryGirl.build :tope, socio: socio, monto: 5
+    assert_equal 5, socio.monto_tope
+  end
+
+  test 'monto_disponible is 0 if there is no tope' do
+    socio = FactoryGirl.build :socio
+    assert_equal 0, socio.monto_disponible
+  end
+
   test "monto_disponible should have the same value as tope's monto if there is monto_reservado" do
     socio = FactoryGirl.build :socio
     tope = FactoryGirl.build :tope, socio: socio, monto: 5
