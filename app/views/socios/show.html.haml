@@ -20,14 +20,28 @@
         = @socio.usuario
   .form-group
     %label.col-sm-3.control-label
-      Monto gastado/Monto total:
+      Monto total:
+    .col-sm-9
+      %p.form-control-static
+        = number_to_currency @socio.monto_tope
+  .form-group
+    %label.col-sm-3.control-label
+      Monto reservado:
+    .col-sm-9
+      %p.form-control-static
+        = number_to_currency @socio.monto_reservado
+  .form-group
+    %label.col-sm-3.control-label
+      Monto gastado:
     .col-sm-9
       %p.form-control-static
         = number_to_currency @socio.monto_gastado
-        \/
+  .form-group
+    %label.col-sm-3.control-label
+      Monto disponible:
+    .col-sm-9
+      %p.form-control-static
         = number_to_currency @socio.monto_disponible
-        \/
-        = number_to_currency @socio.monto_tope
 
   .form-group
     - @socio.apartados.each do |apartado|
