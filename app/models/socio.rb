@@ -13,13 +13,18 @@ class Socio < ActiveRecord::Base
   # == Methods ==
 
   def monto_disponible(prevision=nil)
-    #TODO: take into account the prevision to calculate the correct monto_tope
+    #TODO: take into account the prevision to calculate the correct monto_disponible
     tope ? tope.monto.to_f - tope.monto_reservado.to_f : 0
   end
 
   def monto_tope(prevision=nil)
     #TODO: take into account the prevision to calculate the correct monto_tope
     tope.try(:monto).to_f
+  end
+
+  def monto_reservado(prevision=nil)
+    #TODO: take into account the prevision to calculate the correct monto_reservado
+    tope.try(:monto_reservado).to_f
   end
 
   def to_s

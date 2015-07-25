@@ -19,6 +19,17 @@ class SocioTest < ActiveSupport::TestCase
     assert_equal 5, socio.monto_tope
   end
 
+  test 'monto_reservado is 0 if there is no tope' do
+    socio = FactoryGirl.build :socio
+    assert_equal 0, socio.monto_reservado
+  end
+
+  test "monto_reservado should have the same value as tope's reservado" do
+    socio = FactoryGirl.build :socio
+    tope = FactoryGirl.build :tope, socio: socio, monto: 5, monto_reservado: 3
+    assert_equal 3, socio.monto_reservado
+  end
+
   test 'monto_disponible is 0 if there is no tope' do
     socio = FactoryGirl.build :socio
     assert_equal 0, socio.monto_disponible
