@@ -2,6 +2,18 @@ FactoryGirl.define do
   factory :socio do
     nombre "MyString"
     usuario
+
+    trait :con_tope do
+      after :build do |socio|
+        socio.tope = build :tope, socio: socio
+      end
+    end
+
+    trait :con_usuario do
+      after :build do |socio|
+        socio.usuario = build :usuario
+      end
+    end
   end
 end
 
