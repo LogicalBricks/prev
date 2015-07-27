@@ -69,6 +69,6 @@ class TopesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tope_params
-      params.require(:tope).permit(:monto, :prevision_id, :socio_id)
+      params.require(:tope).permit(:monto, :monto_reservado, :prevision_id, :socio_id)
     end
 end

@@ -35,7 +35,7 @@ class TopesControllerTest < ActionController::TestCase
   end
 
   test "should update tope" do
-    patch :update, id: @tope, tope: { monto: @tope.monto, prevision_id: @tope.prevision_id, socio_id: @tope.socio_id }
+    patch :update, id: @tope, tope: { monto: @tope.monto, monto_reservado: 1, prevision_id: @tope.prevision_id, socio_id: @tope.socio_id }
     assert_redirected_to tope_path(assigns(:tope))
   end
 
