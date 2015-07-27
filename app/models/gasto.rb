@@ -1,6 +1,6 @@
 class Gasto < ActiveRecord::Base
   # == Enums ==
-  enum metodo_pago: [:transferencia, :tarjeta, :reposicion]
+  enum metodo_pago: [:transferencia, :tarjeta, :reembolso]
 
   mount_uploader :factura_xml, FacturaXmlUploader
   mount_uploader :factura_pdf, FacturaPdfUploader
