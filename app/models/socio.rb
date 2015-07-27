@@ -1,7 +1,7 @@
 class Socio < ActiveRecord::Base
   # == Associations ==
   belongs_to :usuario
-  has_one :tope
+  has_one :tope, dependent: :destroy
   has_many :gastos
   has_many :apartados, -> { uniq }, through: :gastos
 

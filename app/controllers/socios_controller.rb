@@ -1,5 +1,5 @@
 class SociosController < ApplicationController
-  before_action :set_socio, only: [:show, :edit, :update, :destroy]
+  before_action :set_socio, only: [:edit, :update, :destroy]
 
   # GET /socios
   # GET /socios.json

@@ -3,6 +3,7 @@ require 'test_helper'
 class SociosControllerTest < ActionController::TestCase
   setup do
     @socio = FactoryGirl.create :socio, usuario: FactoryGirl.build(:usuario)
+    FactoryGirl.create(:tope, socio: @socio)
     @usuario_attributes = { email: 'usuario@mail.com', password: 'abcd1234', password_confirmation: 'abcd1234' }
   end
 
