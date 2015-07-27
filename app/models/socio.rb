@@ -14,7 +14,7 @@ class Socio < ActiveRecord::Base
 
   def monto_disponible(prevision=nil)
     #TODO: take into account the prevision to calculate the correct monto_disponible
-    tope ? tope.monto.to_f - tope.monto_reservado.to_f : 0
+    monto_tope - monto_reservado - monto_gastado
   end
 
   def monto_tope(prevision=nil)

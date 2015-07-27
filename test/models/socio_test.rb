@@ -35,16 +35,12 @@ class SocioTest < ActiveSupport::TestCase
     assert_equal 0, socio.monto_disponible
   end
 
-  test "monto_disponible should have the same value as tope's monto if there is monto_reservado" do
-    socio = FactoryGirl.build :socio
-    tope = FactoryGirl.build :tope, socio: socio, monto: 5
-    assert_equal 5, socio.monto_disponible
-  end
-
-  test "monto_disponible tope's monto monto_reservado" do
-    socio = FactoryGirl.build :socio
-    tope = FactoryGirl.build :tope, socio: socio, monto: 5, monto_reservado: 2
-    assert_equal 3, socio.monto_disponible
+  test "monto_disponible is monto_tope - monto_reservado - monto_gastado" do
+    prevision = FactoryGirl.create :prevision, monto: 20
+    tope = FactoryGirl.build :tope, monto: 15, monto_reservado: 4, prevision: prevision
+    FactoryGirl.create :deposito, monto: 20, prevision: prevision
+    FactoryGirl.create :gasto, monto: 3, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: prevision, monto_maximo: 15)
+    assert_equal 8, tope.socio.monto_disponible
   end
 end
 

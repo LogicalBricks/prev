@@ -32,7 +32,7 @@ class Gasto < ActiveRecord::Base
   delegate :monto_gastado, :monto_disponible, to: :socio, allow_nil: true, prefix: true
 
   def supera_monto_socio?
-    monto_a_aumentar + socio_monto_gastado.to_f > socio_monto_disponible.to_f
+    monto_a_aumentar > socio_monto_disponible.to_f
   end
 
   def prevision
