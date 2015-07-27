@@ -14,22 +14,22 @@
         = @tope.socio
   .form-group
     %label.col-sm-3.control-label
-      Monto:
-    .col-sm-9
-      %p.form-control-static
-        = @tope.monto
-  .form-group
-    %label.col-sm-3.control-label
       Prevision:
     .col-sm-9
       %p.form-control-static
         = @tope.prevision
   .form-group
     %label.col-sm-3.control-label
-      Socio:
+      Monto:
     .col-sm-9
       %p.form-control-static
-        = @tope.socio
+        = number_to_currency @tope.monto
+  .form-group
+    %label.col-sm-3.control-label
+      Monto reservado:
+    .col-sm-9
+      %p.form-control-static
+        = number_to_currency @tope.monto_reservado
 
 = link_to topes_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left

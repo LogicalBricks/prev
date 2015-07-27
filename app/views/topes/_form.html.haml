@@ -2,11 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :socio
+    = f.association :socio
+    = f.association :prevision
     = f.input :monto
     = f.input :monto_reservado
-    = f.association :prevision
-    = f.association :socio
 
   .form-actions
     = f.button :submit
