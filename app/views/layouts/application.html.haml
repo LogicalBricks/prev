@@ -15,48 +15,50 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to root_path, class: 'navbar-brand' do
-            %i.fa.fa-heartbeat
-            &nbsp;
-            Prev
-        - if usuario_actual
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
-              %li{ class: controller_name == 'socios' ? 'active' : '' }
-                = link_to socios_path do
-                  %i.fa.fa-users
+              %li{ class: controller_name == 'home' ? 'active' : '' }
+                = link_to root_path, class: 'navbar-brand' do
+                  %i.fa.fa-heartbeat
                   &nbsp;
-                  Socios
-              %li{ class: controller_name == 'rubros' ? 'active' : '' }
-                = link_to rubros_path do
-                  %i.fa.fa-archive
-                  &nbsp;
-                  Rubros
-              %li{ class: controller_name == 'previsiones' ? 'active' : '' }
-                = link_to previsiones_path do
-                  %i.fa.fa-bank
-                  &nbsp;
-                  Previsiones
-              %li{ class: controller_name == 'depositos' ? 'active' : '' }
-                = link_to depositos_path do
-                  %i.fa.fa-check-square-o
-                  &nbsp;
-                  Depositos
-              %li{ class: controller_name == 'gastos' ? 'active' : '' }
-                = link_to gastos_path do
-                  %i.fa.fa-dollar
-                  &nbsp;
-                  Gastos
-              %li{ class: controller_name == 'comisiones' ? 'active' : '' }
-                = link_to comisiones_path do
-                  %i.fa.fa-credit-card
-                  &nbsp;
-                  Comisiones
-            %ul.nav.navbar-nav.navbar-right
-              %li
-                = link_to destroy_usuario_session_path, method: :delete do
-                  %i.fa.fa-sign-out
-                  Cerrar sesión
+                  Prev
+            - if usuario_actual
+              %ul.nav.navbar-nav
+                %li{ class: controller_name == 'socios' ? 'active' : '' }
+                  = link_to socios_path do
+                    %i.fa.fa-users
+                    &nbsp;
+                    Socios
+                %li{ class: controller_name == 'rubros' ? 'active' : '' }
+                  = link_to rubros_path do
+                    %i.fa.fa-archive
+                    &nbsp;
+                    Rubros
+                %li{ class: controller_name == 'previsiones' ? 'active' : '' }
+                  = link_to previsiones_path do
+                    %i.fa.fa-bank
+                    &nbsp;
+                    Previsiones
+                %li{ class: controller_name == 'depositos' ? 'active' : '' }
+                  = link_to depositos_path do
+                    %i.fa.fa-check-square-o
+                    &nbsp;
+                    Depositos
+                %li{ class: controller_name == 'gastos' ? 'active' : '' }
+                  = link_to gastos_path do
+                    %i.fa.fa-dollar
+                    &nbsp;
+                    Gastos
+                %li{ class: controller_name == 'comisiones' ? 'active' : '' }
+                  = link_to comisiones_path do
+                    %i.fa.fa-credit-card
+                    &nbsp;
+                    Comisiones
+              %ul.nav.navbar-nav.navbar-right
+                %li
+                  = link_to destroy_usuario_session_path, method: :delete do
+                    %i.fa.fa-sign-out
+                    Cerrar sesión
 
     .container
       .row
