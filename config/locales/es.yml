@@ -211,7 +211,7 @@ es-MX:
             monto:
               exceeds_monto_apartado: "no puede ser mayor al monto del apartado"
               exceeds_monto_depositado: "no puede ser mayor al monto depositado a la previsión"
-              exceeds_monto_tope: "no puede ser mayor al monto tope del socio"
+              exceeds_monto_disponible: "no puede ser mayor al monto disponible del socio"
             fecha:
               invalid: "debe estar en el rango de fechas de la previsión"
         apartado:

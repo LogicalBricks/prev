@@ -17,7 +17,7 @@ class Gasto < ActiveRecord::Base
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_supera_monto_maximo_de_apartado
   validate :monto_no_supera_monto_depositado
-  validate :monto_no_supera_monto_tope
+  validate :monto_no_supera_monto_disponible
 
   # == Scopes ==
   scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
@@ -65,8 +65,8 @@ private
     monto_a_aumentar + prevision_monto_gastado.to_f > prevision_monto_depositado.to_f
   end
 
-  def monto_no_supera_monto_tope
-    errors.add :monto, :exceeds_monto_tope if supera_monto_socio?
+  def monto_no_supera_monto_disponible
+    errors.add :monto, :exceeds_monto_disponible if supera_monto_socio?
   end
 
   def monto_a_aumentar

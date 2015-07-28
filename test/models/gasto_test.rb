@@ -57,7 +57,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 11
     socio.stub :monto_disponible, 10 do
       refute gasto.valid?
-      assert gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
+      assert gasto.errors[:monto].include?("no puede ser mayor al monto disponible del socio")
     end
   end
 
@@ -76,7 +76,7 @@ class GastoTest < ActiveSupport::TestCase
     FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
     gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 2, apartado: apartado
     refute gasto.valid?
-    assert gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
+    assert gasto.errors[:monto].include?("no puede ser mayor al monto disponible del socio")
     assert gasto.supera_monto_socio?
   end
 
@@ -121,7 +121,7 @@ class GastoTest < ActiveSupport::TestCase
     apartado = FactoryGirl.create :apartado, monto_maximo: 15, prevision: tope.prevision
     gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 9, apartado: apartado
     gasto.update monto: 2
-    refute gasto.errors[:monto].include?("no puede ser mayor al monto tope del socio")
+    refute gasto.errors[:monto].include?("no puede ser mayor al monto disponible del socio")
     refute gasto.supera_monto_socio?
   end
 
