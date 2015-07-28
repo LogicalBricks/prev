@@ -4,8 +4,14 @@ FactoryGirl.define do
     usuario
 
     trait :con_tope do
-      after :build do |socio|
-        socio.tope = build :tope, socio: socio
+      transient do
+        monto_tope nil
+      end
+
+      after :build do |socio, evaluator|
+        opts = {}
+        opts.merge! monto: evaluator.monto_tope if evaluator.monto_tope
+        socio.tope = build(:tope, opts.merge(socio: socio))
       end
     end
 
