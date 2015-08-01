@@ -57,9 +57,9 @@
               = link_to socio, socio
             .col-sm-6
               %p.form-control-static
-                = number_to_currency socio.monto_gastado_de_prevision(@prevision)
+                = number_to_currency socio.monto_disponible
                 \/
-                = number_to_currency socio.tope.monto
+                = number_to_currency socio.monto_tope
 
 %hr/
 
