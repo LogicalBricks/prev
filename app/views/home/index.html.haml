@@ -44,7 +44,7 @@
               = link_to apartado, apartado
             .col-sm-6
               %p.form-control-static
-                = mostrar_montos(monto: apartado.suma_monto_gastado, monto_limite: apartado.monto_maximo, ocultar_limite: true)
+                = number_to_currency apartado.suma_monto_gastado
 
   .col-md-6
     .panel.panel-default

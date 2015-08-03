@@ -49,9 +49,8 @@
               = apartado
             .col-sm-9
               %p.form-control-static
-                = number_to_currency apartado.monto_gastado_por_socio(@socio)
-                \/
-                = number_to_currency apartado.monto_maximo
+                = mostrar_montos(monto: apartado.monto_gastado_por_socio(@socio), monto_limite: apartado.monto_maximo)
+
 .pull-right
   = link_to socios_path, class: 'btn btn-default' do
     %i.fa.fa-arrow-left

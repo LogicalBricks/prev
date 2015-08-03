@@ -31,7 +31,7 @@
           = socio
         .col-sm-9
           %p.form-control-static
-            = number_to_currency socio.monto_gastado(@apartado)
+            = mostrar_montos(monto: socio.monto_gastado(@apartado), monto_limite: @apartado.monto_maximo, ocultar_limite: true)
 
 .pull-right
   = link_to root_path, class: 'btn btn-default' do
