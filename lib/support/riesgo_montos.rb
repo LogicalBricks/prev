@@ -1,7 +1,7 @@
 class RiesgoMontos
   class << self
     def build(monto:, monto_limite:)
-      riesgo_montos_objects(monto: monto, monto_limite: monto_limite).find(&:corresponde?)
+      riesgo_montos_objects(monto: monto, monto_limite: monto_limite).find(&:corresponde?) || new(monto: monto, monto_limite: monto_limite)
     end
 
     def inherited(klass)
@@ -43,11 +43,11 @@ class RiesgoMontos
   end
 
   def rango
-    raise NotImplementedError
+    0..200
   end
 
   def riesgo
-    raise NotImplementedError
+    ""
   end
 end
 
