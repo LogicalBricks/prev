@@ -26,6 +26,14 @@ class Prevision < ActiveRecord::Base
     gastos.sum(:monto).to_f + comisiones.sum(:monto).to_f
   end
 
+  def monto_reservado
+    topes.sum(:monto_reservado)
+  end
+
+  def monto_gastado_o_reservado
+    monto_gastado + monto_reservado
+  end
+
   def monto_depositado
     depositos.sum(:monto).to_f
   end

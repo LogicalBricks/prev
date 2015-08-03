@@ -12,6 +12,10 @@ class Socio < ActiveRecord::Base
 
   # == Methods ==
 
+  def to_s
+    nombre
+  end
+
   def monto_disponible(prevision=nil)
     #TODO: take into account the prevision to calculate the correct monto_disponible
     monto_tope - monto_reservado - monto_gastado
@@ -25,10 +29,6 @@ class Socio < ActiveRecord::Base
   def monto_reservado(prevision=nil)
     #TODO: take into account the prevision to calculate the correct monto_reservado
     tope.try(:monto_reservado).to_f
-  end
-
-  def to_s
-    nombre
   end
 
   def monto_gastado_de_prevision(prevision)
@@ -45,6 +45,10 @@ class Socio < ActiveRecord::Base
 
   def monto_gastado_de_apartado(apartado)
     gastos.where(apartado: apartado).sum(:monto)
+  end
+
+  def monto_gastado_o_reservado
+    monto_gastado + monto_reservado
   end
 end
 
