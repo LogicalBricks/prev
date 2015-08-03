@@ -31,7 +31,7 @@
               = link_to "Monto gastado", gastos_path
             .col-sm-6
               %p.form-control-static
-                = number_to_currency @prevision.monto_gastado
+                = mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
 .row
   .col-md-6
     .panel.panel-default
@@ -44,7 +44,7 @@
               = link_to apartado, apartado
             .col-sm-6
               %p.form-control-static
-                = number_to_currency apartado.suma_monto_gastado
+                = mostrar_montos(monto: apartado.suma_monto_gastado, monto_limite: apartado.monto_maximo, ocultar_limite: true)
 
   .col-md-6
     .panel.panel-default
@@ -57,9 +57,7 @@
               = link_to socio, socio
             .col-sm-6
               %p.form-control-static
-                = number_to_currency socio.monto_disponible
-                \/
-                = number_to_currency socio.monto_tope
+                = mostrar_montos(monto: socio.monto_gastado_o_reservado, monto_limite: socio.monto_tope)
 
 %hr/
 

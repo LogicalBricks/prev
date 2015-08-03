@@ -19,7 +19,7 @@ class RiesgoMontos
     end
   end
 
-  attr_reader :monto
+  attr_reader :monto, :monto_limite
 
   def initialize(monto:, monto_limite:)
     @monto = monto.to_f

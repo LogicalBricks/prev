@@ -24,4 +24,9 @@ class HomeHelperTest < ActionView::TestCase
     html = '<span class="riesgo-moderado">$79.99</span> / $100.00'
     assert_equal html, mostrar_montos(monto: 79.99, monto_limite: 100)
   end
+
+  test 'should ommit monto_limite if the ocultar_limite flag is true' do
+    html = '<span class="riesgo-moderado">$40.00</span>'
+    assert_equal html, mostrar_montos(monto: 40.0, monto_limite: 100, ocultar_limite: true)
+  end
 end
