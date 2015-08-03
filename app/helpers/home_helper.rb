@@ -3,5 +3,4 @@ module HomeHelper
     @estado_cuenta ||= EstadoCuenta.new(movimientos)
   end
 
-  end
 end
