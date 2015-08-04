@@ -50,6 +50,18 @@ class Socio < ActiveRecord::Base
   def monto_gastado_o_reservado
     monto_gastado + monto_reservado
   end
+
+  def monto_cerca_de_limites?(apartado=nil)
+    cerca_de_tope? || cerca_de_monto_maximo?(apartado)
+  end
+
+  def cerca_de_tope?(prevision=nil)
+    (monto_gastado_o_reservado / monto_tope) > 0.8
+  end
+
+  def cerca_de_monto_maximo?(apartado)
+    (apartado.monto_maximo / monto_gastado_de_apartado(apartado)) > 0.8
+  end
 end
 
 # == Schema Information

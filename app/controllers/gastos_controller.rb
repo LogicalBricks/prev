@@ -28,6 +28,7 @@ class GastosController < ApplicationController
 
     respond_to do |format|
       if @gasto.save
+        send_email if socio.monto_cerca_de_limites?(apartado)
         format.html { redirect_to @gasto, notice: 'Gasto guardado correctamente.' }
         format.json { render :show, status: :created, location: @gasto }
       else
@@ -42,6 +43,7 @@ class GastosController < ApplicationController
   def update
     respond_to do |format|
       if @gasto.update(gasto_params)
+        send_email if @gasto.socio.monto_cerca_de_limites?(@gasto.apartado)
         format.html { redirect_to @gasto, notice: 'Gasto actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @gasto }
       else
@@ -73,5 +75,17 @@ class GastosController < ApplicationController
         :factura_xml, :factura_pdf, :solicitud, :monto, :fecha, :metodo_pago,
         :descripcion, :socio_id, :proveedor_id, :apartado_id, :forzar_monto
       )
+    end
+
+    def send_email
+      MontoCercaDeLimiteMailer.notificacion(socio, apartado).deliver_now
+    end
+
+    def socio
+      @gasto.socio
+    end
+
+    def apartado
+      @gasto.apartado
     end
 end

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Tu monto de previsión está llegando al límite</h1>
+    <p>
+    Monto gastado: <%= number_to_currency @socio.monto_gastado_o_reservado %>
+    <br />
+    Tope: <%= number_to_currency @socio.monto_tope %>
+    </p>
+
+    <p>
+    Monto gastado de rubro <b><%= @apartado %></b>: <%= number_to_currency @socio.monto_gastado(@apartado) %>
+    <br />
+    Monto máximo: <%= number_to_currency @apartado.monto_maximo %>
+    </p>
+  </body>
+</html>

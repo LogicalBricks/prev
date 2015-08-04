@@ -32,6 +32,26 @@ class GastosControllerTest < ActionController::TestCase
     assert_redirected_to gasto_path(assigns(:gasto))
   end
 
+  test "should send an email when gasto makes the monto close to monto_maximo" do
+    apartado = FactoryGirl.create :apartado, monto_maximo: 9
+    FactoryGirl.create :deposito, prevision: apartado.prevision, monto: 10
+    socio = FactoryGirl.create :socio
+    tope = FactoryGirl.create :tope, socio: socio
+    params = {
+      apartado_id: apartado.id,
+      descripcion: "Una descripción",
+      fecha:       Date.today,
+      metodo_pago: "reembolso",
+      monto:       "8",
+      socio_id:    socio.id
+    }
+    post :create, gasto: params
+    invite_email = ActionMailer::Base.deliveries.last
+    assert_equal "Tu monto de previsión social está llegando al límite", invite_email.subject
+    assert_match(/Monto gastado de rubro <b>#{apartado}<\/b>: \$8.00/, invite_email.body.to_s)
+    assert_match(/Monto máximo: \$9.00/, invite_email.body.to_s)
+  end
+
   test "should not save gasto when rebasing socios' monto" do
     assert_no_difference('Gasto.count') do
       socio = FactoryGirl.create :socio
