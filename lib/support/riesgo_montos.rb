@@ -1,7 +1,7 @@
 class RiesgoMontos
   class << self
     def build(monto:, monto_limite:)
-      riesgo_montos_objects(monto: monto, monto_limite: monto_limite).find(&:corresponde?) || new(monto: monto, monto_limite: monto_limite)
+      Builder.new(monto, monto_limite).build
     end
 
     def inherited(klass)
@@ -11,11 +11,34 @@ class RiesgoMontos
     def inherited_classes
       @inherited_classes ||= []
     end
+  end
 
-    def riesgo_montos_objects(monto:, monto_limite:)
-      inherited_classes.map do |klass|
-        klass.new(monto: monto, monto_limite: monto_limite)
-      end
+  class Builder
+    def initialize(monto, monto_limite)
+      @monto = monto
+      @monto_limite = monto_limite
+    end
+
+    def build
+      find_riesgo_montos_correspondiente || default_riesgo_montos
+    end
+
+    def find_riesgo_montos_correspondiente
+      riesgo_montos_objects.find(&:corresponde?)
+    end
+
+    def default_riesgo_montos
+      RiesgoMontos.new(monto: @monto, monto_limite: @monto_limite)
+    end
+
+    def riesgo_montos_objects
+      @riesgo_monto_objects ||= inherited_classes.map do |klass|
+        klass.new(monto: @monto, monto_limite: @monto_limite)
+      end.sort
+    end
+
+    def inherited_classes
+      RiesgoMontos.inherited_classes
     end
   end
 
@@ -26,13 +49,27 @@ class RiesgoMontos
     @monto_limite = monto_limite.to_f
   end
 
+  def <=>(other)
+    tope_maximo <=> other.tope_maximo
+  end
+
   def corresponde?
-    proporcion >= tope_minimo && proporcion < tope_maximo
+    proporcion.between?(tope_minimo, tope_maximo)
   end
 
   def proporcion
     @proporcion ||= (@monto / @monto_limite) * 100
   end
+
+  def rango
+    raise NotImplementedError
+  end
+
+  def riesgo
+    "generico"
+  end
+
+protected
 
   def tope_maximo
     rango.max
@@ -42,13 +79,6 @@ class RiesgoMontos
     rango.min
   end
 
-  def rango
-    0..200
-  end
-
-  def riesgo
-    ""
-  end
 end
 
 class RiesgoAltoMontos < RiesgoMontos
