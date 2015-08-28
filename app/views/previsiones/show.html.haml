@@ -52,10 +52,22 @@
       .panel-body.form-horizontal
         .form-group
           %label.col-sm-6.control-label
+            Monto depositado:
+          .col-sm-6
+            %p.form-control-static
+              = number_to_currency @prevision.monto_depositado
+        .form-group
+          %label.col-sm-6.control-label
             Monto gastado:
           .col-sm-6
             %p.form-control-static
               = number_to_currency @prevision.monto_gastado
+        .form-group
+          %label.col-sm-6.control-label
+            Monto disponible:
+          .col-sm-6
+            %p.form-control-static
+              = number_to_currency @prevision.monto - @prevision.monto_gastado_o_reservado
         .form-group
           %label.col-sm-6.control-label
             Monto reservado:
@@ -64,22 +76,10 @@
               = number_to_currency @prevision.monto_reservado
         .form-group
           %label.col-sm-6.control-label
-            Monto por ejercer:
+            Saldo en bancos:
           .col-sm-6
             %p.form-control-static
-              = number_to_currency @prevision.monto - @prevision.monto_gastado_o_reservado
-        .form-group
-          %label.col-sm-6.control-label
-            Monto depositado:
-          .col-sm-6
-            %p.form-control-static
-              = number_to_currency @prevision.monto_depositado
-        .form-group
-          %label.col-sm-6.control-label
-            Monto disponible:
-          .col-sm-6
-            %p.form-control-static
-              = number_to_currency @prevision.monto_depositado - @prevision.monto_gastado_o_reservado
+              = number_to_currency @prevision.monto_depositado - @prevision.monto_gastado
         .form-group
           %label.col-sm-6.control-label
             Monto por depositar:
