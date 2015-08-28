@@ -11,24 +11,31 @@
       .panel-heading
         Montos generales
       .panel-body.form-horizontal
-        .col-md-4
+        .col-md-3
           .form-group
             %label.col-sm-6.control-label
               = link_to "Monto total", @prevision
             .col-sm-6
               %p.form-control-static
                 = number_to_currency @prevision.monto
-        .col-md-4
+        .col-md-3
           .form-group
             %label.col-sm-6.control-label
               = link_to "Monto depositado", depositos_path
             .col-sm-6
               %p.form-control-static
                 = number_to_currency @prevision.monto_depositado
-        .col-md-4
+        .col-md-3
           .form-group
             %label.col-sm-6.control-label
-              = link_to "Monto gastado", gastos_path
+              = link_to "Monto por_depositar", depositos_path
+            .col-sm-6
+              %p.form-control-static
+                = number_to_currency @prevision.monto - @prevision.monto_depositado
+        .col-md-3
+          .form-group
+            %label.col-sm-6.control-label
+              = link_to "Monto gastado/reservado", gastos_path
             .col-sm-6
               %p.form-control-static
                 = mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
