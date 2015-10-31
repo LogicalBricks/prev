@@ -55,6 +55,11 @@
   = link_to socios_path, class: 'btn btn-default' do
     %i.fa.fa-arrow-left
     Regresar
+  /
   = link_to edit_socio_path(@socio), class: 'btn btn-primary' do
     %i.fa.fa-edit
     Modificar
+  /
+  = link_to edit_tope_path(socio.tope), class: 'btn btn-sm btn-default' do
+    %i.fa.fa-unlock
+    Modificar tope
