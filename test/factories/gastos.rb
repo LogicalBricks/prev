@@ -4,7 +4,7 @@ FactoryGirl.define do
     factura_pdf "MyString"
     solicitud "MyString"
     monto "9.99"
-    fecha "2015-06-06"
+    fecha Date.today
     metodo_pago 1
     descripcion "MyText"
     proveedor nil

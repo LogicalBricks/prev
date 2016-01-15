@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :comision do
     monto "9.99"
     descripcion "MyString"
-    fecha "2015-06-29"
+    fecha Date.today
     prevision
   end
 

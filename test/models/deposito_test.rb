@@ -8,14 +8,14 @@ class DepositoTest < ActiveSupport::TestCase
   should validate_numericality_of(:monto).is_greater_than(0)
 
   test "does not allow to set a fecha before the prevision's innitial date" do
-    prevision = FactoryGirl.create :prevision, periodo: 2015
+    prevision = FactoryGirl.create :prevision, periodo: Date.today.year
     deposito = FactoryGirl.build :deposito, fecha: 1.year.ago, prevision: prevision
     refute deposito.valid?
     assert_equal 1, deposito.errors[:fecha].size
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
-    prevision = FactoryGirl.create :prevision, periodo: 2015
+    prevision = FactoryGirl.create :prevision, periodo: Date.today.year
     deposito = FactoryGirl.build :deposito, fecha: 1.year.from_now, prevision: prevision
     refute deposito.valid?
     assert_equal 1, deposito.errors[:fecha].size

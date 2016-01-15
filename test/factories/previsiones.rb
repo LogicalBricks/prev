@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :prevision do
-    periodo "2015"
+    periodo Date.today.year
     monto_remanente "9.99"
     monto_presupuestado "190"
 

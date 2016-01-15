@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DepositosControllerTest < ActionController::TestCase
   setup do
-    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today, fecha_final: Date.today + 10.days, monto: 100_000
+    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today.yesterday, fecha_final: Date.today + 10.days, monto: 100_000
     @deposito = FactoryGirl.create :deposito, prevision: @prevision, fecha: Date.today + 1.days
   end
 

@@ -16,14 +16,14 @@ class GastoTest < ActiveSupport::TestCase
 
   test "does not allow to set a fecha before the prevision's innitial date" do
     prevision = FactoryGirl.create :prevision, periodo: 2016
-    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
+    gasto = FactoryGirl.build :gasto, fecha: "2015-02-04".to_date, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
     prevision = FactoryGirl.create :prevision, periodo: 2014
-    gasto = FactoryGirl.build :gasto, fecha: Date.today, apartado: FactoryGirl.create(:apartado, prevision: prevision)
+    gasto = FactoryGirl.build :gasto, fecha: "2015-02-04".to_date, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
   end

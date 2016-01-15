@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :deposito do
     monto "9.99"
-    fecha "2015-06-06"
+    fecha Date.today
     descripcion "MyText"
     prevision
   end
