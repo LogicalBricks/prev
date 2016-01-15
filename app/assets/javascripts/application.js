@@ -15,6 +15,6 @@
 //= require turbolinks
 //= require showdown
 //= require jquery_nested_form
-//= require bootstrap-datepicker/bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require_tree .
