@@ -6,9 +6,9 @@
       .col-md-6
         %fieldset
           %legend Información del pago
-          = f.input :fecha, as: :datepicker
           = f.association :socio
-          = f.association :apartado
+          = f.input :fecha, as: :datepicker
+          = f.association :apartado, collection: Apartado.includes(:prevision, :rubro).all
           = f.input :monto
           = f.input :metodo_pago, collection: Gasto.metodo_pagos.keys
       .col-md-6
