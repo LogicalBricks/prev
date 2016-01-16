@@ -54,6 +54,11 @@
                     %i.fa.fa-credit-card
                     &nbsp;
                     Comisiones
+                %li{ class: controller_name == 'proveedores' ? 'active' : '' }
+                  = link_to proveedores_path do
+                    %i.fa.fa-amazon
+                    &nbsp;
+                    Proveedores
               %ul.nav.navbar-nav.navbar-right
                 %li
                   = link_to destroy_usuario_session_path, method: :delete do
