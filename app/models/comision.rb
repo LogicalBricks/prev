@@ -18,3 +18,11 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_comisiones_on_prevision_id  (prevision_id)
+#
+# Foreign Keys
+#
+#  fk_rails_33e568a893  (prevision_id => previsiones.id)
+#

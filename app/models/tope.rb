@@ -22,3 +22,13 @@ end
 #  updated_at      :datetime         not null
 #  monto_reservado :decimal(, )
 #
+# Indexes
+#
+#  index_topes_on_prevision_id  (prevision_id)
+#  index_topes_on_socio_id      (socio_id)
+#
+# Foreign Keys
+#
+#  fk_rails_3021cc1f14  (prevision_id => previsiones.id)
+#  fk_rails_fc588aedfb  (socio_id => socios.id)
+#
