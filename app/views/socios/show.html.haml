@@ -60,6 +60,7 @@
     %i.fa.fa-edit
     Modificar
   /
-  = link_to edit_tope_path(@socio.tope), class: 'btn btn-sm btn-primary' do
-    %i.fa.fa-unlock
+  - if @socio.tope
+    = link_to edit_tope_path(@socio.tope), class: 'btn btn-sm btn-primary' do
+      %i.fa.fa-unlock
     Modificar tope
