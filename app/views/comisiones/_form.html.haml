@@ -6,6 +6,8 @@
     = f.input :descripcion
     = f.input :fecha, as: :datepicker
     = f.association :prevision, selected: prevision_actual
+    = f.input :fecha_reposicion, as: :datepicker
+    = f.input :comentario
 
   .form-actions
     = f.button :submit

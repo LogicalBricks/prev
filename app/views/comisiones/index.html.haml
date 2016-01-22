@@ -17,6 +17,8 @@
       %th Descripción
       %th Fecha
       %th Previsión
+      %th Fecha de reposición
+      %th Comentario
       %th Acciones
       
   %tbody
@@ -24,8 +26,10 @@
       %tr
         %td= comision.monto
         %td= comision.descripcion
-        %td= comision.fecha
+        %td= l comision.fecha
         %td= comision.prevision
+        %td= l comision.fecha_reposicion if comision.fecha_reposicion
+        %td= mostrar_comentario comision.comentario
         %td
           .btn-group
             = link_to comision, class: 'btn btn-sm btn-default', title: 'Detalles' do

@@ -1,7 +1,6 @@
 %h2
-  %i.fa
-  &nbsp;
-  Detalles de Comisión
+  %i.fa.fa-credit-card
+  Detalles de la Comisión
 
 %hr
 
@@ -30,6 +29,18 @@
     .col-sm-9
       %p.form-control-static
         = @comision.prevision
+  .form-group
+    %label.col-sm-3.control-label
+      Fecha de reposición:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.fecha_reposicion
+  .form-group
+    %label.col-sm-3.control-label
+      Comentario:
+    .col-sm-9
+      %p.form-control-static
+        = @comision.comentario
 
 = link_to comisiones_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left

@@ -69,6 +69,6 @@ class ComisionesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comision_params
-      params.require(:comision).permit(:monto, :descripcion, :fecha, :prevision_id)
+      params.require(:comision).permit(:monto, :descripcion, :fecha, :prevision_id, :fecha_reposicion, :comentario)
     end
 end

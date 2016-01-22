@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724220923) do
+ActiveRecord::Schema.define(version: 20160122173531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 20150724220923) do
     t.string   "descripcion"
     t.date     "fecha"
     t.integer  "prevision_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.date     "fecha_reposicion"
+    t.text     "comentario"
   end
 
   add_index "comisiones", ["prevision_id"], name: "index_comisiones_on_prevision_id", using: :btree

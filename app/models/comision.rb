@@ -10,13 +10,15 @@ end
 #
 # Table name: comisiones
 #
-#  id           :integer          not null, primary key
-#  monto        :decimal(, )
-#  descripcion  :string
-#  fecha        :date
-#  prevision_id :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id               :integer          not null, primary key
+#  monto            :decimal(, )
+#  descripcion      :string
+#  fecha            :date
+#  prevision_id     :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  fecha_reposicion :date
+#  comentario       :text
 #
 # Indexes
 #
