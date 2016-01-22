@@ -23,7 +23,7 @@ class Prevision < ActiveRecord::Base
   # == Methods ==
 
   def monto_gastado
-    gastos.sum(:monto).to_f + comisiones.sum(:monto).to_f
+    gastos.sum(:monto).to_f
   end
 
   def monto_reservado

@@ -30,7 +30,7 @@ class PrevisionTest < ActiveSupport::TestCase
     assert_equal 11, prevision.reload.monto_depositado
   end
 
-  test '#monto_gastado is the sum of gastos and comisiones' do
+  test '#monto_gastado is the sum of gastos with no comisiones' do
     prevision = FactoryGirl.create :prevision
     apartado = FactoryGirl.create :apartado, prevision: prevision
     FactoryGirl.create :deposito, prevision: prevision, monto: 15
@@ -41,7 +41,7 @@ class PrevisionTest < ActiveSupport::TestCase
     FactoryGirl.create :gasto, apartado: apartado, monto: 6, socio: tope2.socio
     FactoryGirl.create :comision, prevision: prevision, monto: 2
     FactoryGirl.create :comision, prevision: prevision, monto: 1
-    assert_equal 14, prevision.reload.monto_gastado
+    assert_equal 11, prevision.reload.monto_gastado
   end
 
   test 'la fecha es válida si está dentro del rango del periodo' do
