@@ -10,7 +10,7 @@
       Monto:
     .col-sm-9
       %p.form-control-static
-        = @comision.monto
+        = number_to_currency @comision.monto
   .form-group
     %label.col-sm-3.control-label
       Descripción:
@@ -22,7 +22,7 @@
       Fecha:
     .col-sm-9
       %p.form-control-static
-        = @comision.fecha
+        = l @comision.fecha, format: :long
   .form-group
     %label.col-sm-3.control-label
       Previsión:
@@ -34,7 +34,7 @@
       Fecha de reposición:
     .col-sm-9
       %p.form-control-static
-        = @comision.fecha_reposicion
+        = l @comision.fecha_reposicion, format: :long if @comision.fecha_reposicion
   .form-group
     %label.col-sm-3.control-label
       Comentario:

@@ -22,7 +22,7 @@
   %tbody
     - @depositos.each do |deposito|
       %tr
-        %td= deposito.fecha
+        %td= l deposito.fecha, format: :short
         %td= deposito.descripcion
         %td= deposito.prevision
         %td= number_to_currency deposito.monto

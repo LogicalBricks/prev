@@ -24,11 +24,11 @@
   %tbody
     - @comisiones.each do |comision|
       %tr
-        %td= comision.monto
+        %td= number_to_currency comision.monto
         %td= comision.descripcion
-        %td= l comision.fecha
+        %td= l comision.fecha, format: :short
         %td= comision.prevision
-        %td= l comision.fecha_reposicion if comision.fecha_reposicion
+        %td= l comision.fecha_reposicion, format: :short if comision.fecha_reposicion
         %td= mostrar_comentario comision.comentario
         %td
           .btn-group
