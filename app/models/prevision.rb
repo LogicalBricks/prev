@@ -1,4 +1,10 @@
 class Prevision < ActiveRecord::Base
+  class << self
+    def activa
+      last
+    end
+  end
+
   attr_accessor :periodo
 
   # == Associations ==
