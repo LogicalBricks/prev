@@ -8,7 +8,7 @@ class TopeTest < ActiveSupport::TestCase
   should validate_presence_of :prevision
   should validate_presence_of :socio
   should validate_numericality_of(:monto).is_greater_than(0)
-  should validate_numericality_of(:monto_reservado).is_greater_than(0)
+  should validate_numericality_of(:monto_reservado).is_greater_than_or_equal_to(0)
   should allow_value(nil, "").for(:monto_reservado)
 end
 

@@ -6,7 +6,7 @@ class Tope < ActiveRecord::Base
   # == Validations ==
   validates :monto, :prevision, :socio, presence: true
   validates :monto, numericality: { greater_than: 0 }
-  validates :monto_reservado, numericality: { greater_than: 0 }, allow_blank: true
+  validates :monto_reservado, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 end
 
 # == Schema Information
