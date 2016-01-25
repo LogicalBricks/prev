@@ -4,7 +4,7 @@ class DepositosController < ApplicationController
   # GET /depositos
   # GET /depositos.json
   def index
-    @depositos = Deposito.includes(:prevision)
+    @depositos = Deposito.para_listar
   end
 
   # GET /depositos/1

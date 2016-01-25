@@ -13,6 +13,11 @@ class Deposito < ActiveRecord::Base
   delegate :monto_depositado, :fecha_valida?, to: :prevision, allow_nil: true
   delegate :monto, to: :prevision, prefix: true, allow_nil: true
 
+  # == Scopes ==
+
+  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
+  scope :para_listar, -> { de_prevision_activa.includes :prevision }
+
 private
 
   def fecha_dentro_de_vigencia_de_prevision

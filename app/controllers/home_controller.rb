@@ -5,11 +5,11 @@ class HomeController < ApplicationController
     render :no_prevision and return if Prevision.count == 0
     render :no_deposito and return if Deposito.count == 0
 
-    @prevision = Prevision.first
+    @prevision = Prevision.activa
   end
 
   def estado_cuenta
-    @prevision = Prevision.first
+    @prevision = Prevision.activa
     @movimientos = movimientos
 
     respond_to do |format|

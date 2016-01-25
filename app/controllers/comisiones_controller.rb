@@ -4,7 +4,7 @@ class ComisionesController < ApplicationController
   # GET /comisiones
   # GET /comisiones.json
   def index
-    @comisiones = Comision.all
+    @comisiones = Comision.para_listar
   end
 
   # GET /comisiones/1

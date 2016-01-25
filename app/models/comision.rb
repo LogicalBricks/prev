@@ -4,6 +4,11 @@ class Comision < ActiveRecord::Base
 
   # == Validations ==
   validates :prevision, presence: true
+
+  # == Scopes ==
+
+  scope :de_vigencia_activa, -> { where(vigencia: Vigencia.activa) }
+  scope :para_listar, -> { all }
 end
 
 # == Schema Information

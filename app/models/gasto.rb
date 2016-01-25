@@ -20,9 +20,10 @@ class Gasto < ActiveRecord::Base
   validate :monto_no_supera_monto_disponible
 
   # == Scopes ==
-  scope :de_prevision, -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
-  scope :de_socio,     -> socio { joins(:socio).where(socio_id: socio) }
-  scope :para_listado, -> { includes(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
+  scope :de_prevision,        -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
+  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+  scope :de_socio,            -> socio { joins(:socio).where(socio_id: socio) }
+  scope :para_listado,        -> { de_prevision_activa.includes(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
 
   # == Methods ==
 
