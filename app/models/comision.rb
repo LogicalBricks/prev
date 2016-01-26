@@ -7,8 +7,8 @@ class Comision < ActiveRecord::Base
 
   # == Scopes ==
 
-  scope :de_vigencia_activa, -> { where(vigencia: Vigencia.activa) }
-  scope :para_listar, -> { all }
+  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
+  scope :para_listar, -> { includes(:prevision).de_prevision_activa }
 end
 
 # == Schema Information
