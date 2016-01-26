@@ -52,7 +52,7 @@ class Socio < ActiveRecord::Base
   end
 
   def monto_gastado_o_reservado
-    monto_gastado + monto_reservado
+    monto_gastado_de_prevision(Prevision.activa) + monto_reservado(Prevision.activa)
   end
 
   def monto_cerca_de_limites?(apartado=nil)
