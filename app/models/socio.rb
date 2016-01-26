@@ -17,8 +17,8 @@ class Socio < ActiveRecord::Base
   end
 
   def monto_disponible(prevision=nil)
-    #TODO: take into account the prevision to calculate the correct monto_disponible
-    monto_tope - monto_reservado - monto_gastado
+    prevision ||= Prevision.activa
+    monto_tope(prevision) - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
   end
 
   def monto_tope(prevision=nil)

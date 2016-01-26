@@ -6,11 +6,13 @@ FactoryGirl.define do
     trait :con_tope do
       transient do
         monto_tope nil
+        prevision nil
       end
 
       after :build do |socio, evaluator|
         opts = {}
         opts.merge! monto: evaluator.monto_tope if evaluator.monto_tope
+        opts.merge! prevision: evaluator.prevision if evaluator.prevision
         socio.tope = build(:tope, opts.merge(socio: socio))
       end
     end
