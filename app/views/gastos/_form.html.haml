@@ -6,7 +6,7 @@
       .col-md-6
         %fieldset
           %legend Información del pago
-          = f.association :socio
+          = f.association :socio, collection: Socio.de_prevision_activa
           = f.input :fecha, as: :datepicker
           = f.association :apartado, collection: Apartado.includes(:prevision, :rubro).all
           = f.input :monto

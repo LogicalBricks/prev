@@ -10,6 +10,10 @@ class Socio < ActiveRecord::Base
   # == Validations ==
   validates :nombre, :usuario, presence: true
 
+  # == Scopes ==
+  scope :de_prevision, -> prevision { joins(:tope).merge Tope.de_prevision(prevision) }
+  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+
   # == Methods ==
 
   def to_s

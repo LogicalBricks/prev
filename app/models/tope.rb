@@ -7,6 +7,10 @@ class Tope < ActiveRecord::Base
   validates :monto, :prevision, :socio, presence: true
   validates :monto, numericality: { greater_than: 0 }
   validates :monto_reservado, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+
+  # == Scopes ==
+  scope :de_prevision, -> prevision { where(prevision: prevision) }
+  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
 end
 
 # == Schema Information
