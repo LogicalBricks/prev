@@ -51,7 +51,7 @@
       .panel-heading
         Montos por socio
       .panel-body.form-horizontal
-        - Socio.includes(:tope).each do |socio|
+        - @prevision.socios.includes(:tope).each do |socio|
           .form-group
             %label.col-sm-6.control-label
               = link_to socio, socio

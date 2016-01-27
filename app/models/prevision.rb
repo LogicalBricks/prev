@@ -13,6 +13,7 @@ class Prevision < ActiveRecord::Base
   has_many :topes, inverse_of: :prevision
   has_many :comisiones, inverse_of: :prevision
   has_many :gastos, through: :apartados
+  has_many :socios, through: :topes
 
   accepts_nested_attributes_for :apartados, :topes, allow_destroy: true
 
