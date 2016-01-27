@@ -66,6 +66,10 @@ class Socio < ActiveRecord::Base
   def cerca_de_monto_maximo?(apartado)
     (apartado.monto_maximo / monto_gastado_de_apartado(apartado)) > 0.8
   end
+
+  def apartados_prevision_activa
+    apartados.de_prevision_activa
+  end
 end
 
 # == Schema Information
