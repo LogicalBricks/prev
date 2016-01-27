@@ -10,6 +10,10 @@ class Apartado < ActiveRecord::Base
   validates :monto_maximo, numericality: { greater_than: 0 }
   validate :monto_no_rebasa_monto_de_prevision
 
+  # == Scopes ==
+  scope :de_prevision, -> prevision { where(prevision: prevision) }
+  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+
   # == Methods ==
 
   delegate :monto, to: :prevision, prefix: true, allow_nil: true
