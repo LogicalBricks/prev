@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122173531) do
+ActiveRecord::Schema.define(version: 20160128182626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agrupadores", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "apartados", force: :cascade do |t|
     t.decimal  "monto_maximo"
@@ -74,10 +80,11 @@ ActiveRecord::Schema.define(version: 20160122173531) do
     t.date     "fecha_inicial"
     t.date     "fecha_final"
     t.decimal  "monto"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.decimal  "monto_remanente"
     t.decimal  "monto_presupuestado"
+    t.boolean  "activa",              default: false
   end
 
   create_table "proveedores", force: :cascade do |t|
@@ -95,9 +102,12 @@ ActiveRecord::Schema.define(version: 20160122173531) do
   create_table "rubros", force: :cascade do |t|
     t.string   "nombre"
     t.text     "descripcion"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "agrupador_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
+
+  add_index "rubros", ["agrupador_id"], name: "index_rubros_on_agrupador_id", using: :btree
 
   create_table "socios", force: :cascade do |t|
     t.string   "nombre"
@@ -147,6 +157,7 @@ ActiveRecord::Schema.define(version: 20160122173531) do
   add_foreign_key "gastos", "apartados"
   add_foreign_key "gastos", "proveedores"
   add_foreign_key "gastos", "socios"
+  add_foreign_key "rubros", "agrupadores"
   add_foreign_key "socios", "usuarios"
   add_foreign_key "topes", "previsiones"
   add_foreign_key "topes", "socios"
