@@ -1,7 +1,8 @@
 class Socio < ActiveRecord::Base
   # == Associations ==
   belongs_to :usuario
-  has_one :tope, dependent: :destroy
+  has_many :topes, dependent: :destroy
+  has_one :tope, -> { merge Tope.de_prevision_activa }
   has_many :gastos
   has_many :apartados, -> { uniq }, through: :gastos
 
@@ -22,16 +23,14 @@ class Socio < ActiveRecord::Base
 
   def monto_disponible(prevision=nil)
     prevision ||= Prevision.activa
-    monto_tope(prevision) - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
+    monto_tope - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
   end
 
   def monto_tope(prevision=nil)
-    #TODO: take into account the prevision to calculate the correct monto_tope
     tope.try(:monto).to_f
   end
 
   def monto_reservado(prevision=nil)
-    #TODO: take into account the prevision to calculate the correct monto_reservado
     tope.try(:monto_reservado).to_f
   end
 

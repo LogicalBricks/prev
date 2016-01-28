@@ -34,8 +34,8 @@ class PrevisionTest < ActiveSupport::TestCase
     prevision = FactoryGirl.create :prevision
     apartado = FactoryGirl.create :apartado, prevision: prevision
     FactoryGirl.create :deposito, prevision: prevision, monto: 15
-    tope = FactoryGirl.create :tope, monto: 15
-    tope2 = FactoryGirl.create :tope, monto: 10
+    tope = FactoryGirl.create :tope, monto: 15, prevision: prevision
+    tope2 = FactoryGirl.create :tope, monto: 10, prevision: prevision
     FactoryGirl.create :gasto, apartado: apartado, monto: 3, socio: tope.socio
     FactoryGirl.create :gasto, apartado: apartado, monto: 2, socio: tope.socio
     FactoryGirl.create :gasto, apartado: apartado, monto: 6, socio: tope2.socio
