@@ -9,13 +9,15 @@
     %thead
       %tr
         %th Nombre
-        %th Monto
+        %th Tope
+        %th Reservado
         %th
     %tbody#socios-prevision
       = f.simple_fields_for :topes, wrapper: false, defaults: { label: false, input_html: { class: 'form-control' } } do |fs|
         %tr.fields
           %td= fs.association :socio
           %td= fs.input :monto
+          %td= fs.input :monto_reservado
           %td
             = fs.link_to_remove class: 'btn btn-sm btn-danger' do
               %i.fa.fa-times

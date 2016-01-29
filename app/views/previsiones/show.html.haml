@@ -97,13 +97,15 @@
         %thead
           %tr
             %th Socio
-            %th Monto
+            %th Tope
+            %th Reservado
             %th
         %tbody
           - @prevision.topes.each do |tope|
             %tr
               %td= tope.socio
               %td= number_to_currency tope.monto
+              %td= number_to_currency tope.monto_reservado
               %td
   .col-md-6
     .panel.panel-default

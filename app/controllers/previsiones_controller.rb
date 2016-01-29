@@ -77,7 +77,7 @@ class PrevisionesController < ApplicationController
         :monto_remanente,
         :monto_presupuestado,
         apartados_attributes: [:id, :rubro_id, :monto_maximo, :_destroy],
-        topes_attributes: [:id, :socio_id, :monto, :_destroy]
+        topes_attributes: [:id, :socio_id, :monto, :monto_reservado, :_destroy]
       )
     end
 end
