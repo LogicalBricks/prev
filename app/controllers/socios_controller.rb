@@ -4,7 +4,7 @@ class SociosController < ApplicationController
   # GET /socios
   # GET /socios.json
   def index
-    @socios = Socio.includes(:usuario, :tope)
+    @socios = Socio.para_listar
   end
 
   # GET /socios/1

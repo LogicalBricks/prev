@@ -14,6 +14,7 @@ class Socio < ActiveRecord::Base
   # == Scopes ==
   scope :de_prevision, -> prevision { joins(:tope).merge Tope.de_prevision(prevision) }
   scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+  scope :para_listar, -> { includes(:usuario, :tope) }
 
   # == Methods ==
 
