@@ -1,7 +1,7 @@
 class Prevision < ActiveRecord::Base
   class << self
     def activa
-      last
+      first
     end
   end
 
