@@ -10,7 +10,7 @@ FactoryGirl.define do
       end
 
       after :build do |prevision, evaluator|
-        opts = {}
+        opts = { prevision: prevision }
         opts.merge! monto_maximo: evaluator.apartado_monto_maximo if evaluator.apartado_monto_maximo
         prevision.apartados << build(:apartado, opts)
       end
@@ -22,7 +22,7 @@ FactoryGirl.define do
       end
 
       after :build do |prevision, evaluator|
-        opts = {}
+        opts = { prevision: prevision }
         opts.merge! monto: evaluator.monto_depositado if evaluator.monto_depositado
         prevision.depositos << build(:deposito, opts)
       end
