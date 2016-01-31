@@ -11,8 +11,9 @@ class Apartado < ActiveRecord::Base
   validate :monto_no_rebasa_monto_de_prevision
 
   # == Scopes ==
-  scope :de_prevision, -> prevision { where(prevision: prevision) }
-  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+  scope :de_prevision,              -> prevision { where(prevision: prevision) }
+  scope :de_prevision_activa,       -> { de_prevision(Prevision.activa) }
+  scope :para_seleccionar_en_gasto, -> { includes(:prevision, :rubro).de_prevision_activa }
 
   # == Methods ==
 
