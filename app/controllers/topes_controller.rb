@@ -14,7 +14,7 @@ class TopesController < ApplicationController
 
   # GET /topes/new
   def new
-    @tope = Tope.new
+    @tope = Tope.new prevision: Prevision.activa
   end
 
   # GET /topes/1/edit
