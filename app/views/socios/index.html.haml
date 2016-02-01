@@ -28,8 +28,5 @@
               %i.fa.fa-search-plus
             = link_to edit_socio_path(socio), class: 'btn btn-sm btn-default', title: 'Modificar' do
               %i.fa.fa-edit
-            - if socio.tope
-              = link_to edit_tope_path(socio.tope), class: 'btn btn-sm btn-default', title: 'Modificar tope/monto reservado' do
-                %i.fa.fa-unlock
             = link_to socio, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
               %i.fa.fa-trash
