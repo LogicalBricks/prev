@@ -1,4 +1,8 @@
 class Gasto < ActiveRecord::Base
+  # == Attrs ==
+  attr_accessor :descontar_de_reservado
+  attr_writer :validador_monto_reservado, :monto_reservado_updater
+
   # == Enums ==
   enum metodo_pago: [:transferencia, :tarjeta, :reembolso]
 
@@ -18,19 +22,23 @@ class Gasto < ActiveRecord::Base
   validate :monto_no_supera_monto_maximo_de_apartado
   validate :monto_no_supera_monto_depositado
   validate :monto_no_supera_monto_disponible
+  validate :monto_reservado_valido?, if: :descontar_de_reservado?
+
+  # == Callbacks ==
+  before_save :actualizar_monto_reservado, if: :descontar_de_reservado?
 
   # == Scopes ==
-  scope :de_prevision,        -> prevision { joins(:apartado).where(apartados: { prevision_id: prevision } ) }
+  scope :de_prevision,        -> prevision { joins(:apartado).merge Apartado.de_prevision(prevision) }
   scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
   scope :de_socio,            -> socio { joins(:socio).where(socio_id: socio) }
-  scope :para_listado,        -> { de_prevision_activa.includes(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
+  scope :para_listado,        -> { de_prevision_activa.preload(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
 
   # == Methods ==
 
   delegate :fecha_valida?, to: :prevision, allow_nil: true
   delegate :monto_gastado, :monto_depositado, to: :prevision, allow_nil: true, prefix: true
   delegate :monto_maximo, :prevision, to: :apartado, allow_nil: true, prefix: true
-  delegate :monto_gastado, :monto_disponible, to: :socio, allow_nil: true, prefix: true
+  delegate :monto_gastado, :monto_disponible, :monto_reservado, to: :socio, allow_nil: true, prefix: true
 
   def supera_monto_socio?
     monto_a_aumentar > socio_monto_disponible.to_f
@@ -38,6 +46,14 @@ class Gasto < ActiveRecord::Base
 
   def prevision
     apartado_prevision
+  end
+
+  def validador_monto_reservado
+    @validador_monto_reservado ||= validador_monto_reservado_default
+  end
+
+  def monto_reservado_updater
+    @monto_reservado_updater ||= monto_reservado_updater_default
   end
 
 private
@@ -72,6 +88,30 @@ private
 
   def monto_a_aumentar
     monto.to_f - monto_was.to_f
+  end
+
+  def monto_reservado_valido?
+    errors.add :descontar_de_reservado, :not_enough_monto_reservado unless monto_reservado_suficiente?
+  end
+
+  def monto_reservado_suficiente?
+    validador_monto_reservado.valid?
+  end
+
+  def descontar_de_reservado?
+    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? descontar_de_reservado
+  end
+
+  def actualizar_monto_reservado
+    monto_reservado_updater.call
+  end
+
+  def validador_monto_reservado_default
+    GastoValidators::MontoReservadoValidator.new(self)
+  end
+
+  def monto_reservado_updater_default
+    GastoValidators::MontoReservadoUpdater.new(self, socio.tope)
   end
 end
 

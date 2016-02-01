@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'minitest/mock'
 
 class GastoTest < ActiveSupport::TestCase
   should belong_to :socio
@@ -96,8 +95,7 @@ class GastoTest < ActiveSupport::TestCase
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
     FactoryGirl.create :gasto, socio: tope.socio, monto: 3, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto = FactoryGirl.build :gasto, socio: tope.socio, monto: 5, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
-    gasto.valid?
-    refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
+    assert gasto.valid?
   end
 
   test "should not have an error on monto when it is modified but not exceed the prevision's monto depositado" do
@@ -105,7 +103,7 @@ class GastoTest < ActiveSupport::TestCase
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 9
     gasto = FactoryGirl.create :gasto, socio: tope.socio, monto: 8, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     gasto.update monto: 3
-    refute gasto.errors[:monto].include?("no puede ser mayor al monto depositado a la previsión")
+    assert gasto.errors[:monto].empty?
   end
 
   test "should not have an error on monto when it is modified but not exceed socio's apartado's monto" do
@@ -115,7 +113,7 @@ class GastoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.create :gasto, socio: socio, monto: 9, apartado: apartado
 
     gasto.update monto: 7
-    refute gasto.errors[:monto].include?("no puede ser mayor al monto del apartado")
+    assert gasto.errors[:monto].empty?
   end
 
   test "should not have an error on monto when it is modified but not exceed socio's monto_disponible" do
@@ -129,6 +127,52 @@ class GastoTest < ActiveSupport::TestCase
     refute gasto.supera_monto_socio?
   end
 
+  test 'should have an error on descontar_de_reservado if descontar_de_reservado flag is true and validador_monto_reservado is not valid' do
+    prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    apartado = prevision.apartados.first
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 4, apartado: apartado, descontar_de_reservado: true, validador_monto_reservado: validador_monto_reservado_invalido
+    refute gasto.valid?
+    assert_equal 1, gasto.errors[:descontar_de_reservado].size
+  end
+
+  test 'should not have an error on descontar_de_reservado if descontar_de_reservado flag is true and validador_monto_reservado is valid' do
+    prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    apartado = prevision.apartados.first
+    gasto = FactoryGirl.build :gasto, socio: socio, monto: 4, apartado: apartado, descontar_de_reservado: true, validador_monto_reservado: validador_monto_reservado_valido
+    assert gasto.valid?
+  end
+
+  test 'should call call in monto_reservado_updater when descontar_de_reservado is true and validator_monto_reservado is valid' do
+    prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    apartado = prevision.apartados.first
+
+    monto_reservado_updater = Minitest::Mock.new
+    monto_reservado_updater.expect :call, true
+    FactoryGirl.create(:gasto, socio: socio, monto: 4, apartado: apartado,
+                       descontar_de_reservado: true,
+                       validador_monto_reservado: validador_monto_reservado_valido,
+                       monto_reservado_updater: monto_reservado_updater)
+    monto_reservado_updater.verify
+  end
+
+  def validador_monto_reservado_valido
+    Class.new do
+      def valid?
+        true
+      end
+    end.new
+  end
+
+  def validador_monto_reservado_invalido
+    Class.new do
+      def valid?
+        false
+      end
+    end.new
+  end
 end
 
 # == Schema Information

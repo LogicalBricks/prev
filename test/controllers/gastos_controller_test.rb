@@ -118,4 +118,22 @@ class GastosControllerTest < ActionController::TestCase
 
     assert_redirected_to gastos_path
   end
+
+  test "should update topes monto_reservado when descontar_de_reservado is true" do
+    apartado = FactoryGirl.create :apartado
+    FactoryGirl.create :deposito, prevision: apartado.prevision, monto: 10
+    socio = FactoryGirl.create :socio
+    tope = FactoryGirl.create :tope, socio: socio, monto: 10, monto_reservado: 4, prevision: apartado.prevision
+    params = {
+      apartado_id:             apartado.id,
+      descripcion:             "Una descripción",
+      fecha:                   Date.today,
+      metodo_pago:             "reembolso",
+      monto:                   "3",
+      socio_id:                socio.id,
+      descontar_de_reservado:  true,
+    }
+    post :create, gasto: params
+    assert_equal 1, tope.reload.monto_reservado
+  end
 end

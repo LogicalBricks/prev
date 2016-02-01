@@ -11,6 +11,7 @@
           = f.association :apartado, collection: Apartado.para_seleccionar_en_gasto
           = f.input :monto
           = f.input :metodo_pago, collection: Gasto.metodo_pagos.keys
+          = f.input :descontar_de_reservado, as: :boolean
       .col-md-6
         %fieldset
           %legend Información adicional
