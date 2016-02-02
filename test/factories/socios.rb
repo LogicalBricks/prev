@@ -10,10 +10,10 @@ FactoryGirl.define do
       end
 
       after :build do |socio, evaluator|
-        opts = {}
+        opts = { socio: socio }
         opts.merge! monto: evaluator.monto_tope if evaluator.monto_tope
         opts.merge! prevision: evaluator.prevision if evaluator.prevision
-        socio.tope = build(:tope, opts.merge(socio: socio))
+        socio.tope = build(:tope, opts)
       end
     end
 

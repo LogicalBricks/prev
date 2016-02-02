@@ -118,16 +118,18 @@
           %tr
             %th Rubro
             %th Monto
-            %th
+            - if @prevision.activa?
+              %th
         %tbody
           - @prevision.apartados.each do |apartado|
             %tr
               %td= apartado.rubro
               %td= number_to_currency apartado.monto_maximo
-              %td
-                = link_to new_gasto_path(apartado_id: apartado.id), class: 'btn btn-sm btn-success' do
-                  %i.fa.fa-plus
-                  Agregar gasto
+              - if @prevision.activa?
+                %td
+                  = link_to new_gasto_path(apartado_id: apartado.id), class: 'btn btn-sm btn-success' do
+                    %i.fa.fa-plus
+                    Agregar gasto
 
 
 .pull-right

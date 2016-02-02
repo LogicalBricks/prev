@@ -1,0 +1,14 @@
+#home
+  .no-data
+    %h1.text-center.text-error Aún no existe una previsión activa
+
+    .text-center
+      .control-group
+        = link_to prevision_activa_path(id: Prevision.recent.first), method: :put, class: 'btn btn-lg btn-primary' do
+          %i.fa.fa-check-circle
+          Activar Prevision
+          = Prevision.recent.first
+        \
+        = link_to previsiones_path, class: 'btn btn-lg btn-default' do
+          %i.fa.fa-bank
+          Activar otra previsión

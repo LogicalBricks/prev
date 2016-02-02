@@ -74,8 +74,8 @@ class PrevisionesControllerTest < ActionController::TestCase
   end
 
   test "should remove apartados" do
-    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500)
-    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000)
+    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500, prevision: @prevision)
+    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000, prevision: @prevision)
     assert_difference("Apartado.count", -1) do
       patch :update, id: @prevision.id, prevision: {
         apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
@@ -85,8 +85,8 @@ class PrevisionesControllerTest < ActionController::TestCase
   end
 
   test "should remove topes" do
-    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500)
-    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000)
+    @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500, prevision: @prevision)
+    @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000, prevision: @prevision)
     assert_difference("Tope.count", -1) do
       patch :update, id: @prevision.id, prevision: {
         apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],

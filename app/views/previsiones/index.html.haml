@@ -18,16 +18,18 @@
       %th Remanente
       %th Presupuestado
       %th Monto total
+      %th Activa
       %th Acciones
       
   %tbody
     - @previsiones.each do |prevision|
-      %tr
+      %tr{ id: prevision.id, class: prevision.activa? ? "success" : "" }
         %td= l prevision.fecha_inicial, format: :long
         %td= l prevision.fecha_final, format: :long
         %td= number_to_currency prevision.monto_remanente
         %td= number_to_currency prevision.monto_presupuestado
         %td= number_to_currency prevision.monto
+        %td= mark_for prevision.activa?
         %td
           .btn-group
             = link_to prevision, class: 'btn btn-sm btn-default', title: 'Detalles' do
@@ -36,3 +38,6 @@
               %i.fa.fa-edit
             = link_to prevision, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
               %i.fa.fa-trash
+            - unless prevision.activa?
+              = link_to prevision_activa_path(id: prevision), method: :put, class: 'btn btn-sm btn-primary', title: 'Activar' do
+                %i.fa.fa-check-circle

@@ -4,7 +4,7 @@ class PrevisionesController < ApplicationController
   # GET /previsiones
   # GET /previsiones.json
   def index
-    @previsiones = Prevision.all
+    @previsiones = Prevision.para_listar
   end
 
   # GET /previsiones/1

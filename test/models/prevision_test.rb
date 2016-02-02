@@ -58,8 +58,8 @@ class PrevisionTest < ActiveSupport::TestCase
   end
 
   test '.de_periodo should return the prevision of this periodo ' do
-    FactoryGirl.create :prevision, periodo: 2014
-    FactoryGirl.create :prevision, periodo: 2015
+    FactoryGirl.create :prevision, periodo: 2014, activa: true
+    FactoryGirl.create :prevision, periodo: 2015, activa: false
     assert_equal 2014, Prevision.de_periodo(2014).periodo
     assert_equal 2015, Prevision.de_periodo(2015).periodo
   end

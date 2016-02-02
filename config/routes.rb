@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :apartados, only: [:show]
   resources :previsiones
   resources :rubros
+  resource :prevision_activa, only: [:update]
   devise_for :usuarios, skip: [:registrations]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

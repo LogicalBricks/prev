@@ -42,7 +42,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not allow save a monto that makes total greater than the apartado's monto" do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 10, monto_depositado: 10
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
     FactoryGirl.create :gasto, apartado: apartado, monto: 9, socio: socio
 
@@ -108,7 +108,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not have an error on monto when it is modified but not exceed socio's apartado's monto" do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
     gasto = FactoryGirl.create :gasto, socio: socio, monto: 9, apartado: apartado
 
@@ -118,7 +118,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test "should not have an error on monto when it is modified but not exceed socio's monto_disponible" do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
     gasto = FactoryGirl.create :gasto, socio: socio, monto: 9, apartado: apartado
 
@@ -129,7 +129,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test 'should have an error on descontar_de_reservado if descontar_de_reservado flag is true and validador_monto_reservado is not valid' do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 4, apartado: apartado, descontar_de_reservado: true, validador_monto_reservado: validador_monto_reservado_invalido
     refute gasto.valid?
@@ -138,7 +138,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test 'should not have an error on descontar_de_reservado if descontar_de_reservado flag is true and validador_monto_reservado is valid' do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
     gasto = FactoryGirl.build :gasto, socio: socio, monto: 4, apartado: apartado, descontar_de_reservado: true, validador_monto_reservado: validador_monto_reservado_valido
     assert gasto.valid?
@@ -146,7 +146,7 @@ class GastoTest < ActiveSupport::TestCase
 
   test 'should call call in monto_reservado_updater when descontar_de_reservado is true and validator_monto_reservado is valid' do
     prevision = FactoryGirl.create :prevision, :con_apartado, :con_deposito, apartado_monto_maximo: 15, monto_depositado: 15
-    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 10, prevision: prevision
     apartado = prevision.apartados.first
 
     monto_reservado_updater = Minitest::Mock.new

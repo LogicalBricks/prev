@@ -18,7 +18,7 @@ class ComisionesControllerTest < ActionController::TestCase
 
   test "should create comision" do
     assert_difference('Comision.count') do
-      post :create, comision: { descripcion: "Una descripción", fecha: Date.today, monto: 5, prevision_id: FactoryGirl.create(:prevision).id }
+      post :create, comision: { descripcion: "Una descripción", fecha: Date.today, monto: 5, prevision_id: @comision.prevision }
     end
 
     assert_redirected_to comision_path(assigns(:comision))

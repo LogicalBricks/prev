@@ -1,7 +1,7 @@
 class Prevision < ActiveRecord::Base
   class << self
     def activa
-      first
+      find_by_activa true
     end
   end
 
@@ -21,11 +21,16 @@ class Prevision < ActiveRecord::Base
   validates :periodo, :monto_presupuestado, presence: true
   validates :monto_remanente, numericality: true, if: "monto_remanente.present?"
   validates :monto_presupuestado, numericality: { greater_than: 0 }
+  validates :activa, uniqueness: true, if: :activa
 
   # == Callbacks ==
   after_initialize :calcula_periodo
   before_validation :calcula_fechas
   before_validation :calcula_monto
+
+  # == Scopes ==
+  scope :para_listar, -> { order(fecha_inicial: :desc) }
+  scope :recent,      -> { para_listar }
 
   # == Methods ==
 
