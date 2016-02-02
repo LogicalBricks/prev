@@ -61,7 +61,7 @@
                     Proveedores
               %ul.nav.navbar-nav.navbar-right
                 %li
-                  = link_to destroy_usuario_session_path, method: :delete do
+                  = link_to destroy_usuario_session_path, method: :delete, data: { confirm: "¿Desea cerrar su sesión?" } do
                     %i.fa.fa-sign-out
                     Cerrar sesión
 
@@ -72,4 +72,4 @@
 
     %footer.footer
       .container
-        %p.text-muted &copy; LogicalBricks 2015
+        %p.text-muted &copy; LogicalBricks 2016
