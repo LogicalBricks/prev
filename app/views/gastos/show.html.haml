@@ -37,6 +37,18 @@
               = number_to_currency @gasto.monto
         .form-group
           %label.col-sm-3.control-label
+            IVA:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @gasto.iva
+        .form-group
+          %label.col-sm-3.control-label
+            Total:
+          .col-sm-9
+            %p.form-control-static
+              = number_to_currency @gasto.total
+        .form-group
+          %label.col-sm-3.control-label
             Metodo pago:
           .col-sm-9
             %p.form-control-static

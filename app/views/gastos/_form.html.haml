@@ -10,8 +10,9 @@
           = f.input :fecha, as: :datepicker
           = f.association :apartado, collection: Apartado.para_seleccionar_en_gasto
           = f.input :monto
+          = f.input :iva
+          = f.input :total
           = f.input :metodo_pago, collection: Gasto.metodo_pagos.keys
-          = f.input :descontar_de_reservado, as: :boolean
       .col-md-6
         %fieldset
           %legend Información adicional
@@ -20,6 +21,7 @@
           = f.input :solicitud
           = f.association :proveedor
           = f.input :descripcion
+          = f.input :descontar_de_reservado, as: :boolean
 
   .form-actions.pull-right
     = f.button :submit
