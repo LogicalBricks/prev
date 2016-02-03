@@ -4,6 +4,7 @@ class GastoTest < ActiveSupport::TestCase
   should belong_to :socio
   should belong_to :proveedor
   should belong_to :apartado
+  should have_one :deposito
 
   should validate_presence_of :socio
   should validate_presence_of :apartado

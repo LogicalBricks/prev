@@ -8,8 +8,8 @@ FactoryGirl.define do
     metodo_pago 1
     descripcion "MyText"
     proveedor nil
-    socio
     apartado
+    socio { build :socio, :con_tope, monto_tope: 50, prevision: apartado.prevision }
   end
 
 end

@@ -14,6 +14,7 @@ class Gasto < ActiveRecord::Base
   belongs_to :socio
   belongs_to :proveedor
   belongs_to :apartado
+  has_one :deposito, inverse_of: :gasto
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
@@ -54,6 +55,10 @@ class Gasto < ActiveRecord::Base
 
   def monto_reservado_updater
     @monto_reservado_updater ||= monto_reservado_updater_default
+  end
+
+  def to_s
+    "#{socio} - [#{apartado}] #{fecha}"
   end
 
 private

@@ -1,22 +1,24 @@
 class Deposito < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :depositos
+  belongs_to :gasto, inverse_of: :deposito
 
   # == Validations ==
   validates :fecha, :prevision, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
+  validates :gasto, absence: true, unless: :pago_de_comisiones_o_impuestos
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision
+
+  # == Scopes ==
+  scope :de_gastos,           -> { where(pago_de_comisiones_o_impuestos: false) }
+  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
+  scope :para_listar,         -> { de_gastos.de_prevision_activa.preload :prevision }
 
   # == Methods ==
 
   delegate :monto_depositado, :fecha_valida?, to: :prevision, allow_nil: true
   delegate :monto, to: :prevision, prefix: true, allow_nil: true
-
-  # == Scopes ==
-
-  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
-  scope :para_listar, -> { de_prevision_activa.includes :prevision }
 
 private
 
@@ -41,13 +43,16 @@ end
 #
 # Table name: depositos
 #
-#  id           :integer          not null, primary key
-#  monto        :decimal(, )
-#  fecha        :date
-#  descripcion  :text
-#  prevision_id :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                             :integer          not null, primary key
+#  monto                          :decimal(, )
+#  fecha                          :date
+#  descripcion                    :text
+#  prevision_id                   :integer
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  pago_de_comisiones_o_impuestos :boolean          default(FALSE)
+#  referencia                     :string
+#  gasto_id                       :integer
 #
 # Indexes
 #
@@ -55,5 +60,6 @@ end
 #
 # Foreign Keys
 #
+#  fk_rails_2f3f35ef6b  (gasto_id => gastos.id)
 #  fk_rails_3728a922f6  (prevision_id => previsiones.id)
 #

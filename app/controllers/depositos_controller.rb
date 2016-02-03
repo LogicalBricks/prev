@@ -14,7 +14,7 @@ class DepositosController < ApplicationController
 
   # GET /depositos/new
   def new
-    @deposito = Deposito.new
+    @deposito = Deposito.new prevision: Prevision.activa
   end
 
   # GET /depositos/1/edit
@@ -69,6 +69,9 @@ class DepositosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def deposito_params
-      params.require(:deposito).permit(:monto, :fecha, :descripcion, :prevision_id)
+      params.require(:deposito).permit(
+        :monto, :fecha, :descripcion, :prevision_id, :referencia,
+        :pago_de_comisiones_o_impuestos, :gasto_id,
+      )
     end
 end

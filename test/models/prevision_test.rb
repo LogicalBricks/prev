@@ -22,11 +22,12 @@ class PrevisionTest < ActiveSupport::TestCase
     assert_equal "2014/12/31".to_date, prevision.fecha_final
   end
 
-  test '#monto_depositado is the sum of depositos' do
+  test '#monto_depositado is the sum of depositos for gastos' do
     prevision = FactoryGirl.create :prevision
     FactoryGirl.create :deposito, prevision: prevision, monto: 3
     FactoryGirl.create :deposito, prevision: prevision, monto: 2
     FactoryGirl.create :deposito, prevision: prevision, monto: 6
+    FactoryGirl.create :deposito, prevision: prevision, monto: 4, pago_de_comisiones_o_impuestos: true
     assert_equal 11, prevision.reload.monto_depositado
   end
 

@@ -47,7 +47,7 @@ class Prevision < ActiveRecord::Base
   end
 
   def monto_depositado
-    depositos.sum(:monto).to_f
+    depositos.de_gastos.sum(:monto).to_f
   end
 
   def to_s
