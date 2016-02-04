@@ -37,7 +37,7 @@ private
   end
 
   def gastos
-    @prevision.gastos.includes(:socio, :apartado).map{|g| GastoPresenter.new(g) }
+    @prevision.gastos.includes(:socio, apartado: :rubro).map{|g| GastoPresenter.new(g) }
   end
 
   def comisiones
