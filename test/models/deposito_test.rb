@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DepositoTest < ActiveSupport::TestCase
   should belong_to :prevision
-  should belong_to :gasto
+  should have_many :gastos
   should validate_presence_of :fecha
   should validate_presence_of :prevision
   should validate_presence_of :monto
@@ -48,16 +48,16 @@ class DepositoTest < ActiveSupport::TestCase
     prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
     deposito = FactoryGirl.create :deposito, monto: 95, prevision: prevision
     gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
-    deposito = FactoryGirl.build :deposito, monto: 1.6, prevision: prevision, gasto_id: gasto.id, pago_de_comisiones_o_impuestos: false
+    deposito = FactoryGirl.build :deposito, monto: 1.6, prevision: prevision, gasto_ids: [gasto.id], pago_de_comisiones_o_impuestos: false
     refute deposito.valid?
-    assert_equal 1, deposito.errors[:gasto].size
+    assert_equal 1, deposito.errors[:gastos].size
   end
 
   test "should accept gasto when pago_de_comisiones_o_impuestos is true" do
     prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
     deposito = FactoryGirl.create :deposito, monto: 95, prevision: prevision
     gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
-    deposito = FactoryGirl.build :deposito, monto: 1.6, prevision: prevision, gasto_id: gasto.id, pago_de_comisiones_o_impuestos: true
+    deposito = FactoryGirl.build :deposito, monto: 1.6, prevision: prevision, gasto_ids: [gasto.id], pago_de_comisiones_o_impuestos: true
     assert deposito.valid?
   end
 end

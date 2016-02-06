@@ -30,6 +30,24 @@
     .col-sm-9
       %p.form-control-static
         = @deposito.prevision
+  .form-group
+    %label.col-sm-3.control-label
+      Referencia:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.referencia
+  .form-group
+    %label.col-sm-3.control-label
+      Pago de comisiones o impuestos:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.pago_de_comisiones_o_impuestos
+  .form-group
+    %label.col-sm-3.control-label
+      Gastos:
+    .col-sm-9
+      %p.form-control-static
+        = @deposito.gastos.map &:to_s
 
 = link_to depositos_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left

@@ -14,7 +14,7 @@ class Gasto < ActiveRecord::Base
   belongs_to :socio
   belongs_to :proveedor
   belongs_to :apartado
-  has_one :deposito, inverse_of: :gasto
+  belongs_to :deposito, inverse_of: :gastos
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
@@ -29,10 +29,12 @@ class Gasto < ActiveRecord::Base
   before_save :actualizar_monto_reservado, if: :descontar_de_reservado?
 
   # == Scopes ==
-  scope :de_prevision,        -> prevision { joins(:apartado).merge Apartado.de_prevision(prevision) }
-  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
-  scope :de_socio,            -> socio { joins(:socio).where(socio_id: socio) }
-  scope :para_listado,        -> { de_prevision_activa.preload(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
+  scope :de_prevision,                 -> prevision { joins(:apartado).merge Apartado.de_prevision(prevision) }
+  scope :de_prevision_activa,          -> { de_prevision(Prevision.activa) }
+  scope :de_socio,                     -> socio { joins(:socio).where(socio_id: socio) }
+  scope :para_listado,                 -> { de_prevision_activa.preload(:socio, :deposito, apartado: [:rubro, :prevision]).order(fecha: :desc) }
+  scope :espera_pago_impuestos,        -> { where(espera_pago_impuestos: true).where(deposito_id: nil) }
+  scope :para_seleccionar_en_deposito, -> { de_prevision_activa.espera_pago_impuestos }
 
   # == Methods ==
 
@@ -124,21 +126,23 @@ end
 #
 # Table name: gastos
 #
-#  id           :integer          not null, primary key
-#  factura_xml  :string
-#  factura_pdf  :string
-#  solicitud    :string
-#  monto        :decimal(, )
-#  fecha        :date
-#  metodo_pago  :integer          default(0)
-#  descripcion  :text
-#  socio_id     :integer
-#  proveedor_id :integer
-#  apartado_id  :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  iva          :decimal(, )
-#  total        :decimal(, )
+#  id                    :integer          not null, primary key
+#  factura_xml           :string
+#  factura_pdf           :string
+#  solicitud             :string
+#  monto                 :decimal(, )
+#  fecha                 :date
+#  metodo_pago           :integer          default(0)
+#  descripcion           :text
+#  socio_id              :integer
+#  proveedor_id          :integer
+#  apartado_id           :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  iva                   :decimal(, )
+#  total                 :decimal(, )
+#  espera_pago_impuestos :boolean          default(TRUE)
+#  deposito_id           :integer
 #
 # Indexes
 #
@@ -150,5 +154,6 @@ end
 #
 #  fk_rails_5c1017f265  (socio_id => socios.id)
 #  fk_rails_982ad725a5  (apartado_id => apartados.id)
+#  fk_rails_a493c36920  (deposito_id => depositos.id)
 #  fk_rails_e4c5f4d318  (proveedor_id => proveedores.id)
 #

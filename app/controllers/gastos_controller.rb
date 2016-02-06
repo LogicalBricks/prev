@@ -74,7 +74,7 @@ class GastosController < ApplicationController
       params.require(:gasto).permit(
         :factura_xml, :factura_pdf, :solicitud, :monto, :fecha, :metodo_pago,
         :descripcion, :socio_id, :proveedor_id, :apartado_id, :iva, :total,
-        :descontar_de_reservado,
+        :descontar_de_reservado, :espera_pago_impuestos,
       )
     end
 

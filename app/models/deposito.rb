@@ -1,12 +1,12 @@
 class Deposito < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :depositos
-  belongs_to :gasto, inverse_of: :deposito
+  has_many :gastos, inverse_of: :deposito
 
   # == Validations ==
   validates :fecha, :prevision, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
-  validates :gasto, absence: true, unless: :pago_de_comisiones_o_impuestos
+  validates :gastos, absence: true, unless: :pago_de_comisiones_o_impuestos
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision
 
@@ -52,7 +52,6 @@ end
 #  updated_at                     :datetime         not null
 #  pago_de_comisiones_o_impuestos :boolean          default(FALSE)
 #  referencia                     :string
-#  gasto_id                       :integer
 #
 # Indexes
 #
@@ -60,6 +59,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_2f3f35ef6b  (gasto_id => gastos.id)
 #  fk_rails_3728a922f6  (prevision_id => previsiones.id)
 #
