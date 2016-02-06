@@ -24,7 +24,7 @@
 
   %tbody
     - @gastos.each do |gasto|
-      %tr
+      %tr{ class: ccs_class_for_row(gasto) }
         %td= l gasto.fecha, format: :short
         %td= gasto.socio
         %td= gasto.apartado
