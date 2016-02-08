@@ -8,7 +8,7 @@ class Deposito < ActiveRecord::Base
   validates :monto, numericality: { greater_than: 0 }
   validates :gastos, absence: true, unless: :pago_de_comisiones_o_impuestos
   validate :fecha_dentro_de_vigencia_de_prevision
-  validate :monto_no_mayor_a_monto_de_prevision
+  validate :monto_no_mayor_a_monto_de_prevision, unless: :pago_de_comisiones_o_impuestos
 
   # == Scopes ==
   scope :de_gastos,           -> { where(pago_de_comisiones_o_impuestos: false) }

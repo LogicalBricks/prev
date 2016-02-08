@@ -60,6 +60,14 @@ class DepositoTest < ActiveSupport::TestCase
     deposito = FactoryGirl.build :deposito, monto: 1.6, prevision: prevision, gasto_ids: [gasto.id], pago_de_comisiones_o_impuestos: true
     assert deposito.valid?
   end
+
+  test "should accept gasto when pago_de_comisiones_o_impuestos is true even if the amount makes the monto_depositado to exceed prevision's monto" do
+    prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
+    deposito = FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
+    deposito = FactoryGirl.build :deposito, monto: 16, prevision: prevision, gasto_ids: [gasto.id], pago_de_comisiones_o_impuestos: true
+    assert deposito.valid?, "No permite registrar un depósito que excede el monto de la previsión aún cuando es pago de impuestos o comisiones."
+  end
 end
 
 # == Schema Information
