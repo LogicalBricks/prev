@@ -14,7 +14,7 @@ class ComisionesController < ApplicationController
 
   # GET /comisiones/new
   def new
-    @comision = Comision.new
+    @comision = Comision.new prevision: Prevision.activa
   end
 
   # GET /comisiones/1/edit
