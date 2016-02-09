@@ -22,7 +22,7 @@
       Fecha:
     .col-sm-9
       %p.form-control-static
-        = l @comision.fecha, format: :long
+        = l @comision.fecha, format: :long if @comision.fecha
   .form-group
     %label.col-sm-3.control-label
       Previsión:

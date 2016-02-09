@@ -26,7 +26,7 @@
       %tr
         %td= number_to_currency comision.monto
         %td= comision.descripcion
-        %td= l comision.fecha, format: :short
+        %td= l comision.fecha, format: :short if comision.fecha
         %td= comision.prevision
         %td= l comision.fecha_reposicion, format: :short if comision.fecha_reposicion
         %td= mostrar_comentario comision.comentario
