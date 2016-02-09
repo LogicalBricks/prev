@@ -47,7 +47,18 @@
       Gastos:
     .col-sm-9
       %p.form-control-static
-        = @deposito.gastos.map &:to_s
+        %ul
+          - @deposito.gastos.each do |gasto|
+            %li
+              = gasto
+    %label.col-sm-3.control-label
+      Comisiones:
+    .col-sm-9
+      %p.form-control-static
+        %ul
+          - @deposito.comisiones.each do |comision|
+            %li
+              = comision
 
 = link_to depositos_path, class: 'btn btn-default' do
   %i.fa.fa-arrow-left

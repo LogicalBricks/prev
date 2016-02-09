@@ -1,14 +1,34 @@
 class Comision < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :comisiones
+  belongs_to :deposito, inverse_of: :comisiones
 
   # == Validations ==
-  validates :prevision, presence: true
+  validates :prevision, :fecha, presence: true
 
   # == Scopes ==
 
-  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
-  scope :para_listar, -> { includes(:prevision).de_prevision_activa }
+  scope :de_prevision,                 -> prevision { where(prevision: prevision) }
+  scope :de_prevision_activa,          -> { de_prevision(Prevision.activa) }
+  scope :para_listar,                  -> { includes(:prevision).de_prevision_activa }
+  scope :sin_deposito,                 -> { where(deposito_id: nil) }
+  scope :para_seleccionar_en_deposito, -> { de_prevision_activa }
+
+  # == Methods ==
+
+  def to_s
+    "#{fecha_formateada} #{monto_formateado} - #{descripcion}"
+  end
+
+private
+
+  def fecha_formateada
+    "[#{I18n.l fecha}]" if fecha
+  end
+
+  def monto_formateado
+    ActionController::Base.helpers.number_to_currency(monto)
+  end
 end
 
 # == Schema Information
@@ -24,6 +44,7 @@ end
 #  updated_at       :datetime         not null
 #  fecha_reposicion :date
 #  comentario       :text
+#  deposito_id      :integer
 #
 # Indexes
 #

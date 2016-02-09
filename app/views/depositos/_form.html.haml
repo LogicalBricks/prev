@@ -9,7 +9,10 @@
     = f.input :referencia
     = f.input :pago_de_comisiones_o_impuestos
     #pago-comision-o-impuestos
-      = f.association :gastos, collection: Gasto.para_seleccionar_en_deposito
+      .col-md-6
+        = f.association :gastos, collection: Gasto.para_seleccionar_en_deposito, :include_blank => true
+      .col-md-6
+        = f.association :comisiones, collection: Comision.para_seleccionar_en_deposito, :include_blank => true
 
   .form-actions
     = f.button :submit

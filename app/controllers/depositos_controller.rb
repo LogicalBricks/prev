@@ -71,7 +71,7 @@ class DepositosController < ApplicationController
     def deposito_params
       params.require(:deposito).permit(
         :monto, :fecha, :descripcion, :prevision_id, :referencia,
-        :pago_de_comisiones_o_impuestos, gasto_ids: [],
+        :pago_de_comisiones_o_impuestos, gasto_ids: [], comision_ids: []
       )
     end
 end

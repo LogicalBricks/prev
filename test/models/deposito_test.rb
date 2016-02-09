@@ -3,6 +3,7 @@ require 'test_helper'
 class DepositoTest < ActiveSupport::TestCase
   should belong_to :prevision
   should have_many :gastos
+  should have_many :comisiones
   should validate_presence_of :fecha
   should validate_presence_of :prevision
   should validate_presence_of :monto
@@ -67,6 +68,31 @@ class DepositoTest < ActiveSupport::TestCase
     gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
     deposito = FactoryGirl.build :deposito, monto: 16, prevision: prevision, gasto_ids: [gasto.id], pago_de_comisiones_o_impuestos: true
     assert deposito.valid?, "No permite registrar un depósito que excede el monto de la previsión aún cuando es pago de impuestos o comisiones."
+  end
+
+  test 'should have an error on pago_de_comisiones_o_impuestos if it is true and no gasto or comsion is given' do
+    prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
+    deposito = FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
+    deposito = FactoryGirl.build :deposito, monto: 16, prevision: prevision, pago_de_comisiones_o_impuestos: true
+    deposito.valid?
+    assert 1, deposito.errors[:pago_de_comisiones_o_impuestos].size
+  end
+
+  test 'should be valid if pago_de_comisiones_o_impuestos is true and a gasto is given' do
+    prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
+    deposito = FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: prevision), monto: 10
+    deposito = FactoryGirl.build :deposito, monto: 16, prevision: prevision, pago_de_comisiones_o_impuestos: true, gastos: [gasto]
+    assert deposito.valid?, "No es válido cuando pago_de_comisiones_o_impuestos es verdadero y se include un gasto."
+  end
+
+  test 'should be valid if pago_de_comisiones_o_impuestos is true and a comision is given' do
+    prevision = FactoryGirl.create :prevision, monto_remanente: 1, monto_presupuestado: 99
+    deposito = FactoryGirl.create :deposito, monto: 99, prevision: prevision
+    comision = FactoryGirl.create :comision, prevision: prevision, monto: 10
+    deposito = FactoryGirl.build :deposito, monto: 16, prevision: prevision, pago_de_comisiones_o_impuestos: true, comisiones: [comision]
+    assert deposito.valid?, "No es válido cuando pago_de_comisiones_o_impuestos es verdadero y se include un gasto."
   end
 end
 

@@ -2,11 +2,13 @@ class Deposito < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :depositos
   has_many :gastos, inverse_of: :deposito
+  has_many :comisiones, inverse_of: :deposito
 
   # == Validations ==
   validates :fecha, :prevision, :monto, presence: true
   validates :monto, numericality: { greater_than: 0 }
-  validates :gastos, absence: true, unless: :pago_de_comisiones_o_impuestos
+  validates :gastos, :comisiones, absence: true, unless: :pago_de_comisiones_o_impuestos
+  validate :incluye_gastos_o_comsiones, if: :pago_de_comisiones_o_impuestos
   validate :fecha_dentro_de_vigencia_de_prevision
   validate :monto_no_mayor_a_monto_de_prevision, unless: :pago_de_comisiones_o_impuestos
 
@@ -36,6 +38,10 @@ private
 
   def monto_a_aumentar
     monto.to_f - monto_was.to_f
+  end
+
+  def incluye_gastos_o_comsiones
+    errors.add :pago_de_comisiones_o_impuestos, :not_includes_comisiones_or_impuestos unless comisiones.any? or gastos.any?
   end
 end
 

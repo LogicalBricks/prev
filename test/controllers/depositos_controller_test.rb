@@ -26,8 +26,9 @@ class DepositosControllerTest < ActionController::TestCase
   end
 
   test "should create deposito that pays commisions" do
+    comision = FactoryGirl.create :comision, prevision: @prevision
     assert_difference('Deposito.count') do
-      post :create, deposito: { descripcion: @deposito.descripcion, fecha: @deposito.fecha, monto: @deposito.monto, prevision_id: @deposito.prevision_id, pago_de_comisiones_o_impuestos: true }
+      post :create, deposito: { descripcion: @deposito.descripcion, fecha: @deposito.fecha, monto: @deposito.monto, prevision_id: @deposito.prevision_id, pago_de_comisiones_o_impuestos: true, comision_ids: [comision.id] }
     end
 
     assert_redirected_to deposito_path(assigns(:deposito))
