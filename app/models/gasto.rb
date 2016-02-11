@@ -59,6 +59,10 @@ class Gasto < ActiveRecord::Base
     @monto_reservado_updater ||= monto_reservado_updater_default
   end
 
+  def to_be_paid?
+    espera_pago_impuestos and deposito_id.blank?
+  end
+
   def to_s
     "#{socio} - [#{apartado}] #{fecha}"
   end

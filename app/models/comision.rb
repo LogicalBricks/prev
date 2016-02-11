@@ -20,6 +20,10 @@ class Comision < ActiveRecord::Base
     "#{fecha_formateada} #{monto_formateado} - #{descripcion}"
   end
 
+  def to_be_paid?
+    deposito_id.blank?
+  end
+
 private
 
   def fecha_formateada

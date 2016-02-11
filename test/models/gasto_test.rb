@@ -159,6 +159,27 @@ class GastoTest < ActiveSupport::TestCase
     monto_reservado_updater.verify
   end
 
+  test '#to_be_paid? is true if espera_pago_impuestos is true and no deposito has been associated' do
+    gasto = FactoryGirl.build :gasto, espera_pago_impuestos: true
+    assert gasto.to_be_paid?, "to_be_paid? is false when espera_pago_impuestos is true and no deposito has been associated."
+  end
+
+  test '#to_be_paid? is false if espera_pago_impuestos is true and a deposito has been associated' do
+    prevision = FactoryGirl.create :prevision
+    deposito1 = FactoryGirl.create :deposito, prevision: prevision
+    apartado = FactoryGirl.create(:apartado, prevision: prevision)
+    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: true, deposito: FactoryGirl.create(:deposito, prevision: prevision)
+    refute gasto.to_be_paid?, "to_be_paid? is true when a deposito has been associated."
+  end
+
+  test '#to_be_paid? is false if espera_pago_impuestos is false' do
+    prevision = FactoryGirl.create :prevision
+    deposito1 = FactoryGirl.create :deposito, prevision: prevision
+    apartado = FactoryGirl.create(:apartado, prevision: prevision)
+    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: false
+    refute gasto.to_be_paid?, "to_be_paid? is true when espera_pago_impuestos is false."
+  end
+
   def validador_monto_reservado_valido
     Class.new do
       def valid?
