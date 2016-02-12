@@ -180,6 +180,14 @@ class GastoTest < ActiveSupport::TestCase
     refute gasto.to_be_paid?, "to_be_paid? is true when espera_pago_impuestos is false."
   end
 
+  test '#monto_a_reponer should be the IVA' do
+    gasto = FactoryGirl.build :gasto, monto: 100, iva: 16, total: 116
+    assert 16, gasto.monto_a_reponer
+
+    gasto.iva = 3.2
+    assert 3.2, gasto.monto_a_reponer
+  end
+
   def validador_monto_reservado_valido
     Class.new do
       def valid?

@@ -17,6 +17,14 @@ class ComisionTest < ActiveSupport::TestCase
     comision = FactoryGirl.build :comision, prevision: prevision, deposito: FactoryGirl.create(:deposito, prevision: prevision)
     refute comision.to_be_paid?, "to_be_paid? is true when a deposito has been associated."
   end
+
+  test '#monto_a_reponer should be the monto' do
+    gasto = FactoryGirl.build :comision, monto: 100
+    assert 100, gasto.monto_a_reponer
+
+    gasto.monto = 20
+    assert 20, gasto.monto_a_reponer
+  end
 end
 
 # == Schema Information

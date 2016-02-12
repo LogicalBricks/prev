@@ -24,6 +24,10 @@ class Comision < ActiveRecord::Base
     deposito_id.blank?
   end
 
+  def monto_a_reponer
+    monto
+  end
+
 private
 
   def fecha_formateada
