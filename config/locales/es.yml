@@ -224,3 +224,5 @@ es-MX:
               invalid: "debe estar en el rango de fechas de la previsión"
             monto:
               exceeds_monto_prevision: "rebasa el monto total de la previsión"
+            pago_de_comisiones_o_impuestos:
+              not_includes_comisiones_or_impuestos: "debe incluir al menos un gasto o una comisión"
