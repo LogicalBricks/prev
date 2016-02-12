@@ -64,7 +64,7 @@ class Gasto < ActiveRecord::Base
   end
 
   def monto_a_reponer
-    iva
+    iva.to_f
   end
 
   def to_s
