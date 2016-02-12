@@ -10,4 +10,8 @@ module ApplicationHelper
   def cross_mark
     content_tag :i, '', class: 'fa fa-times text-danger'
   end
+
+  def ccs_class_for_payable(model)
+    model.to_be_paid? ? "danger" : "success"
+  end
 end

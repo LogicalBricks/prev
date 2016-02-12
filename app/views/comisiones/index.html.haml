@@ -23,7 +23,7 @@
       
   %tbody
     - @comisiones.each do |comision|
-      %tr
+      %tr{ class: ccs_class_for_payable(comision) }
         %td= number_to_currency comision.monto
         %td= comision.descripcion
         %td= l comision.fecha, format: :short if comision.fecha

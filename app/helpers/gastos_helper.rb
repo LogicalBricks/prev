@@ -22,8 +22,4 @@ module GastosHelper
       check_mark
     end
   end
-
-  def ccs_class_for_row(gasto)
-    gasto.espera_pago_impuestos && !gasto.deposito ? "danger" : "success"
-  end
 end
