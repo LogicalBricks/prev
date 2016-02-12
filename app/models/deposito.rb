@@ -1,8 +1,8 @@
 class Deposito < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :depositos
-  has_many :gastos, inverse_of: :deposito
-  has_many :comisiones, inverse_of: :deposito
+  has_many :gastos, inverse_of: :deposito, dependent: :nullify
+  has_many :comisiones, inverse_of: :deposito, dependent: :nullify
 
   # == Validations ==
   validates :fecha, :prevision, :monto, presence: true
@@ -15,7 +15,7 @@ class Deposito < ActiveRecord::Base
   # == Scopes ==
   scope :de_gastos,           -> { where(pago_de_comisiones_o_impuestos: false) }
   scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
-  scope :para_listar,         -> { de_gastos.de_prevision_activa.preload :prevision }
+  scope :para_listar,         -> { de_prevision_activa.preload :prevision }
 
   # == Methods ==
 
