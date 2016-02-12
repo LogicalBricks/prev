@@ -8,11 +8,13 @@
     = f.association :prevision
     = f.input :referencia
     = f.input :pago_de_comisiones_o_impuestos
-    #pago-comision-o-impuestos
+    #pago-comision-o-impuestos.row
       .col-md-6
-        = f.association :gastos, collection: Gasto.para_seleccionar_en_deposito, :include_blank => true
+        = f.input :gastos do
+          = f.select :gasto_ids, Gasto.para_seleccionar_en_deposito.map { |g| [g.to_s, g.id, { data: { monto: g.monto_a_reponer } }] }, { include_blank: true }, multiple: true, class: "form-control"
       .col-md-6
-        = f.association :comisiones, collection: Comision.para_seleccionar_en_deposito, :include_blank => true
+        = f.input :comisiones do
+          = f.select :comision_ids, Comision.para_seleccionar_en_deposito.map { |c| [c.to_s, c.id, { data: { monto: c.monto_a_reponer } }] }, { include_blank: true }, multiple: true, class: "form-control"
 
   .form-actions
     = f.button :submit
