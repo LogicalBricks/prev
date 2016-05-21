@@ -70,6 +70,10 @@ class Socio < ActiveRecord::Base
   def apartados_prevision_activa
     apartados.de_prevision_activa
   end
+
+  def apartados_de_prevision(prevision)
+    apartados.de_prevision(prevision)
+  end
 end
 
 # == Schema Information

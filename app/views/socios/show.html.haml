@@ -41,7 +41,7 @@
       Monto gastado:
     .col-sm-9
       %p.form-control-static
-        = number_to_currency @socio.monto_gastado(Prevision.activa)
+        = number_to_currency @socio.monto_gastado_de_prevision(Prevision.activa)
       .form-group
         - @socio.apartados_prevision_activa.each do |apartado|
           .form-group
