@@ -29,21 +29,21 @@
       Monto reservado:
     .col-sm-9
       %p.form-control-static
-        = number_to_currency @socio.monto_reservado(Prevision.activa)
+        = number_to_currency @socio.monto_reservado(@prevision)
   .form-group
     %label.col-sm-3.control-label
       Monto disponible:
     .col-sm-9
       %p.form-control-static
-        = number_to_currency @socio.monto_disponible(Prevision.activa)
+        = number_to_currency @socio.monto_disponible(@prevision)
   .form-group
     %label.col-sm-3.control-label
       Monto gastado:
     .col-sm-9
       %p.form-control-static
-        = number_to_currency @socio.monto_gastado_de_prevision(Prevision.activa)
+        = number_to_currency @socio.monto_gastado_de_prevision(@prevision)
       .form-group
-        - @socio.apartados_de_prevision(Prevision.activa).each do |apartado|
+        - @socio.apartados_de_prevision(@prevision).each do |apartado|
           .form-group
             %label.col-sm-3.control-label
               = apartado

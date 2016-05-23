@@ -14,8 +14,9 @@ class Deposito < ActiveRecord::Base
 
   # == Scopes ==
   scope :de_gastos,           -> { where(pago_de_comisiones_o_impuestos: false) }
-  scope :de_prevision_activa, -> { where(prevision: Prevision.activa) }
-  scope :para_listar,         -> { de_prevision_activa.preload :prevision }
+  scope :de_prevision       , -> prevision { where(prevision: prevision) }
+  scope :de_prevision_activa, -> { de_prevision Prevision.activa }
+  scope :para_listar,         -> prevision: Prevision.activa { de_prevision(prevision).preload :prevision }
 
   # == Methods ==
 

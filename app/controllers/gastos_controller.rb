@@ -4,7 +4,7 @@ class GastosController < ApplicationController
   # GET /gastos
   # GET /gastos.json
   def index
-    @gastos = Gasto.para_listado
+    @gastos = Gasto.para_listado(prevision: prevision_actual)
   end
 
   # GET /gastos/1
