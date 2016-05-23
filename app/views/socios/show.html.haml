@@ -43,7 +43,7 @@
       %p.form-control-static
         = number_to_currency @socio.monto_gastado_de_prevision(Prevision.activa)
       .form-group
-        - @socio.apartados_prevision_activa.each do |apartado|
+        - @socio.apartados_de_prevision(Prevision.activa).each do |apartado|
           .form-group
             %label.col-sm-3.control-label
               = apartado
