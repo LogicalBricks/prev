@@ -18,7 +18,7 @@ private
   helper_method :prevision_actual
 
   def prevision_de_sesion
-    Prevision.find(session[:prevision_actual_id]) if session[:prevision_actual_id]
+    session[:prevision_actual_id] && Prevision.find_by_id(session[:prevision_actual_id])
   end
 
   def prevision_por_omision

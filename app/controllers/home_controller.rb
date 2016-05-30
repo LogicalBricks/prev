@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     render :no_prevision_activa and return if Prevision.activa.nil?
     render :no_deposito and return if Deposito.count == 0
 
-    @prevision = Prevision.activa
+    @prevision = prevision_actual
   end
 
   def estado_cuenta

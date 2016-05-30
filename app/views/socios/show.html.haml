@@ -23,7 +23,7 @@
       Monto total:
     .col-sm-9
       %p.form-control-static
-        = number_to_currency @socio.monto_tope
+        = number_to_currency @socio.monto_tope(prevision: @prevision)
   .form-group
     %label.col-sm-3.control-label
       Monto reservado:

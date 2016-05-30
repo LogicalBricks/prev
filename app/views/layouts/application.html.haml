@@ -22,6 +22,7 @@
                   %i.fa.fa-heartbeat
                   &nbsp;
                   Prev
+                  = prevision_actual
             - if usuario_actual
               %ul.nav.navbar-nav
                 %li{ class: controller_name == 'socios' ? 'active' : '' }
@@ -65,9 +66,21 @@
                     %i.fa.fa-sign-out
                     Cerrar sesión
 
+    - if usuario_actual
+      %section
+        .container.well
+          .row
+            .col-md-12
+              La prevision actual es del
+              %b
+                = l prevision_actual.fecha_inicial, format: :long
+                al
+                = l prevision_actual.fecha_final, format: :long
+              = link_to "Cambiar de previsión actual", previsiones_path, class: "btn btn-default pull-right"
+
     .container
       .row
-        .span12
+        .col-md-12
           = yield
 
     %footer.footer
