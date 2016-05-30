@@ -27,8 +27,9 @@ class Socio < ActiveRecord::Base
     monto_tope - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
   end
 
-  def monto_tope(prevision=nil)
-    tope.try(:monto).to_f
+  def monto_tope(prevision: nil)
+    prevision ||= Prevision.activa
+    topes.de_prevision(prevision).first.monto.to_f
   end
 
   def monto_reservado(prevision=nil)
@@ -51,8 +52,9 @@ class Socio < ActiveRecord::Base
     gastos.where(apartado: apartado).sum(:monto)
   end
 
-  def monto_gastado_o_reservado
-    monto_gastado_de_prevision(Prevision.activa) + monto_reservado(Prevision.activa)
+  def monto_gastado_o_reservado(prevision: nil)
+    prevision ||= Prevision.activa
+    monto_gastado_de_prevision(prevision) + monto_reservado(prevision)
   end
 
   def monto_cerca_de_limites?(apartado=nil)

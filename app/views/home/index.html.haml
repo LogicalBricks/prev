@@ -62,7 +62,7 @@
                 = link_to socio, socio
             .col-sm-6
               %p.form-control-static
-                = mostrar_montos(monto: socio.monto_gastado_o_reservado, monto_limite: socio.monto_tope)
+                = mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
 
 %hr/
 
