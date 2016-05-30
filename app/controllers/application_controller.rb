@@ -22,6 +22,6 @@ private
   end
 
   def prevision_por_omision
-    Prevision.activa
+    Prevision.de_periodo(Date.today.year)
   end
 end
