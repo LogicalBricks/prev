@@ -18,7 +18,6 @@ end
 # Table name: topes
 #
 #  id              :integer          not null, primary key
-#  socio           :string
 #  monto           :decimal(, )
 #  prevision_id    :integer
 #  socio_id        :integer
