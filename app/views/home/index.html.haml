@@ -10,59 +10,39 @@
     .panel.panel-default
       .panel-heading
         Montos generales
-      .panel-body.form-horizontal
+      .panel-body
         .col-md-4
-          .form-group
-            .col-sm-6
-              %label.control-label
-                = link_to "Monto total", @prevision
-            .col-sm-6
-              %p.form-control-static
-                = number_to_currency @prevision.monto
+          .col-md-9
+            = link_to "Total", @prevision
+            .pull-right= number_to_currency @prevision.monto
         .col-md-4
-          .form-group
-            .col-sm-6
-              %label.control-label
-                = link_to "Monto depositado", depositos_path
-            .col-sm-6
-              %p.form-control-static
-                = number_to_currency @prevision.monto_depositado
+          .col-md-9
+            = link_to "Depositado", depositos_path
+            .pull-right= number_to_currency @prevision.monto_depositado
         .col-md-4
-          .form-group
-            .col-sm-6
-              %label.control-label
-                = link_to "Monto gastado/reservado", gastos_path
-            .col-sm-6
-              %p.form-control-static
-                = mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
+          .col-md-10
+            = link_to "Gastado + reservado", gastos_path
+            .pull-right= mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
         Montos por apartado
-      .panel-body.form-horizontal
+      %ol.list-group
         - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
-          .form-group
-            .col-sm-6
-              %label.control-label
-                = link_to apartado, apartado
-            .col-sm-6
-              %p.form-control-static
-                = number_to_currency apartado.suma_monto_gastado
+          %li.list-group-item
+            .h5.pull-right= number_to_currency apartado.suma_monto_gastado
+            .h5= link_to apartado, apartado
 
   .col-md-6
     .panel.panel-default
       .panel-heading
         Montos por socio
-      .panel-body.form-horizontal
+      %ol.list-group
         - @prevision.socios.includes(:tope).each do |socio|
-          .form-group
-            .col-sm-6
-              %label.control-label
-                = link_to socio, socio
-            .col-sm-6
-              %p.form-control-static
-                = mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
+          %li.list-group-item
+            .h5.pull-right= mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
+            .h5= link_to socio, socio
 
 %hr/
 

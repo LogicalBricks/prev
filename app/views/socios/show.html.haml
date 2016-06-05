@@ -5,51 +5,45 @@
 
 %hr
 
-.form-horizontal
-  .form-group
-    %label.col-sm-3.control-label
-      Nombre:
-    .col-sm-9
-      %p.form-control-static
-        = @socio.nombre
-  .form-group
-    %label.col-sm-3.control-label
-      Usuario:
-    .col-sm-9
-      %p.form-control-static
-        = @socio.usuario
-  .form-group
-    %label.col-sm-3.control-label
-      Monto total:
-    .col-sm-9
-      %p.form-control-static
-        = number_to_currency @socio.monto_tope(prevision: @prevision)
-  .form-group
-    %label.col-sm-3.control-label
-      Monto reservado:
-    .col-sm-9
-      %p.form-control-static
-        = number_to_currency @socio.monto_reservado(@prevision)
-  .form-group
-    %label.col-sm-3.control-label
-      Monto disponible:
-    .col-sm-9
-      %p.form-control-static
-        = number_to_currency @socio.monto_disponible(@prevision)
-  .form-group
-    %label.col-sm-3.control-label
-      Monto gastado:
-    .col-sm-9
-      %p.form-control-static
-        = number_to_currency @socio.monto_gastado_de_prevision(@prevision)
-      .form-group
+%h3
+  = @socio.nombre
+  %small= @socio.usuario
+.row
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        Monto total
+      .panel-body
+        %h4.pull-right= number_to_currency @socio.monto_tope(prevision: @prevision)
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        Monto gastado
+        #link-detalles-monto-gastado.pull-right= link_to "[+]"
+      .panel-body
+        %h4.pull-right
+          = number_to_currency @socio.monto_gastado_de_prevision(@prevision)
+      .clearfix
+      %ol.list-group#detalles-monto-gastado
         - @socio.apartados_de_prevision(@prevision).each do |apartado|
-          .form-group
-            %label.col-sm-3.control-label
-              = apartado
-            .col-sm-9
-              %p.form-control-static
-                = mostrar_montos(monto: apartado.monto_gastado_por_socio(@socio), monto_limite: apartado.monto_maximo)
+          %li.list-group-item
+            %b= apartado
+            %p{ align: "right" }
+              = mostrar_montos(monto: apartado.monto_gastado_por_socio(@socio), monto_limite: apartado.monto_maximo)
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        Monto reservado:
+      .panel-body
+        %h4.pull-right= number_to_currency @socio.monto_reservado(@prevision)
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        Monto disponible:
+      .panel-body
+        %h4.pull-right= number_to_currency @socio.monto_disponible(@prevision)
+      .clearfix
+      %ol.list-group#detalles-monto-reservado
 
 .pull-right
   = link_to socios_path, class: 'btn btn-default' do
