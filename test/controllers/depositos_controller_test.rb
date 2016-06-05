@@ -2,8 +2,8 @@ require 'test_helper'
 
 class DepositosControllerTest < ActionController::TestCase
   setup do
-    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.today.yesterday, fecha_final: Date.today + 10.days, monto: 100_000
-    @deposito = FactoryGirl.create :deposito, prevision: @prevision, fecha: Date.today + 1.days
+    @prevision = FactoryGirl.create :prevision, fecha_inicial: Date.current.yesterday, fecha_final: 10.days.from_now, monto: 100_000
+    @deposito = FactoryGirl.create :deposito, prevision: @prevision, fecha: 1.day.from_now
   end
 
   test "should get index" do
@@ -35,7 +35,8 @@ class DepositosControllerTest < ActionController::TestCase
   end
 
   test "should create deposito that pays taxes" do
-    gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: @prevision)
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 100, prevision: @prevision
+    gasto = FactoryGirl.create :gasto, socio: socio, apartado: FactoryGirl.create(:apartado, prevision: @prevision)
     assert_difference('Deposito.count') do
       post :create, deposito: { descripcion: @deposito.descripcion, fecha: @deposito.fecha, monto: @deposito.monto, prevision_id: @deposito.prevision_id, pago_de_comisiones_o_impuestos: true, gasto_ids: [gasto.id] }
     end
@@ -44,7 +45,8 @@ class DepositosControllerTest < ActionController::TestCase
   end
 
   test "should not create deposito that includes gasto but doesn not pay taxes" do
-    gasto = FactoryGirl.create :gasto, apartado: FactoryGirl.create(:apartado, prevision: @prevision)
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 100, prevision: @prevision
+    gasto = FactoryGirl.create :gasto, socio: socio, apartado: FactoryGirl.create(:apartado, prevision: @prevision)
     assert_difference('Deposito.count', 0) do
       post :create, deposito: { descripcion: @deposito.descripcion, fecha: @deposito.fecha, monto: @deposito.monto, prevision_id: @deposito.prevision_id, pago_de_comisiones_o_impuestos: false, gasto_ids: [gasto.id] }
     end

@@ -24,16 +24,19 @@ class Socio < ActiveRecord::Base
 
   def monto_disponible(prevision=nil)
     prevision ||= Prevision.activa
-    monto_tope - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
+    monto_tope(prevision: prevision) - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
   end
 
   def monto_tope(prevision: nil)
     prevision ||= Prevision.activa
-    topes.de_prevision(prevision).first.monto.to_f
+    t = topes.de_prevision(prevision).first
+    t ? t.monto.to_f : 0
   end
 
   def monto_reservado(prevision=nil)
-    tope.try(:monto_reservado).to_f
+    prevision ||= Prevision.activa
+    t = topes.de_prevision(prevision).first
+    t ? t.monto_reservado.to_f : 0
   end
 
   def monto_gastado_de_prevision(prevision)

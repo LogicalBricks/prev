@@ -15,14 +15,14 @@ class GastoTest < ActiveSupport::TestCase
   should define_enum_for(:metodo_pago).with([:transferencia, :tarjeta, :reembolso])
 
   test "does not allow to set a fecha before the prevision's innitial date" do
-    prevision = FactoryGirl.create :prevision, periodo: 2016
+    prevision = FactoryGirl.create :prevision, periodo: 2016, activa: true
     gasto = FactoryGirl.build :gasto, fecha: "2015-02-04".to_date, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
   end
 
   test "does not allow to set a fecha after the prevision's final date" do
-    prevision = FactoryGirl.create :prevision, periodo: 2014
+    prevision = FactoryGirl.create :prevision, periodo: 2016, activa: true
     gasto = FactoryGirl.build :gasto, fecha: "2015-02-04".to_date, apartado: FactoryGirl.create(:apartado, prevision: prevision)
     refute gasto.valid?
     assert gasto.errors[:fecha].include?("debe estar en el rango de fechas de la previsión")
@@ -166,17 +166,19 @@ class GastoTest < ActiveSupport::TestCase
 
   test '#to_be_paid? is false if espera_pago_impuestos is true and a deposito has been associated' do
     prevision = FactoryGirl.create :prevision
-    deposito1 = FactoryGirl.create :deposito, prevision: prevision
-    apartado = FactoryGirl.create(:apartado, prevision: prevision)
-    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: true, deposito: FactoryGirl.create(:deposito, prevision: prevision)
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 100, prevision: prevision
+    deposito1 = FactoryGirl.create :deposito, prevision: prevision, monto: 100
+    apartado = FactoryGirl.create :apartado, prevision: prevision
+    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: true, monto: 50, socio: socio, deposito: FactoryGirl.create(:deposito, prevision: prevision)
     refute gasto.to_be_paid?, "to_be_paid? is true when a deposito has been associated."
   end
 
   test '#to_be_paid? is false if espera_pago_impuestos is false' do
     prevision = FactoryGirl.create :prevision
-    deposito1 = FactoryGirl.create :deposito, prevision: prevision
-    apartado = FactoryGirl.create(:apartado, prevision: prevision)
-    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: false
+    socio = FactoryGirl.create :socio, :con_tope, monto_tope: 100, prevision: prevision
+    deposito1 = FactoryGirl.create :deposito, prevision: prevision, monto: 100
+    apartado = FactoryGirl.create :apartado, prevision: prevision
+    gasto = FactoryGirl.create :gasto, apartado: apartado, espera_pago_impuestos: false, monto: 50, socio: socio
     refute gasto.to_be_paid?, "to_be_paid? is true when espera_pago_impuestos is false."
   end
 
