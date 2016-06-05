@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :socio do
-    nombre "MyString"
+    nombre "Un nombre de socio"
     usuario
 
     trait :con_tope do
@@ -14,12 +14,6 @@ FactoryGirl.define do
         opts.merge! monto: evaluator.monto_tope if evaluator.monto_tope
         opts.merge! prevision: evaluator.prevision if evaluator.prevision
         socio.tope = build(:tope, opts)
-      end
-    end
-
-    trait :con_usuario do
-      after :build do |socio|
-        socio.usuario = build :usuario
       end
     end
   end
