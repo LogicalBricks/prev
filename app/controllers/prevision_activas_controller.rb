@@ -1,5 +1,9 @@
 class PrevisionActivasController < ApplicationController
-  before_action :load_prevision
+  before_action :load_prevision, only: [:update]
+
+  # GET prevision_activa
+  def show
+  end
 
   # PUT prevision_activa/1
   def update

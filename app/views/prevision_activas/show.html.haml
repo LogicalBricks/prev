@@ -1,0 +1,14 @@
+#home
+  .no-data
+    %h1.text-center.text-error Selecciona la previsión con la que deseas trabajar
+
+    .text-center
+      - Prevision.all.each do |prevision|
+        - if prevision == prevision_actual
+          = link_to prevision_activa_path(id: prevision), method: :patch, class: 'btn btn-lg btn-success disabled' do
+            %i.fa.fa-check-circle
+            = prevision
+        - else
+          = link_to prevision_activa_path(id: prevision), method: :patch, class: 'btn btn-lg btn-default' do
+            %i.fa.fa-check-circle
+            = prevision

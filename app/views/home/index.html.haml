@@ -1,29 +1,43 @@
+.pull-right
+  = link_to estado_cuenta_path, class: 'btn btn-lg btn-primary' do
+    %i.fa.fa-table
+    Ver Estado de Cuenta
+
 %h1
   %i.fa.fa-heartbeat
   &nbsp;
   Panel de control
-
 %hr
 
 .row
-  .col-md-12
+  .col-md-6
     .panel.panel-default
       .panel-heading
         Montos generales
-      .panel-body
-        .col-md-4
-          .col-md-9
-            = link_to "Total", @prevision
-            .pull-right= number_to_currency @prevision.monto
-        .col-md-4
-          .col-md-9
-            = link_to "Depositado", depositos_path
-            .pull-right= number_to_currency @prevision.monto_depositado
-        .col-md-4
-          .col-md-10
-            = link_to "Gastado + reservado", gastos_path
-            .pull-right= mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
-.row
+      %ol.list-group
+        %li.list-group-item
+          = link_to "Total", @prevision
+          .pull-right= number_to_currency @prevision.monto
+        %li.list-group-item
+          = link_to "Depositado", depositos_path
+          .pull-right= number_to_currency @prevision.monto_depositado
+        %li.list-group-item
+          = link_to "Gastado", gastos_path
+          .pull-right= mostrar_montos monto: @prevision.monto_gastado, monto_limite: @prevision.monto, ocultar_limite: true
+        %li.list-group-item
+          = link_to "Reservado", gastos_path
+          .pull-right= mostrar_montos monto: @prevision.monto_reservado, monto_limite: @prevision.monto, ocultar_limite: true
+        %li.list-group-item
+          = link_to "Gastado + reservado", gastos_path
+          .pull-right= mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
+    .panel.panel-default
+      .panel-heading
+        Montos por socio
+      %ol.list-group
+        - @prevision.socios.includes(:tope).each do |socio|
+          %li.list-group-item
+            .h5.pull-right= mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
+            .h5= link_to socio, socio
   .col-md-6
     .panel.panel-default
       .panel-heading
@@ -33,19 +47,3 @@
           %li.list-group-item
             .h5.pull-right= number_to_currency apartado.suma_monto_gastado
             .h5= link_to apartado, apartado
-
-  .col-md-6
-    .panel.panel-default
-      .panel-heading
-        Montos por socio
-      %ol.list-group
-        - @prevision.socios.includes(:tope).each do |socio|
-          %li.list-group-item
-            .h5.pull-right= mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
-            .h5= link_to socio, socio
-
-%hr/
-
-= link_to estado_cuenta_path, class: 'btn btn-lg btn-primary' do
-  %i.fa.fa-table
-  Ver Estado de Cuenta
