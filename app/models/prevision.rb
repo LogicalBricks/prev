@@ -1,7 +1,7 @@
 class Prevision < ActiveRecord::Base
   class << self
-    def activa
-      find_by_activa true
+    def default
+      de_periodo(Date.today.year)
     end
   end
 

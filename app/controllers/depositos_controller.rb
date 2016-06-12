@@ -14,7 +14,7 @@ class DepositosController < ApplicationController
 
   # GET /depositos/new
   def new
-    @deposito = Deposito.new prevision: Prevision.activa
+    @deposito = Deposito.new prevision: Prevision.default
   end
 
   # GET /depositos/1/edit

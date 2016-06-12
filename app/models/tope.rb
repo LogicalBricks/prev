@@ -10,7 +10,7 @@ class Tope < ActiveRecord::Base
 
   # == Scopes ==
   scope :de_prevision, -> prevision { where(prevision: prevision) }
-  scope :de_prevision_activa, -> { de_prevision(Prevision.activa) }
+  scope :de_prevision_activa, -> { de_prevision(Prevision.default) }
 end
 
 # == Schema Information

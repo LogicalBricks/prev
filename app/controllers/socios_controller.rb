@@ -11,7 +11,7 @@ class SociosController < ApplicationController
   # GET /socios/1.json
   def show
     @socio = Socio.includes(apartados: [:rubro, :prevision]).find(params[:id])
-    @prevision = Prevision.activa
+    @prevision = Prevision.default
   end
 
   # GET /socios/new

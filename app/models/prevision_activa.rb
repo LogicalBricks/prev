@@ -13,6 +13,10 @@ private
   attr_reader :prevision
 
   def prevision_anterior
-    @prevision_anterior ||= Prevision.activa
+    @prevision_anterior ||= prevision_default
+  end
+
+  def prevision_default
+    Prevision.default
   end
 end
