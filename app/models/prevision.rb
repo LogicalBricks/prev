@@ -1,7 +1,7 @@
 class Prevision < ActiveRecord::Base
   class << self
     def default
-      de_periodo(Date.today.year)
+      de_periodo(Date.today.year) || last
     end
   end
 
