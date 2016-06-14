@@ -3,7 +3,6 @@ FactoryGirl.define do
     periodo Date.today.year
     monto_remanente "9.99"
     monto_presupuestado "190"
-    activa true
 
     trait :con_apartado do
       transient do

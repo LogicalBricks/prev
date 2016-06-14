@@ -100,5 +100,4 @@ end
 #  updated_at          :datetime         not null
 #  monto_remanente     :decimal(, )
 #  monto_presupuestado :decimal(, )
-#  activa              :boolean          default(FALSE)
 #
