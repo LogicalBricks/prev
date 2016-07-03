@@ -4,7 +4,7 @@
 
     .text-center
       - Prevision.all.each do |prevision|
-        - if prevision == prevision_actual
+        - if prevision == prevision_activa
           = link_to prevision_activa_path(id: prevision), method: :patch, class: 'btn btn-lg btn-success disabled' do
             %i.fa.fa-check-circle
             = prevision

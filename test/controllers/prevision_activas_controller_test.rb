@@ -8,7 +8,7 @@ class PrevisionActivasControllerTest < ActionController::TestCase
 
   test "should activate a prevision" do
     put :update, id: @prevision
-    assert_equal @prevision.id, session[:prevision_actual_id]
+    assert_equal @prevision.id, session[:prevision_activa_id]
   end
 
   test 'should redirect to the previous page' do

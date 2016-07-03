@@ -14,7 +14,7 @@
       .panel-heading
         Monto total
       .panel-body
-        %h4.pull-right= number_to_currency @socio.monto_tope(prevision: prevision_actual)
+        %h4.pull-right= number_to_currency @socio.monto_tope(prevision: prevision_activa)
   .col-md-3
     .panel.panel-default
       .panel-heading
@@ -22,10 +22,10 @@
         #link-detalles-monto-gastado.pull-right= link_to "[+]"
       .panel-body
         %h4.pull-right
-          = number_to_currency @socio.monto_gastado_de_prevision(prevision_actual)
+          = number_to_currency @socio.monto_gastado_de_prevision(prevision_activa)
       .clearfix
       %ol.list-group#detalles-monto-gastado
-        - @socio.apartados_de_prevision(prevision_actual).each do |apartado|
+        - @socio.apartados_de_prevision(prevision_activa).each do |apartado|
           %li.list-group-item
             %b= apartado
             %p{ align: "right" }
@@ -35,13 +35,13 @@
       .panel-heading
         Monto reservado:
       .panel-body
-        %h4.pull-right= number_to_currency @socio.monto_reservado(prevision_actual)
+        %h4.pull-right= number_to_currency @socio.monto_reservado(prevision_activa)
   .col-md-3
     .panel.panel-default
       .panel-heading
         Monto disponible:
       .panel-body
-        %h4.pull-right= number_to_currency @socio.monto_disponible(prevision_actual)
+        %h4.pull-right= number_to_currency @socio.monto_disponible(prevision_activa)
       .clearfix
       %ol.list-group#detalles-monto-reservado
 

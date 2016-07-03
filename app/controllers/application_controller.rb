@@ -12,13 +12,13 @@ private
   end
   helper_method :usuario_actual
 
-  def prevision_actual
-    @prevision_actual ||= prevision_de_sesion || prevision_por_omision
+  def prevision_activa
+    @prevision_activa ||= prevision_de_sesion || prevision_por_omision
   end
-  helper_method :prevision_actual
+  helper_method :prevision_activa
 
   def prevision_de_sesion
-    session[:prevision_actual_id] && Prevision.find_by_id(session[:prevision_actual_id])
+    session[:prevision_activa_id] && Prevision.find_by_id(session[:prevision_activa_id])
   end
 
   def prevision_por_omision

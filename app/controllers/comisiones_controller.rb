@@ -4,7 +4,7 @@ class ComisionesController < ApplicationController
   # GET /comisiones
   # GET /comisiones.json
   def index
-    @comisiones = Comision.para_listar(prevision: prevision_actual)
+    @comisiones = Comision.para_listar(prevision: prevision_activa)
   end
 
   # GET /comisiones/1
@@ -14,7 +14,7 @@ class ComisionesController < ApplicationController
 
   # GET /comisiones/new
   def new
-    @comision = Comision.new prevision: prevision_actual
+    @comision = Comision.new prevision: prevision_activa
   end
 
   # GET /comisiones/1/edit

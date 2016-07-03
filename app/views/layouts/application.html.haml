@@ -22,7 +22,7 @@
                   %i.fa.fa-heartbeat
                   &nbsp;
                   Prev
-                  = prevision_actual
+                  = prevision_activa
             - if usuario_actual
               %ul.nav.navbar-nav
                 %li{ class: controller_name == 'socios' ? 'active' : '' }
@@ -69,16 +69,16 @@
     .container
       .row
         .col-md-12
-          - if usuario_actual && prevision_actual && Prevision.count > 1
+          - if usuario_actual && prevision_activa && Prevision.count > 1
             %section
               .well
                 = link_to "Cambiar de previsión actual", prevision_activa_path, class: "btn btn-default pull-right"
                 .h5
-                  La prevision actual es del
+                  La prevision activa es del
                   %b
-                    = l prevision_actual.fecha_inicial, format: :long
+                    = l prevision_activa.fecha_inicial, format: :long
                     al
-                    = l prevision_actual.fecha_final, format: :long
+                    = l prevision_activa.fecha_final, format: :long
 
           = yield
 

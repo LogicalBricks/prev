@@ -7,7 +7,7 @@ class PrevisionActivasController < ApplicationController
 
   # PUT prevision_activa/1
   def update
-    session[:prevision_actual_id] = @prevision.id
+    session[:prevision_activa_id] = @prevision.id
     redirect_to :back
   end
 
