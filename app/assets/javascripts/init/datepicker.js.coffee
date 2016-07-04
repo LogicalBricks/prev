@@ -16,4 +16,4 @@ ready = ->
     format: 'yyyy-mm-dd'
     autoclose: true
 
-$(document).on 'ready page:load', ready
+$(document).on 'ready turbolinks:load', ready

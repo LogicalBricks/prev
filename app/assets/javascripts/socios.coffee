@@ -8,4 +8,4 @@ ready = ->
     $(this).text (i, text) -> if text == "[+]" then "[-]" else "[+]"
     false
 
-$(document).on 'ready page:load', ready
+$(document).on 'ready turbolinks:load', ready
