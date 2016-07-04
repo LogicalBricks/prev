@@ -203,7 +203,7 @@ GEM
       sprockets-rails
     rails-assets-bootstrap-datepicker (1.6.1)
       rails-assets-jquery (>= 1.7.1)
-    rails-assets-jquery (3.0.0)
+    rails-assets-jquery (2.2.4)
     rails-assets-showdown (1.4.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -318,6 +318,7 @@ DEPENDENCIES
   railroady
   rails (= 4.2.6)
   rails-assets-bootstrap-datepicker!
+  rails-assets-jquery (= 2.2.4)!
   rails-assets-showdown!
   redcarpet
   ruby-graphviz
@@ -334,4 +335,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.1
+   1.12.5

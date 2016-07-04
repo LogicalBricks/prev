@@ -36,6 +36,7 @@ gem 'to_xls', github: 'LogicalBricks/to_xls'
 source 'https://rails-assets.org' do
   gem 'rails-assets-showdown'
   gem 'rails-assets-bootstrap-datepicker'
+  gem 'rails-assets-jquery', '2.2.4'
 end
 
 # Use ActiveModel has_secure_password
