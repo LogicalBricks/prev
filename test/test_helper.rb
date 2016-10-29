@@ -5,7 +5,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   setup do
     sign_in FactoryGirl.create :usuario
