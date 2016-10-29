@@ -10,8 +10,9 @@ class HomeController < ApplicationController
   end
 
   def estado_cuenta
-    @prevision = Prevision.default
+    @prevision   = Prevision.default
     @movimientos = movimientos
+    @mes         = params[:mes].to_i
 
     respond_to do |format|
       format.html
@@ -48,6 +49,7 @@ private
     def cargo; end
     def abono; end
     def metodo; end
+    def impuesto; end
 
     def tipo
       model_name.human
@@ -67,6 +69,10 @@ private
 
     def abono
       monto
+    end
+
+    def impuesto
+      iva
     end
 
     def descripcion

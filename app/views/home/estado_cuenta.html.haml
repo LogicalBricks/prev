@@ -1,5 +1,28 @@
-%h2 Estado de cuenta
+.col-md-3
+  %h2 Estado de cuenta
 
+.col-md-5
+  = form_tag estado_cuenta_path, method: :get do
+    %p
+    = text_field_tag :mes, params[:mes]
+    = submit_tag 'Buscar', class: 'btn btn-primary'
+    = link_to 'Cancelar', estado_cuenta_path, class: 'btn btn-danger'
+
+.col-md-4
+  .form-inline
+    - if estado_cuenta.por_mes?
+      %h4 Saldo
+      .form-group
+        %label.control-label Inicio de mes
+        %p.form-control-static.text-danger
+          = number_to_currency estado_cuenta.saldo_a_inicio_mes
+      &nbsp;
+      .form-group
+        %label.control-label Fin de mes
+        %p.form-control-static.text-danger
+          = number_to_currency estado_cuenta.saldo_a_final_mes
+
+.row
 %hr/
 
 %table#estado_cuenta.table.table-striped.table-hover
