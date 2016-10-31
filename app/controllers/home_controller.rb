@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   def estado_cuenta
     @prevision   = Prevision.default
     @movimientos = movimientos
-    @mes         = params[:mes].to_i
+    @fecha       = calcula_fecha
 
     respond_to do |format|
       format.html
@@ -21,6 +21,17 @@ class HomeController < ApplicationController
   end
 
 private
+
+  def calcula_fecha
+    @mes  = params[:mes].to_i
+    if @mes != 0
+      fecha = Date.new(prevision_activa.periodo.to_i, @mes)
+      fecha.beginning_of_month..fecha.end_of_month
+    else
+      fecha = Date.new(prevision_activa.periodo.to_i)
+      fecha.beginning_of_year..fecha.end_of_year
+    end
+  end
 
   def xls_file
     @movimientos.to_xls(
