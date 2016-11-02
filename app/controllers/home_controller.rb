@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   end
 
   def estado_cuenta
-    @prevision   = Prevision.default
+    @prevision   = Prevision.de_periodo(prevision_activa.periodo)
     @movimientos = movimientos
     @fechas      = calcula_fechas
 
