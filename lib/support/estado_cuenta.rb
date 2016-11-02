@@ -2,9 +2,9 @@ class EstadoCuenta
   attr_reader :total_cargos, :total_abonos
 
   def initialize(movimientos, fechas)
-    @movimientos        = movimientos
-    @fechas             = fechas
-    @total_cargos       = @total_abonos = 0.0
+    @movimientos  = movimientos
+    @fechas       = fechas
+    @total_cargos = @total_abonos = 0.0
   end
 
   def each

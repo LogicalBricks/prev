@@ -1,6 +1,6 @@
 module HomeHelper
-  def estado_cuenta(movimientos = @movimientos, fecha = @fecha)
-    @estado_cuenta ||= EstadoCuenta.new(movimientos, fecha)
+  def estado_cuenta(movimientos = @movimientos, fechas = @fechas)
+    @estado_cuenta ||= EstadoCuenta.new(movimientos, fechas)
   end
 
   def mostrar_montos(monto:, monto_limite:, ocultar_limite: false)
