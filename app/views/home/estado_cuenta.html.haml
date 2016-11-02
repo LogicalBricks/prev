@@ -10,17 +10,16 @@
 
 .col-md-4
   .form-inline
-    - if estado_cuenta.por_mes?
-      %h4 Saldo
-      .form-group
-        %label.control-label Inicio de mes
-        %p.form-control-static.text-danger
-          = number_to_currency estado_cuenta.saldo_a_inicio_mes
-      &nbsp;
-      .form-group
-        %label.control-label Fin de mes
-        %p.form-control-static.text-danger
-          = number_to_currency estado_cuenta.saldo_a_final_mes
+    %h4 Saldo
+    .form-group
+      %label.control-label Inicio
+      %p.form-control-static.text-danger
+        = number_to_currency estado_cuenta.saldo_a_inicio_fecha
+    &nbsp;
+    .form-group
+      %label.control-label Fin
+      %p.form-control-static.text-danger
+        = number_to_currency estado_cuenta.saldo_a_final_fecha
 
 .row
 %hr/
