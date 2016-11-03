@@ -8,7 +8,7 @@
           %legend Información del pago
           = f.association :socio, collection: Socio.de_prevision(prevision_activa)
           = f.input :fecha, as: :datepicker
-          = f.association :apartado, collection: Apartado.para_seleccionar_en_gasto
+          = f.association :apartado, collection: Apartado.para_seleccionar_en_gasto(prevision_activa)
           = f.input :monto
           = f.input :iva
           = f.input :total

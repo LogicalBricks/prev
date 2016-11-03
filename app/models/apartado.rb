@@ -13,7 +13,7 @@ class Apartado < ActiveRecord::Base
   # == Scopes ==
   scope :de_prevision,              -> prevision { where(prevision: prevision) }
   scope :de_prevision_activa,       -> { de_prevision(Prevision.default) }
-  scope :para_seleccionar_en_gasto, -> { includes(:prevision, :rubro).de_prevision_activa }
+  scope :para_seleccionar_en_gasto, -> prevision { includes(:prevision, :rubro).de_prevision(prevision) }
 
   # == Methods ==
 
