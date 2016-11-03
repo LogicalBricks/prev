@@ -12,7 +12,7 @@ class Comision < ActiveRecord::Base
   scope :de_prevision_activa,          -> { de_prevision(Prevision.default) }
   scope :para_listar,                  -> prevision: Prevision.default { de_prevision(prevision).includes(:prevision) }
   scope :sin_deposito,                 -> { where(deposito_id: nil) }
-  scope :para_seleccionar_en_deposito, -> prevision: Prevision.default { de_prevision(prevision) }
+  scope :para_seleccionar_en_deposito, -> prevision { de_prevision(prevision) }
 
   # == Methods ==
 

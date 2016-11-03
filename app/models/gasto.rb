@@ -34,7 +34,7 @@ class Gasto < ActiveRecord::Base
   scope :de_socio,                     -> socio { joins(:socio).where(socio_id: socio) }
   scope :para_listado,                 -> prevision: Prevision.default { de_prevision(prevision).preload(:socio, apartado: [:rubro, :prevision]).order(fecha: :desc) }
   scope :espera_pago_impuestos,        -> { where(espera_pago_impuestos: true).where(deposito_id: nil) }
-  scope :para_seleccionar_en_deposito, -> { de_prevision_activa.espera_pago_impuestos }
+  scope :para_seleccionar_en_deposito, -> prevision { de_prevision(prevision).espera_pago_impuestos }
 
   # == Methods ==
 

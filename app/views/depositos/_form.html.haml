@@ -11,10 +11,10 @@
     #pago-comision-o-impuestos.row
       .col-md-6
         = f.input :gastos do
-          = f.select :gasto_ids, select_options_for_payable(Gasto.para_seleccionar_en_deposito), { include_blank: true }, { multiple: true, class: "form-control" }
+          = f.select :gasto_ids, select_options_for_payable(Gasto.para_seleccionar_en_deposito(prevision_activa)), { include_blank: true }, { multiple: true, class: "form-control" }
       .col-md-6
         = f.input :comisiones do
-          = f.select :comision_ids, select_options_for_payable(Comision.para_seleccionar_en_deposito), { include_blank: true }, { multiple: true, class: "form-control" }
+          = f.select :comision_ids, select_options_for_payable(Comision.para_seleccionar_en_deposito(prevision_activa)), { include_blank: true }, { multiple: true, class: "form-control" }
 
   .form-actions
     = f.button :submit
