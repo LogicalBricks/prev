@@ -41,10 +41,14 @@ class Gasto < ActiveRecord::Base
   delegate :fecha_valida?, to: :prevision, allow_nil: true
   delegate :monto_gastado, :monto_depositado, to: :prevision, allow_nil: true, prefix: true
   delegate :monto_maximo, :prevision, to: :apartado, allow_nil: true, prefix: true
-  delegate :monto_gastado, :monto_disponible, :monto_reservado, to: :socio, allow_nil: true, prefix: true
+  delegate :monto_gastado, :monto_disponible, :monto_disponible_mas_monto_reservado, :monto_reservado, to: :socio, allow_nil: true, prefix: true
 
   def supera_monto_socio?
-    monto_a_aumentar > socio_monto_disponible.to_f
+    if descontar_de_reservado?
+      monto_a_aumentar > socio_monto_disponible_mas_monto_reservado.to_f
+    else
+      monto_a_aumentar > socio_monto_disponible.to_f
+    end
   end
 
   def prevision

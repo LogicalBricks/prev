@@ -27,6 +27,11 @@ class Socio < ActiveRecord::Base
     monto_tope(prevision: prevision) - monto_reservado(prevision) - monto_gastado_de_prevision(prevision)
   end
 
+  def monto_disponible_mas_monto_reservado(prevision = nil)
+    prevision ||= prevision_default
+    monto_tope(prevision: prevision) - monto_gastado_de_prevision(prevision)
+  end
+
   def monto_tope(prevision: nil)
     prevision ||= prevision_default
     t = topes.de_prevision(prevision).first
