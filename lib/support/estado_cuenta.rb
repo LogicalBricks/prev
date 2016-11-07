@@ -1,16 +1,17 @@
 class EstadoCuenta
-  attr_reader :total_cargos, :total_abonos
+  attr_reader :total_cargos, :total_abonos, :subtotal_abonos
 
   def initialize(movimientos, fechas)
     @movimientos  = movimientos
     @fechas       = fechas
-    @total_cargos = @total_abonos = 0.0
+    @total_cargos = @total_abonos = @subtotal_abonos = 0.0
   end
 
   def each
     por_fecha(@movimientos).each do |v|
+      @subtotal_abonos += v.abono.to_f
       @total_cargos += v.cargo.to_f
-      @total_abonos += v.abono.to_f
+      @total_abonos += (v.abono.to_f + v.impuesto.to_f)
       yield v
     end
   end

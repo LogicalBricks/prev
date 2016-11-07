@@ -13,6 +13,7 @@ class HomeController < ApplicationController
     @prevision   = Prevision.de_periodo(prevision_activa.periodo)
     @movimientos = movimientos
     @fechas      = calcula_fechas
+    @sin_iva     = params[:sin_iva]
 
     respond_to do |format|
       format.html
@@ -64,6 +65,11 @@ private
 
     def tipo
       model_name.human
+    end
+
+    def abono_mas_iva
+      return nil if abono.nil? and impuesto.nil?
+      abono.to_f + impuesto.to_f
     end
   end
 

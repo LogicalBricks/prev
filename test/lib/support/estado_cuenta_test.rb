@@ -9,7 +9,7 @@ class EstadoCuentaTest < Minitest::Test
 
     date   = Date.new(2016,1)
     fechas = date.beginning_of_month..date.end_of_month
-    movimientos   = [deposito_january, gasto_january, gasto_dos_january] 
+    movimientos   = [deposito_january, gasto_january, gasto_dos_january]
     estado_cuenta = EstadoCuenta.new movimientos, fechas
 
     assert_equal 0.0, estado_cuenta.saldo_a_inicio_fecha
@@ -34,4 +34,21 @@ class EstadoCuentaTest < Minitest::Test
     assert_equal 200, estado_cuenta.saldo_a_inicio_fecha
     assert_equal 300, estado_cuenta.saldo_a_final_fecha
   end
+
+  def test_abonos
+    deposito_january   = Struct.new(:abono, :cargo, :impuesto, :fecha).new   0,  500,  0, '2016-01-01'.to_date
+    gasto_january      = Struct.new(:abono, :cargo, :impuesto, :fecha).new 200,    0, 32, '2016-01-05'.to_date
+    gasto_dos_january  = Struct.new(:abono, :cargo, :impuesto, :fecha).new 100,    0, 16, '2016-01-08'.to_date
+
+    date   = Date.new(2016,1)
+    fechas = date.beginning_of_month..date.end_of_month
+    movimientos   = [deposito_january, gasto_january, gasto_dos_january]
+    estado_cuenta = EstadoCuenta.new movimientos, fechas
+
+    estado_cuenta.each {}
+
+    assert_equal 300.0, estado_cuenta.subtotal_abonos
+    assert_equal 348.0, estado_cuenta.total_abonos
+  end
+
 end
