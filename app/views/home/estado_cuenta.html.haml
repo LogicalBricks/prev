@@ -4,7 +4,10 @@
 .col-md-5
   = form_tag estado_cuenta_path, method: :get do
     %p
-    = text_field_tag :mes, params[:mes]
+    = label_tag :mas_iva, 'Más IVA'
+    = check_box_tag :mas_iva, true, @mas_iva
+    &nbsp;
+    = text_field_tag :mes, params[:mes], size: 10
     = submit_tag 'Buscar', class: 'btn btn-primary'
     = link_to 'Cancelar', estado_cuenta_path, class: 'btn btn-danger'
 

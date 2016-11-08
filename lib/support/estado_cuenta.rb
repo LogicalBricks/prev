@@ -41,7 +41,7 @@ class EstadoCuenta
     saldo = gasto = 0.0
     movimientos.each do |m|
       saldo += m.cargo.to_f
-      gasto += (m.abono.to_f + m.impuesto.to_f)
+      gasto += m.abono.to_f
     end
     saldo - gasto
   end

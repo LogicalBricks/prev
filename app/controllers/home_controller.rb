@@ -11,6 +11,7 @@ class HomeController < ApplicationController
 
   def estado_cuenta
     @prevision   = Prevision.de_periodo(prevision_activa.periodo)
+    @mas_iva     = params[:mas_iva]
     @movimientos = movimientos
     @fechas      = calcula_fechas
 
@@ -41,7 +42,7 @@ private
   end
 
   def movimientos
-    (depositos + gastos + comisiones).sort_by(&:fecha)
+    (depositos + (@mas_iva ? gastos_con_iva : gastos) + comisiones).sort_by(&:fecha)
   end
 
   def depositos
@@ -52,6 +53,10 @@ private
     @prevision.gastos.includes(:socio, apartado: :rubro).map{|g| GastoPresenter.new(g) }
   end
 
+  def gastos_con_iva
+    @prevision.gastos.includes(:socio, apartado: :rubro).map{|g| GastoConIvaPresenter.new(g) }
+  end
+
   def comisiones
     @prevision.comisiones.map{|c| ComisionPresenter.new(c) }
   end
@@ -60,11 +65,11 @@ private
     def cargo; end
     def abono; end
     def metodo; end
-    def impuesto; end
 
     def tipo
       model_name.human
     end
+
   end
 
   class DepositoPresenter < SimpleDelegator
@@ -82,8 +87,20 @@ private
       monto
     end
 
-    def impuesto
-      iva
+    def descripcion
+      "#{apartado.rubro} - #{socio}"
+    end
+
+    def metodo
+      metodo_pago.capitalize
+    end
+  end
+
+  class GastoConIvaPresenter < SimpleDelegator
+    include MovimientoPresenter
+
+    def abono
+      monto + iva
     end
 
     def descripcion
