@@ -44,6 +44,14 @@ class SocioTest < ActiveSupport::TestCase
     FactoryGirl.create :gasto, monto: 3, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: prevision, monto_maximo: 15)
     assert_equal 8, tope.socio.monto_disponible
   end
+
+  test "monto_disponible_mas_monto_reservado is monto_tope - monto_gastado" do
+    prevision = FactoryGirl.create :prevision, monto: 20
+    tope = FactoryGirl.create :tope, monto: 15, monto_reservado: 4, prevision: prevision
+    FactoryGirl.create :deposito, monto: 20, prevision: prevision
+    FactoryGirl.create :gasto, monto: 5, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: prevision, monto_maximo: 15)
+    assert_equal 10, tope.socio.monto_disponible_mas_monto_reservado
+  end
 end
 
 # == Schema Information
