@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
   def estado_cuenta
     @prevision   = Prevision.de_periodo(prevision_activa.periodo)
-    @sin_iva     = params[:sin_iva]
+    @mas_iva     = params[:mas_iva]
     @movimientos = movimientos
     @fechas      = calcula_fechas
 
@@ -42,7 +42,7 @@ private
   end
 
   def movimientos
-    (depositos + (@sin_iva ? gastos : gastos_con_iva) + comisiones).sort_by(&:fecha)
+    (depositos + (@mas_iva ? gastos_con_iva : gastos) + comisiones).sort_by(&:fecha)
   end
 
   def depositos
