@@ -100,7 +100,7 @@ private
     include MovimientoPresenter
 
     def abono
-      monto + iva
+      monto.to_f + iva.to_f
     end
 
     def descripcion
