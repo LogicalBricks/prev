@@ -118,7 +118,7 @@ private
   end
 
   def descontar_de_reservado?
-    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? descontar_de_reservado
+    ActiveModel::Type::Boolean.new.cast(descontar_de_reservado)
   end
 
   def actualizar_monto_reservado
