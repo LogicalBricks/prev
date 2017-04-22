@@ -26,7 +26,7 @@ class GastosControllerTest < ActionController::TestCase
         monto:       "10",
         socio_id:    socio.id
       }
-      post :create, gasto: params
+      post :create, params: { gasto: params }
     end
 
     assert_redirected_to gasto_path(assigns(:gasto))
@@ -45,7 +45,7 @@ class GastosControllerTest < ActionController::TestCase
       monto:       "8",
       socio_id:    socio.id
     }
-    post :create, gasto: params
+    post :create, params: { gasto: params }
     invite_email = ActionMailer::Base.deliveries.last
     assert_equal "Tu monto de previsión social está llegando al límite", invite_email.subject
     assert_match(/Monto gastado de rubro <b>#{apartado}<\/b>: \$8.00/, invite_email.body.to_s)
@@ -66,7 +66,7 @@ class GastosControllerTest < ActionController::TestCase
         monto:       "10",
         socio_id:    socio.id
       }
-      post :create, gasto: params
+      post :create, params: { gasto: params }
     end
     assert_equal 1, assigns(:gasto).errors[:monto].size
     assert assigns(:gasto).supera_monto_socio?
@@ -77,14 +77,16 @@ class GastosControllerTest < ActionController::TestCase
   test "should show gasto" do
     tope = FactoryGirl.create :tope
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 10
-    get :show, id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision))
+    get :show, params: {
+      id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision))
+    }
     assert_response :success
   end
 
   test "should get edit" do
     tope = FactoryGirl.create(:tope)
     FactoryGirl.create :deposito, prevision: tope.prevision, monto: 10
-    get :edit, id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision))
+    get :edit, params: { id: FactoryGirl.create(:gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)) }
     assert_response :success
   end
 
@@ -104,7 +106,7 @@ class GastosControllerTest < ActionController::TestCase
       socio_id: gasto.socio_id,
       solicitud: gasto.solicitud
     }
-    patch :update, id: gasto, gasto: gasto_params
+    patch :update, params: { id: gasto, gasto: gasto_params }
     assert_redirected_to gasto_path(assigns(:gasto))
   end
 
@@ -113,7 +115,7 @@ class GastosControllerTest < ActionController::TestCase
     FactoryGirl.create(:deposito, prevision: tope.prevision, monto: 10)
     gasto = FactoryGirl.create :gasto, socio: tope.socio, apartado: FactoryGirl.create(:apartado, prevision: tope.prevision)
     assert_difference('Gasto.count', -1) do
-      delete :destroy, id: gasto
+      delete :destroy, params: { id: gasto }
     end
 
     assert_redirected_to gastos_path
@@ -133,7 +135,7 @@ class GastosControllerTest < ActionController::TestCase
       socio_id:                socio.id,
       descontar_de_reservado:  true,
     }
-    post :create, gasto: params
+    post :create, params: { gasto: params }
     assert_equal 1, tope.reload.monto_reservado
   end
 end

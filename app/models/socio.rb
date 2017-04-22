@@ -4,7 +4,7 @@ class Socio < ActiveRecord::Base
   has_many :topes, dependent: :destroy
   has_one :tope, -> { merge Tope.de_prevision_activa }
   has_many :gastos
-  has_many :apartados, -> { uniq }, through: :gastos
+  has_many :apartados, -> { distinct }, through: :gastos
 
   accepts_nested_attributes_for :usuario
 

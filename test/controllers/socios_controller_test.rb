@@ -60,7 +60,7 @@ class SociosControllerTest < ActionController::TestCase
   end
 
   test "should show socio" do
-    get :show, id: @socio
+    get :show, params: { id: @socio }
     assert_response :success
   end
 
