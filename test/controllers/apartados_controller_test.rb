@@ -6,8 +6,7 @@ class ApartadosControllerTest < ActionController::TestCase
   end
 
   test "should show apartado" do
-    get :show, id: @apartado
+    get :show, params: { id: @apartado }
     assert_response :success
   end
-
 end

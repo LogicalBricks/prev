@@ -3,7 +3,7 @@ class Apartado < ActiveRecord::Base
   belongs_to :rubro
   belongs_to :prevision
   has_many :gastos
-  has_many :socios, -> { uniq }, through: :gastos
+  has_many :socios, -> { distinct }, through: :gastos
 
   # == Validations ==
   validates :rubro, :prevision, :monto_maximo, presence: true

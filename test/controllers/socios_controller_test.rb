@@ -24,9 +24,11 @@ class SociosControllerTest < ActionController::TestCase
 
   test "should create socio" do
     assert_difference('Socio.count') do
-      post :create, socio: {
-        nombre: @socio.nombre,
-        usuario_attributes: @usuario_attributes
+      post :create, params: {
+        socio: {
+          nombre: @socio.nombre,
+          usuario_attributes: @usuario_attributes
+        }
       }
     end
 
@@ -35,9 +37,11 @@ class SociosControllerTest < ActionController::TestCase
 
   test "should create usuario" do
     assert_difference('Usuario.count') do
-      post :create, socio: {
-        nombre: @socio.nombre,
-        usuario_attributes: @usuario_attributes
+      post :create, params: {
+        socio: {
+          nombre: @socio.nombre,
+          usuario_attributes: @usuario_attributes
+        }
       }
     end
 
@@ -45,35 +49,40 @@ class SociosControllerTest < ActionController::TestCase
   end
 
   test "should create usuario with rol socio" do
-    post :create, socio: {
-      nombre: @socio.nombre,
-      usuario_attributes: @usuario_attributes
+    post :create, params: {
+      socio: {
+        nombre: @socio.nombre,
+        usuario_attributes: @usuario_attributes
+      }
     }
 
     assert_equal 'socio', assigns(:socio).usuario.rol
   end
 
   test "should show socio" do
-    get :show, id: @socio
+    get :show, params: { id: @socio }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @socio
+    get :edit, params: { id: @socio.id }
     assert_response :success
   end
 
   test "should update socio" do
     usuario = @socio.usuario
-    patch :update, id: @socio, socio: {
-      nombre: @socio.nombre + '1'
+    patch :update, params: {
+      id: @socio.id,
+      socio: {
+        nombre: @socio.nombre + '1'
+      }
     }
     assert_redirected_to socio_path(assigns(:socio))
   end
 
   test "should destroy socio" do
     assert_difference('Socio.count', -1) do
-      delete :destroy, id: @socio
+      delete :destroy, params: { id: @socio.id }
     end
 
     assert_redirected_to socios_path

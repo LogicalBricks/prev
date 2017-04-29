@@ -8,7 +8,7 @@ class PrevisionActivasController < ApplicationController
   # PUT prevision_activa/1
   def update
     session[:prevision_activa_id] = @prevision.id
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
 private

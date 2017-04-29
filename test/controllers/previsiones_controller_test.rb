@@ -30,7 +30,12 @@ class PrevisionesControllerTest < ActionController::TestCase
 
   test "should create prevision" do
     assert_difference('Prevision.count') do
-      post :create, prevision: { periodo: @prevision.periodo, monto_presupuestado: @prevision.monto_presupuestado }
+      post :create, params: {
+        prevision: {
+          periodo: @prevision.periodo,
+          monto_presupuestado: @prevision.monto_presupuestado
+        }
+      }
     end
 
     assert_redirected_to prevision_path(assigns(:prevision))
@@ -38,38 +43,44 @@ class PrevisionesControllerTest < ActionController::TestCase
 
   test "should create apartados" do
     assert_difference("Apartado.count") do
-      post :create, prevision: {
-        periodo: @prevision.periodo,
-        monto_presupuestado: @prevision.monto_presupuestado,
-        apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
-        topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
+      post :create, params: {
+        prevision: {
+          periodo: @prevision.periodo,
+          monto_presupuestado: @prevision.monto_presupuestado,
+          apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
+          topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
+        }
       }
     end
   end
 
   test "should create topes" do
     assert_difference("Tope.count") do
-      post :create, prevision: {
-        periodo: @prevision.periodo,
-        monto_presupuestado: @prevision.monto_presupuestado,
-        apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
-        topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
+      post :create, params: {
+        prevision: {
+          periodo: @prevision.periodo,
+          monto_presupuestado: @prevision.monto_presupuestado,
+          apartados_attributes: [ { rubro_id: @rubro.id, monto_maximo: 1000 } ],
+          topes_attributes: [ { socio_id: @socio.id, monto: 500 } ]
+        }
       }
     end
   end
 
   test "should show prevision" do
-    get :show, id: @prevision
+    get :show, params: { id: @prevision }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @prevision
+    get :edit, params: { id: @prevision }
     assert_response :success
   end
 
   test "should update prevision" do
-    patch :update, id: @prevision, prevision: { periodo: @prevision.periodo, monto_presupuestado: @prevision.monto_presupuestado }
+    patch :update, params: {
+      id: @prevision, prevision: { periodo: @prevision.periodo, monto_presupuestado: @prevision.monto_presupuestado }
+    }
     assert_redirected_to prevision_path(assigns(:prevision))
   end
 
@@ -77,9 +88,11 @@ class PrevisionesControllerTest < ActionController::TestCase
     @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500, prevision: @prevision)
     @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000, prevision: @prevision)
     assert_difference("Apartado.count", -1) do
-      patch :update, id: @prevision.id, prevision: {
-        apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
-        topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+      patch :update, params: {
+        id: @prevision.id, prevision: {
+          apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
+          topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+        }
       }
     end
   end
@@ -88,16 +101,18 @@ class PrevisionesControllerTest < ActionController::TestCase
     @prevision.apartados << FactoryGirl.build(:apartado, rubro: @rubro, monto_maximo: 500, prevision: @prevision)
     @prevision.topes << FactoryGirl.build(:tope, socio: @socio, monto: 1000, prevision: @prevision)
     assert_difference("Tope.count", -1) do
-      patch :update, id: @prevision.id, prevision: {
-        apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
-        topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+      patch :update, params: {
+        id: @prevision.id, prevision: {
+          apartados_attributes: [ { id: @prevision.apartados.first.id, monto_maximo: 500, _destroy: 1 } ],
+          topes_attributes: [ { id: @prevision.topes.first.id, monto: 1000, _destroy: 1 } ]
+        }
       }
     end
   end
 
   test "should destroy prevision" do
     assert_difference('Prevision.count', -1) do
-      delete :destroy, id: @prevision
+      delete :destroy, params: { id: @prevision }
     end
 
     assert_redirected_to previsiones_path

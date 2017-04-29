@@ -18,30 +18,34 @@ class ProveedoresControllerTest < ActionController::TestCase
 
   test "should create proveedor" do
     assert_difference('Proveedor.count') do
-      post :create, proveedor: { nombre: @proveedor.nombre, rfc: @proveedor.rfc }
+      post :create, params: {
+        proveedor: { nombre: @proveedor.nombre, rfc: @proveedor.rfc }
+      }
     end
 
     assert_redirected_to proveedor_path(assigns(:proveedor))
   end
 
   test "should show proveedor" do
-    get :show, id: @proveedor
+    get :show, params: { id: @proveedor }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @proveedor
+    get :edit, params: { id: @proveedor }
     assert_response :success
   end
 
   test "should update proveedor" do
-    patch :update, id: @proveedor, proveedor: { nombre: @proveedor.nombre, rfc: @proveedor.rfc }
+    patch :update, params: {
+      id: @proveedor, proveedor: { nombre: @proveedor.nombre, rfc: @proveedor.rfc }
+    }
     assert_redirected_to proveedor_path(assigns(:proveedor))
   end
 
   test "should destroy proveedor" do
     assert_difference('Proveedor.count', -1) do
-      delete :destroy, id: @proveedor
+      delete :destroy, params: { id: @proveedor }
     end
 
     assert_redirected_to proveedores_path
