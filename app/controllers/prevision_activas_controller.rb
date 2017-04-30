@@ -3,12 +3,18 @@ class PrevisionActivasController < ApplicationController
 
   # GET prevision_activa
   def show
+    session[:return_to] ||= request.referer
   end
 
   # PUT prevision_activa/1
   def update
     session[:prevision_activa_id] = @prevision.id
-    redirect_back(fallback_location: root_path)
+    if session[:return_to].present?
+      redirect_to(session[:return_to])
+      session[:return_to] = nil
+    else
+      render :show
+    end
   end
 
 private
