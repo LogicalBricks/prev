@@ -67,19 +67,21 @@
                     %i.fa.fa-sign-out
                     Cerrar sesión
 
+    - if usuario_actual && prevision_activa && Prevision.count > 1
+      %section#banner-prevision
+        .well
+          .container
+            = link_to "Cambiar de previsión", prevision_activa_path, class: "btn btn-default pull-right"
+            .h5
+              La prevision activa es del
+              %b
+                = l prevision_activa.fecha_inicial, format: :long
+                al
+                = l prevision_activa.fecha_final, format: :long
+
     .container
       .row
         .col-md-12
-          - if usuario_actual && prevision_activa && Prevision.count > 1
-            %section
-              .well
-                = link_to "Cambiar de previsión actual", prevision_activa_path, class: "btn btn-default pull-right"
-                .h5
-                  La prevision activa es del
-                  %b
-                    = l prevision_activa.fecha_inicial, format: :long
-                    al
-                    = l prevision_activa.fecha_final, format: :long
 
           = yield
 
