@@ -12,6 +12,6 @@ module Prev
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = 'es-MX'
-    config.autoload_paths << "#{config.root}/lib/support"
+    config.autoload_paths += %W(#{config.root}/lib/support)
   end
 end

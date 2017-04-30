@@ -58,7 +58,7 @@ class Prevision < ActiveRecord::Base
   end
 
   def self.de_periodo(year)
-    date_range = DateRange.new(year)
+    date_range = ::DateRange.new(year)
     where(
       fecha_inicial: date_range.initial,
       fecha_final: date_range.final
