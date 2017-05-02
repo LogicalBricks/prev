@@ -3,7 +3,7 @@ require 'test_helper'
 class PrevisionActivasControllerTest < ActionController::TestCase
   setup do
     @prevision = FactoryGirl.create :prevision
-    request.env["HTTP_REFERER"] = "previous_page"
+    session[:return_to] = "previous_page"
   end
 
   test "should activate a prevision" do
