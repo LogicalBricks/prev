@@ -7,7 +7,7 @@ ready = ->
 
 calendar_month = ->
   $('#mes').datepicker({
-    format: 'mm',
+    format: 'MM',
     minViewMode: 'months',
     language: 'es'
     autoclose: true

@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  NOMBRES_MESES = Date::MONTHNAMES.map { |x| x.nil? ? x : I18n.l(Date.parse(x), format: "%B").capitalize }
+
   def index
     render :no_socio and return if Socio.count == 0
     render :no_rubro and return if Rubro.count == 0
@@ -24,7 +26,7 @@ class HomeController < ApplicationController
 private
 
   def calcula_fechas
-    @mes  = params[:mes].to_i
+    @mes = parse_month.to_i
     if @mes != 0
       fecha = Date.new(prevision_activa.periodo.to_i, @mes)
       fecha.beginning_of_month..fecha.end_of_month
@@ -39,6 +41,17 @@ private
       columns: %i[fecha descripcion metodo cargo abono],
       headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
     )
+  end
+
+  def parse_month
+    Date.parse(english_month_name).month if english_month_name.present?
+  rescue ArgumentError => e
+    nil
+  end
+
+  def english_month_name
+    month_index = NOMBRES_MESES.index(params[:mes])
+    month_index && Date::MONTHNAMES[month_index]
   end
 
   def movimientos
