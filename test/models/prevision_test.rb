@@ -66,6 +66,30 @@ class PrevisionTest < ActiveSupport::TestCase
   end
 end
 
+class PrevisionPresenterTest < ActiveSupport::TestCase
+  test "#gastos includes gastos between range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_deposito, :con_apartado, monto_depositado: 100
+    apartado = prevision.apartados.first
+    socio = FactoryGirl.create :socio, :con_tope, prevision: prevision, monto_tope: 100
+    gasto_1 = FactoryGirl.create :gasto, apartado: apartado, socio: socio, monto: 5, fecha: 1.day.ago
+    gasto_2 = FactoryGirl.create :gasto, apartado: apartado, socio: socio, monto: 5, fecha: 1.day.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert_equal [gasto_1, gasto_2].sort, prevision_presenter.gastos.sort
+  end
+
+  test "#gastos does not include gastos out of the range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_deposito, :con_apartado, monto_depositado: 100
+    apartado = prevision.apartados.first
+    socio = FactoryGirl.create :socio, :con_tope, prevision: prevision, monto_tope: 100
+    gasto_1 = FactoryGirl.create :gasto, apartado: apartado, socio: socio, fecha: 2.days.ago
+    gasto_2 = FactoryGirl.create :gasto, apartado: apartado, socio: socio, fecha: 2.days.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert prevision_presenter.gastos.empty?
+  end
+end
+
 # == Schema Information
 #
 # Table name: previsiones

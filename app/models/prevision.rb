@@ -86,6 +86,17 @@ private
   def rango_fechas
     @rango_fechas ||= DateRange.new(fecha_inicial, fecha_final)
   end
+
+  class PrevisionPresenter < SimpleDelegator
+    def initialize(prevision, rango_fechas)
+      @rango_fechas = rango_fechas
+      super(prevision)
+    end
+
+    def gastos
+      super.where(fecha: @rango_fechas).to_a
+    end
+  end
 end
 
 # == Schema Information
