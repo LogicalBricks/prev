@@ -96,6 +96,14 @@ private
     def gastos
       super.where(fecha: @rango_fechas).to_a
     end
+
+    def depositos
+      super.where(fecha: @rango_fechas).to_a
+    end
+
+    def comisiones
+      super.where(fecha: @rango_fechas).to_a
+    end
   end
 end
 

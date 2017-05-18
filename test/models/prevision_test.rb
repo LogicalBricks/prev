@@ -88,6 +88,44 @@ class PrevisionPresenterTest < ActiveSupport::TestCase
     prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
     assert prevision_presenter.gastos.empty?
   end
+
+  test "#depositos includes gastos between range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_apartado
+    apartado = prevision.apartados.first
+    deposito_1 = FactoryGirl.create :deposito, prevision: prevision, fecha: 1.day.ago
+    deposito_2 = FactoryGirl.create :deposito, prevision: prevision, fecha: 1.day.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert_equal [deposito_1, deposito_2].sort, prevision_presenter.depositos.sort
+  end
+
+  test "#depositos does not include gastos out of the range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_apartado
+    apartado = prevision.apartados.first
+    deposito_1 = FactoryGirl.create :deposito, prevision: prevision, fecha: 2.days.ago
+    deposito_2 = FactoryGirl.create :deposito, prevision: prevision, fecha: 2.days.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert prevision_presenter.depositos.empty?
+  end
+
+  test "#comisiones includes gastos between range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_deposito, :con_apartado, monto_depositado: 100
+    comision_1 = FactoryGirl.create :comision, prevision: prevision, monto: 5, fecha: 1.day.ago
+    comision_2 = FactoryGirl.create :comision, prevision: prevision, monto: 5, fecha: 1.day.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert_equal [comision_1, comision_2].sort, prevision_presenter.comisiones.sort
+  end
+
+  test "#comisiones does not include gastos out of the range of dates" do
+    prevision = FactoryGirl.create :prevision, :con_deposito, :con_apartado, monto_depositado: 100
+    comision_1 = FactoryGirl.create :comision, prevision: prevision, fecha: 2.days.ago
+    comision_2 = FactoryGirl.create :comision, prevision: prevision, fecha: 2.days.from_now
+    rango_fechas = 1.day.ago..1.day.from_now
+    prevision_presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas)
+    assert prevision_presenter.comisiones.empty?
+  end
 end
 
 # == Schema Information
