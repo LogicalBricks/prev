@@ -1,8 +1,4 @@
 module HomeHelper
-  def estado_cuenta(movimientos = @movimientos, fechas = @fechas)
-    @estado_cuenta ||= EstadoCuenta.new(movimientos, fechas)
-  end
-
   def mostrar_montos(monto:, monto_limite:, ocultar_limite: false)
     riesgo_montos = RiesgoMontos.build monto: monto, monto_limite: monto_limite
     if ocultar_limite

@@ -14,9 +14,9 @@
 
 .col-md-4
   %label Saldo inicial
-  = number_to_currency estado_cuenta.saldo_a_inicio_fecha
+  = number_to_currency @estado_cuenta.saldo_inicial
   %label Saldo final
-  = number_to_currency estado_cuenta.saldo_a_final_fecha
+  = number_to_currency @estado_cuenta.saldo_final
 
 .row
 %hr/
@@ -31,7 +31,7 @@
       %th Abono
 
   %tbody
-    - estado_cuenta.each do |movimiento|
+    - @estado_cuenta.movimientos do |movimiento|
       %tr
         %td= movimiento.fecha
         %td= movimiento.descripcion
@@ -43,8 +43,8 @@
       %td Total
       %td
       %td
-      %td= number_to_currency estado_cuenta.total_cargos
-      %td= number_to_currency estado_cuenta.total_abonos
+      %td= number_to_currency @estado_cuenta.total_cargos
+      %td= number_to_currency @estado_cuenta.total_abonos
 
 = link_to estado_cuenta_path(format: :xls), class: 'btn btn-lg btn-primary' do
   %i.fa.fa-file-excel-o

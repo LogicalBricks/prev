@@ -1,48 +1,30 @@
 class EstadoCuenta
-  attr_reader :total_cargos, :total_abonos
-
-  def initialize(movimientos, fechas)
-    @movimientos  = movimientos
-    @fechas       = fechas
-    @total_cargos = @total_abonos = 0.0
+  def initialize(movimientos_en_rango:, movimientos_anteriores:)
+    @movimientos_en_rango = movimientos_en_rango
+    @movimientos_anteriores = movimientos_anteriores
   end
 
-  def each
-    por_fecha(@movimientos).each do |v|
-      @total_cargos += v.cargo.to_f
-      @total_abonos += v.abono.to_f
-      yield v
-    end
+  def movimientos
+    movimientos_en_rango.to_a
   end
 
-  def saldo_a_inicio_fecha
-    saldo_por_fecha(movimientos_hasta_fecha_anterior)
+  def total_cargos
+    movimientos_en_rango.total_cargos
   end
 
-  def saldo_a_final_fecha
-    saldo_por_fecha(movimientos_hasta_fecha_actual)
+  def total_abonos
+    movimientos_en_rango.total_abonos
   end
 
-  private
-
-  def por_fecha movimientos
-    movimientos.select {|m| @fechas.include? m.fecha}
+  def saldo_inicial
+    movimientos_anteriores.total_cargos - movimientos_anteriores.total_abonos
   end
 
-  def movimientos_hasta_fecha_anterior
-    @movimientos.select {|m| m.fecha < @fechas.begin}
+  def saldo_final
+    saldo_inicial + total_cargos - total_abonos
   end
 
-  def movimientos_hasta_fecha_actual
-    @movimientos.select {|m| m.fecha <= @fechas.end}
-  end
+private
 
-  def saldo_por_fecha movimientos
-    saldo = gasto = 0.0
-    movimientos.each do |m|
-      saldo += m.cargo.to_f
-      gasto += m.abono.to_f
-    end
-    saldo - gasto
-  end
+  attr_reader :movimientos_en_rango, :movimientos_anteriores
 end

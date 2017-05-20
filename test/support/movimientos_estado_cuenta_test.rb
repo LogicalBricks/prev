@@ -34,7 +34,7 @@ class MovimientosEstadoCuentaTest < ActiveSupport::TestCase
     Struct.new(:gastos, :depositos, :comisiones).new(gastos, depositos, comisiones)
   end
 
-  test "#movimientos es el arreglo de gastos que responden a cargo y abono (sin iva)" do
+  test "#to_a es el arreglo de gastos que responden a cargo y abono (sin iva)" do
     prevision = create_prevision(
       gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
       depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
@@ -45,7 +45,7 @@ class MovimientosEstadoCuentaTest < ActiveSupport::TestCase
     assert_abonos([10, 3, nil, nil, nil, 1], movimientos)
   end
 
-  test "#movimientos es el arreglo de gastos que responden a cargo y abono (con iva)" do
+  test "#to_a es el arreglo de gastos que responden a cargo y abono (con iva)" do
     prevision = create_prevision(
       gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
       depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],

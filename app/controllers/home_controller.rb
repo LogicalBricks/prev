@@ -12,10 +12,12 @@ class HomeController < ApplicationController
   end
 
   def estado_cuenta
-    @prevision   = Prevision.de_periodo(prevision_activa.periodo)
-    @mas_iva     = params[:mas_iva]
-    @movimientos = movimientos
-    @fechas      = calcula_fechas
+    prevision    = Prevision.de_periodo(prevision_activa.periodo)
+    prevision1    = Prevision::PrevisionPresenter.new(prevision, calcula_fechas)
+    movimientos1 = MovimientosEstadoCuenta.new(prevision: prevision1, mas_iva: params[:mas_iva])
+    prevision2    = Prevision::PrevisionPresenter.new(prevision, calcula_fechas)
+    movimientos2 = MovimientosEstadoCuenta.new(prevision: prevision2, mas_iva: params[:mas_iva])
+    @estado_cuenta = EstadoCuenta.new(movimientos_anteriores: movimientos1, movimientos_en_rango: movimientos2)
 
     respond_to do |format|
       format.html
@@ -26,9 +28,9 @@ class HomeController < ApplicationController
 private
 
   def calcula_fechas
-    @mes = parse_month.to_i
-    if @mes != 0
-      fecha = Date.new(prevision_activa.periodo.to_i, @mes)
+    mes = parse_month.to_i
+    if mes != 0
+      fecha = Date.new(prevision_activa.periodo.to_i, mes)
       fecha.beginning_of_month..fecha.end_of_month
     else
       fecha = Date.new(prevision_activa.periodo.to_i)
@@ -37,7 +39,7 @@ private
   end
 
   def xls_file
-    @movimientos.to_xls(
+    @estado_cuenta.movimientos.to_xls(
       columns: %i[fecha descripcion metodo cargo abono],
       headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
     )
@@ -53,84 +55,4 @@ private
     month_index = NOMBRES_MESES.index(params[:mes])
     month_index && Date::MONTHNAMES[month_index]
   end
-
-  def movimientos
-    (depositos + (@mas_iva ? gastos_con_iva : gastos) + comisiones).sort_by(&:fecha)
-  end
-
-  def depositos
-    @prevision.depositos.map{|d| DepositoPresenter.new(d) }
-  end
-
-  def gastos
-    @prevision.gastos.includes(:socio, apartado: :rubro).map{|g| GastoPresenter.new(g) }
-  end
-
-  def gastos_con_iva
-    @prevision.gastos.includes(:socio, apartado: :rubro).map{|g| GastoConIvaPresenter.new(g) }
-  end
-
-  def comisiones
-    @prevision.comisiones.map{|c| ComisionPresenter.new(c) }
-  end
-
-  module MovimientoPresenter
-    def cargo; end
-    def abono; end
-    def metodo; end
-
-    def tipo
-      model_name.human
-    end
-
-  end
-
-  class DepositoPresenter < SimpleDelegator
-    include MovimientoPresenter
-
-    def cargo
-      monto
-    end
-  end
-
-  class GastoPresenter < SimpleDelegator
-    include MovimientoPresenter
-
-    def abono
-      monto
-    end
-
-    def descripcion
-      "#{apartado.rubro} - #{socio}"
-    end
-
-    def metodo
-      metodo_pago.capitalize
-    end
-  end
-
-  class GastoConIvaPresenter < SimpleDelegator
-    include MovimientoPresenter
-
-    def abono
-      monto.to_f + iva.to_f
-    end
-
-    def descripcion
-      "#{apartado.rubro} - #{socio}"
-    end
-
-    def metodo
-      metodo_pago.capitalize
-    end
-  end
-
-  class ComisionPresenter < SimpleDelegator
-    include MovimientoPresenter
-
-    def abono
-      monto
-    end
-  end
-
 end
