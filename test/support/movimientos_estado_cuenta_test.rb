@@ -1,27 +1,27 @@
 require "test_helper"
 
 module Minitest::Assertions
-  def assert_gastos(abonos, movimientos)
+  def assert_cargos(cargos, movimientos)
     movimientos = [movimientos] unless movimientos.kind_of?(Array)
-    [*abonos[:abonos]].zip(Array(movimientos)).all? do |monto, movimiento|
-      assert_equal monto, movimiento.abono
-      assert_nil movimiento.cargo
+    cargos = [cargos] unless cargos.kind_of?(Array)
+    cargos.zip(movimientos).all? do |cargo, movimiento|
+      if cargo.nil?
+        assert_nil movimiento.cargo
+      else
+        assert_equal cargo, movimiento.cargo
+      end
     end
   end
 
-  def assert_depositos(cargos, movimientos)
+  def assert_abonos(abonos, movimientos)
     movimientos = [movimientos] unless movimientos.kind_of?(Array)
-    [*cargos[:cargos]].zip(Array(movimientos)).all? do |monto, movimiento|
-      assert_equal monto, movimiento.cargo
-      assert_nil movimiento.abono
-    end
-  end
-
-  def assert_comisiones(abonos, movimientos)
-    movimientos = [movimientos] unless movimientos.kind_of?(Array)
-    [*abonos[:abonos]].zip(Array(movimientos)).all? do |monto, movimiento|
-      assert_equal monto, movimiento.abono
-      assert_nil movimiento.cargo
+    abonos = [abonos] unless abonos.kind_of?(Array)
+    abonos.zip(movimientos).all? do |abono, movimiento|
+      if abono.nil?
+        assert_nil movimiento.abono
+      else
+        assert_equal abono, movimiento.abono
+      end
     end
   end
 end
@@ -34,47 +34,65 @@ class MovimientosEstadoCuentaTest < ActiveSupport::TestCase
     Struct.new(:gastos, :depositos, :comisiones).new(gastos, depositos, comisiones)
   end
 
-  def setup
-    @prevision = create_prevision(
+  test "#movimientos es el arreglo de gastos que responden a cargo y abono (sin iva)" do
+    prevision = create_prevision(
       gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
       depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
       comisiones: [{ monto: 1 }]
     )
-  end
-
-  test "#movimientos es el arreglo de gastos que responden a cargo y abono (sin iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: false).to_a
-    assert_equal 6, movimientos.size
-    assert_gastos({ abonos: [10, 3] }, movimientos[0, 2])
-    assert_depositos({ cargos: [2, 9, 8] }, movimientos[2, 3])
-    assert_comisiones({ abonos: [1] }, movimientos[5])
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: false).to_a
+    assert_cargos([nil, nil, 2, 9, 8, nil], movimientos)
+    assert_abonos([10, 3, nil, nil, nil, 1], movimientos)
   end
 
   test "#movimientos es el arreglo de gastos que responden a cargo y abono (con iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: true).to_a
-    assert_equal 6, movimientos.size
-    assert_gastos({ abonos: [11.6, 3.48] }, movimientos[0, 2])
-    assert_depositos({ cargos: [2, 9, 8] }, movimientos[2, 3])
-    assert_comisiones({ abonos: [1] }, movimientos[5])
+    prevision = create_prevision(
+      gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
+      depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
+      comisiones: [{ monto: 1 }]
+    )
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: true).to_a
+    assert_cargos([nil, nil, 2, 9, 8, nil], movimientos)
+    assert_abonos([11.6, 3.48, nil, nil, nil, 1], movimientos)
   end
 
   test "#total_cargos es la suma de cargos (sin iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: false)
+    prevision = create_prevision(
+      gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
+      depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
+      comisiones: [{ monto: 1 }]
+    )
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: false)
     assert_equal 19, movimientos.total_cargos
   end
 
   test "#total_abonos es la suma de abonos (sin iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: false)
+    prevision = create_prevision(
+      gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
+      depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
+      comisiones: [{ monto: 1 }]
+    )
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: false)
     assert_equal 14, movimientos.total_abonos
   end
 
   test "#total_cargos es la suma de cargos (con iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: true)
+    prevision = create_prevision(
+      gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
+      depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
+      comisiones: [{ monto: 1 }]
+    )
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: true)
     assert_equal 19, movimientos.total_cargos
   end
 
   test "#total_abonos es la suma de abonos (con iva)" do
-    movimientos = MovimientosEstadoCuenta.new(prevision: @prevision, mas_iva: true)
+    prevision = create_prevision(
+      gastos: [{ monto: 10, iva: 1.6 }, { monto: 3, iva: 0.48 }],
+      depositos: [{ monto: 2 }, { monto: 9 }, { monto: 8 }],
+      comisiones: [{ monto: 1 }]
+    )
+    movimientos = MovimientosEstadoCuenta.new(prevision: prevision, mas_iva: true)
     assert_equal 16.08, movimientos.total_abonos
   end
 end
