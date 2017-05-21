@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   end
 
   def estado_cuenta
+    @mas_iva = params[:mas_iva]
     @estado_cuenta = EstadoCuenta.new(
       movimientos_anteriores: movimientos_anteriores,
       movimientos_en_rango: movimientos_en_rango

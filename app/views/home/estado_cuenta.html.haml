@@ -9,7 +9,7 @@
     %label.form-check-label
       = check_box_tag :mas_iva, true, @mas_iva, class: "form-check-input"
       Incluir IVA
-    = submit_tag "Filtrar por mes", class: "btn btn-primary"
+    = submit_tag "Filtrar", class: "btn btn-primary"
     = link_to "Cancelar", estado_cuenta_path, class: "btn btn-danger"
 
 .col-md-4
@@ -31,7 +31,7 @@
       %th Abono
 
   %tbody
-    - @estado_cuenta.movimientos do |movimiento|
+    - @estado_cuenta.movimientos.each do |movimiento|
       %tr
         %td= movimiento.fecha
         %td= movimiento.descripcion
@@ -46,6 +46,6 @@
       %td= number_to_currency @estado_cuenta.total_cargos
       %td= number_to_currency @estado_cuenta.total_abonos
 
-= link_to estado_cuenta_path(format: :xls), class: 'btn btn-lg btn-primary' do
+= link_to estado_cuenta_path({ format: :xls }.merge(params.permit(:mas_iva, :mes).to_h)), class: 'btn btn-lg btn-primary' do
   %i.fa.fa-file-excel-o
   Descargar xls
