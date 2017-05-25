@@ -5,7 +5,7 @@ class MovimientosEstadoCuenta
   end
 
   def to_a
-    gastos + depositos + comisiones
+    movimientos.sort_by(&:fecha)
   end
 
   def total_cargos
@@ -19,6 +19,10 @@ class MovimientosEstadoCuenta
 private
 
   attr_reader :prevision
+
+  def movimientos
+    gastos + depositos + comisiones
+  end
 
   def gastos
     presenter = mas_iva? ? GastoConIvaPresenter : GastoPresenter
