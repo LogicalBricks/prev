@@ -32,17 +32,13 @@ private
   end
 
   def movimientos_anteriores
-    prevision_presenter = Prevision::PrevisionPresenter.new(prevision,
-                                                            rango_fechas.actual)
-    MovimientosEstadoCuenta.new(prevision: prevision_presenter,
-                                mas_iva: params[:mas_iva])
+    presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.previo)
+    MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: @mas_iva)
   end
 
   def movimientos_en_rango
-    prevision_presenter = Prevision::PrevisionPresenter.new(prevision,
-                                                            rango_fechas.previo)
-    MovimientosEstadoCuenta.new(prevision: prevision_presenter,
-                                mas_iva: params[:mas_iva])
+    presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.actual)
+    MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: @mas_iva)
   end
 
   def prevision
