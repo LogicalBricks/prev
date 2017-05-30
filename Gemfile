@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'haml-rails'
 gem 'simple_form'
-gem 'bootstrap-sass'
+gem "bootstrap", "~> 4.0.0.alpha6"
 gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'devise'
@@ -37,6 +37,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-showdown'
   gem 'rails-assets-bootstrap-datepicker'
   gem 'rails-assets-jquery', '2.2.4'
+  gem 'rails-assets-tether', '>= 1.3.3'
 end
 
 # Use ActiveModel has_secure_password
