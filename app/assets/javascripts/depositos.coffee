@@ -21,4 +21,4 @@ ready = ->
   toggleComisionesImpuestoSection()
   calculateDepositoMontoFromComisionesImpuestos()
 
-$(document).on 'ready turbolinks:load', ready
+$(document).on 'turbolinks:load', ready
