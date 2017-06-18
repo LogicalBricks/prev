@@ -24,6 +24,13 @@ class EstadoCuenta
     saldo_inicial + total_cargos - total_abonos
   end
 
+  def to_xls
+    movimientos.to_xls(
+      columns: %i[fecha descripcion metodo cargo abono],
+      headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
+    )
+  end
+
 private
 
   attr_reader :movimientos_en_rango, :movimientos_anteriores

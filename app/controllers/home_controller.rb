@@ -25,10 +25,7 @@ class HomeController < ApplicationController
 private
 
   def xls_file
-    @estado_cuenta.movimientos.to_xls(
-      columns: %i[fecha descripcion metodo cargo abono],
-      headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
-    )
+    @estado_cuenta.to_xls
   end
 
   def movimientos_anteriores
