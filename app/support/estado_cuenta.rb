@@ -1,4 +1,21 @@
 class EstadoCuenta
+  class << self
+    def build(prevision: , rango_fechas:, mas_iva:)
+      new(movimientos_anteriores: movimientos_anteriores(prevision, rango_fechas, mas_iva),
+          movimientos_en_rango: movimientos_en_rango(prevision, rango_fechas, mas_iva))
+    end
+
+    def movimientos_anteriores(prevision, rango_fechas, mas_iva)
+      presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.previo)
+      MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: mas_iva)
+    end
+
+    def movimientos_en_rango(prevision, rango_fechas, mas_iva)
+      presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.actual)
+      MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: mas_iva)
+    end
+  end
+
   def initialize(movimientos_en_rango:, movimientos_anteriores:)
     @movimientos_en_rango = movimientos_en_rango
     @movimientos_anteriores = movimientos_anteriores
