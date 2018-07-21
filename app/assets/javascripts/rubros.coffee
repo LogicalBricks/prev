@@ -11,4 +11,4 @@ convertMarkdown = ->
   converter = new showdown.Converter()
   $('div#descripcion-html').html converter.makeHtml(text)
 
-$(document).on 'ready turbolinks:load', ready
+$(document).on 'turbolinks:load', ready

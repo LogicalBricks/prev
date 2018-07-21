@@ -11,11 +11,9 @@ class HomeController < ApplicationController
 
   def estado_cuenta
     @mas_iva = params[:mas_iva]
-    @estado_cuenta = EstadoCuenta.new(
-      movimientos_anteriores: movimientos_anteriores,
-      movimientos_en_rango: movimientos_en_rango
-    )
-
+    @estado_cuenta = EstadoCuenta.build(prevision: prevision,
+                                        rango_fechas: rango_fechas,
+                                        mas_iva: params[:mas_iva])
     respond_to do |format|
       format.html
       format.xls { send_data(xls_file, filename: 'estado_cuenta.xls') }
@@ -25,20 +23,7 @@ class HomeController < ApplicationController
 private
 
   def xls_file
-    @estado_cuenta.movimientos.to_xls(
-      columns: %i[fecha descripcion metodo cargo abono],
-      headers: ["Fecha", "Descripción", "Método", "Cargo", "Abono"]
-    )
-  end
-
-  def movimientos_anteriores
-    presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.previo)
-    MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: @mas_iva)
-  end
-
-  def movimientos_en_rango
-    presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.actual)
-    MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: @mas_iva)
+    @estado_cuenta.to_xls
   end
 
   def prevision
