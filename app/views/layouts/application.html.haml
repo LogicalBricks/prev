@@ -8,66 +8,65 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    %nac.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top
-      .container
-        %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarsExampleContainer", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarsExampleContainer", "data-toggle" => "collapse", :type => "button"}
-          %span.navbar-toggler-icon
-        #navbarsExampleContainer.collapse.navbar-collapse
-          %ul.nav.navbar-nav
-            %li{ class: controller_name == 'home' ? 'active' : '' }
-              = link_to root_path, class: 'navbar-brand' do
-                %i.fa.fa-heartbeat
+    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+      %button.navbar-toggler{"aria-controls" => "navbarsExampleDefault", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarsExampleDefault", "data-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      #navbarsExampleDefault.collapse.navbar-collapse
+        %ul.nav.navbar-nav
+          %li{ class: controller_name == 'home' ? 'active' : '' }
+            = link_to root_path, class: 'navbar-brand' do
+              %i.fa.fa-heartbeat
+              &nbsp;
+              Prev
+              = prevision_activa
+        - if usuario_actual
+          %ul.navbar-nav.mr-auto
+            %li.nav-item{ class: controller_name == 'socios' ? 'active' : '' }
+              = link_to socios_path, class: "nav-link" do
+                %i.fa.fa-users
                 &nbsp;
-                Prev
-                = prevision_activa
-          - if usuario_actual
-            %ul.navbar-nav.mr-auto
-              %li.nav-item{ class: controller_name == 'socios' ? 'active' : '' }
-                = link_to socios_path, class: "nav-link" do
-                  %i.fa.fa-users
-                  &nbsp;
-                  Socios
-              %li.nav-item{ class: controller_name == 'rubros' ? 'active' : '' }
-                = link_to rubros_path, class: "nav-link" do
-                  %i.fa.fa-archive
-                  &nbsp;
-                  Rubros
-              %li.nav-item{ class: controller_name == 'previsiones' ? 'active' : '' }
-                = link_to previsiones_path, class: "nav-link" do
-                  %i.fa.fa-bank
-                  &nbsp;
-                  Previsiones
-              %li.nav-item{ class: controller_name == 'depositos' ? 'active' : '' }
-                = link_to depositos_path, class: "nav-link" do
-                  %i.fa.fa-check-square-o
-                  &nbsp;
-                  Depositos
-              %li.nav-item{ class: controller_name == 'gastos' ? 'active' : '' }
-                = link_to gastos_path, class: "nav-link" do
-                  %i.fa.fa-dollar
-                  &nbsp;
-                  Gastos
-              %li.nav-item{ class: controller_name == 'comisiones' ? 'active' : '' }
-                = link_to comisiones_path, class: "nav-link" do
-                  %i.fa.fa-credit-card
-                  &nbsp;
-                  Comisiones
-              %li.nav-item{ class: controller_name == 'proveedores' ? 'active' : '' }
-                = link_to proveedores_path, class: "nav-link" do
-                  %i.fa.fa-amazon
-                  &nbsp;
-                  Proveedores
-              %li.nav-item
-                = link_to destroy_usuario_session_path, class: "nav-link", method: :delete, data: { confirm: "¿Desea cerrar su sesión?" } do
-                  %i.fa.fa-sign-out
-                  Cerrar sesión
+                Socios
+            %li.nav-item{ class: controller_name == 'rubros' ? 'active' : '' }
+              = link_to rubros_path, class: "nav-link" do
+                %i.fa.fa-archive
+                &nbsp;
+                Rubros
+            %li.nav-item{ class: controller_name == 'previsiones' ? 'active' : '' }
+              = link_to previsiones_path, class: "nav-link" do
+                %i.fa.fa-bank
+                &nbsp;
+                Previsiones
+            %li.nav-item{ class: controller_name == 'depositos' ? 'active' : '' }
+              = link_to depositos_path, class: "nav-link" do
+                %i.fa.fa-check-square-o
+                &nbsp;
+                Depositos
+            %li.nav-item{ class: controller_name == 'gastos' ? 'active' : '' }
+              = link_to gastos_path, class: "nav-link" do
+                %i.fa.fa-dollar
+                &nbsp;
+                Gastos
+            %li.nav-item{ class: controller_name == 'comisiones' ? 'active' : '' }
+              = link_to comisiones_path, class: "nav-link" do
+                %i.fa.fa-credit-card
+                &nbsp;
+                Comisiones
+            %li.nav-item{ class: controller_name == 'proveedores' ? 'active' : '' }
+              = link_to proveedores_path, class: "nav-link" do
+                %i.fa.fa-amazon
+                &nbsp;
+                Proveedores
+            %li.nav-item
+              = link_to destroy_usuario_session_path, class: "nav-link", method: :delete, data: { confirm: "¿Desea cerrar su sesión?" } do
+                %i.fa.fa-sign-out
+                Cerrar sesión
 
     - if usuario_actual && prevision_activa && Prevision.count > 1
       %section#banner-prevision
         .clearfix
           .container
             = link_to "Cambiar de previsión", prevision_activa_path, class: "btn btn-secondary pull-right"
-            .h6
+            %span{ style: "vertical-align: sub" }
               La prevision activa es del
               %b
                 = l prevision_activa.fecha_inicial, format: :long

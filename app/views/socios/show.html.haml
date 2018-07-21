@@ -8,7 +8,7 @@
 %h3
   = @socio.nombre
   %small= @socio.usuario
-.row
+.row.mb-3
   .col-md-3
     .card
       .card-header
@@ -19,11 +19,10 @@
     .card
       .card-header
         Monto gastado
-        #link-detalles-monto-gastado.pull-right= link_to "[+]"
+        #link-detalles-monto-gastado.float-right= link_to "[+]"
       .card-block
         %h4.pull-right
           = number_to_currency @socio.monto_gastado_de_prevision(prevision_activa)
-      .clearfix
       %ol.list-group.list-group-flush#detalles-monto-gastado
         - @socio.apartados_de_prevision(prevision_activa).each do |apartado|
           %li.list-group-item
@@ -42,7 +41,6 @@
         Monto disponible:
       .card-block
         %h4.pull-right= number_to_currency @socio.monto_disponible(prevision_activa)
-      .clearfix
       %ol.list-group.list-group-flush#detalles-monto-reservado
 
 .float-right
