@@ -6,7 +6,7 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.0'
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.21'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'haml-rails'
 gem 'simple_form'
-gem "bootstrap", "~> 4.0.0.alpha6"
+gem "bootstrap", "~> 4.1.0"
 gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'devise'
