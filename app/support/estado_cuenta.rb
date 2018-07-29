@@ -7,12 +7,16 @@ class EstadoCuenta
 
     def movimientos_anteriores(prevision, rango_fechas, mas_iva)
       presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.previo)
-      MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: mas_iva)
+      gasto_class = mas_iva ? PrevisionConPresenters::GastoConIvaPresenter : PrevisionConPresenters::GastoPresenter
+      prevision_con_presenters = PrevisionConPresenters.new(presenter, gasto_class: gasto_class)
+      MovimientosEstadoCuenta.new(PrevisionConMovimientos.new(prevision_con_presenters))
     end
 
     def movimientos_en_rango(prevision, rango_fechas, mas_iva)
       presenter = Prevision::PrevisionPresenter.new(prevision, rango_fechas.actual)
-      MovimientosEstadoCuenta.new(prevision: presenter, mas_iva: mas_iva)
+      gasto_class = mas_iva ? PrevisionConPresenters::GastoConIvaPresenter : PrevisionConPresenters::GastoPresenter
+      prevision_con_presenters = PrevisionConPresenters.new(presenter, gasto_class: gasto_class)
+      MovimientosEstadoCuenta.new(PrevisionConMovimientos.new(prevision_con_presenters))
     end
   end
 
