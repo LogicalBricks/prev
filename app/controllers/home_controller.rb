@@ -27,7 +27,7 @@ private
   end
 
   def prevision
-    @prevision ||= Prevision.de_periodo(prevision_activa.periodo)
+    @prevision ||= Prevision.includes(gastos: [:socio, apartado: :rubro]).de_periodo(prevision_activa.periodo)
   end
 
   def rango_fechas
