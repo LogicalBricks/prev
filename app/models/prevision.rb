@@ -94,15 +94,27 @@ private
     end
 
     def gastos
-      super.where(fecha: @rango_fechas).to_a
+      if @rango_fechas
+        super.to_a.select { |g| @rango_fechas.cover? g.fecha }
+      else
+        super.to_a
+      end
     end
 
     def depositos
-      super.where(fecha: @rango_fechas).to_a
+      if @rango_fechas
+        super.to_a.select { |g| @rango_fechas.cover? g.fecha }
+      else
+        super.to_a
+      end
     end
 
     def comisiones
-      super.where(fecha: @rango_fechas).to_a
+      if @rango_fechas
+        super.to_a.select { |g| @rango_fechas.cover? g.fecha }
+      else
+        super.to_a
+      end
     end
   end
 end
