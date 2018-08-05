@@ -8,43 +8,45 @@
 %h3
   = @socio.nombre
   %small= @socio.usuario
-.row.mb-3
+.row
   .col-md-3
-    .card
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Monto total
-      .card-block
+      .panel-body
         %h4.pull-right= number_to_currency @socio.monto_tope(prevision: prevision_activa)
   .col-md-3
-    .card
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Monto gastado
-        #link-detalles-monto-gastado.float-right= link_to "[+]"
-      .card-block
+        #link-detalles-monto-gastado.pull-right= link_to "[+]"
+      .panel-body
         %h4.pull-right
           = number_to_currency @socio.monto_gastado_de_prevision(prevision_activa)
-      %ol.list-group.list-group-flush#detalles-monto-gastado
+      .clearfix
+      %ol.list-group#detalles-monto-gastado
         - @socio.apartados_de_prevision(prevision_activa).each do |apartado|
           %li.list-group-item
             %b= apartado
             %p{ align: "right" }
               = mostrar_montos(monto: apartado.monto_gastado_por_socio(@socio), monto_limite: apartado.monto_maximo)
   .col-md-3
-    .card
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Monto reservado:
-      .card-block
+      .panel-body
         %h4.pull-right= number_to_currency @socio.monto_reservado(prevision_activa)
   .col-md-3
-    .card
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Monto disponible:
-      .card-block
+      .panel-body
         %h4.pull-right= number_to_currency @socio.monto_disponible(prevision_activa)
-      %ol.list-group.list-group-flush#detalles-monto-reservado
+      .clearfix
+      %ol.list-group#detalles-monto-reservado
 
-.float-right
-  = link_to socios_path, class: 'btn btn-secondary' do
+.pull-right
+  = link_to socios_path, class: 'btn btn-default' do
     %i.fa.fa-arrow-left
     Regresar
   /

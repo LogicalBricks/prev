@@ -12,6 +12,7 @@
  *
  */
 
+@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
 @import "bootstrap-datepicker";
@@ -73,7 +74,5 @@ body > .container {
 }
 
 #banner-prevision {
-  margin-top: -2px;
-  padding: 5px;
-  background-color: #eceeef;
+  margin-top: -10px;
 }

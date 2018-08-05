@@ -1,22 +1,24 @@
 .col-md-12
   %h2 Estado de cuenta
 
-.row.mb-3
-  .col-md-8
-    = form_tag estado_cuenta_path, method: :get, class: "form-inline" do
-      = label_tag :mes, "Mes", class: "sr-only mr-2"
-      = text_field_tag :mes, params[:mes], placeholder: "Selecciona el mes", class: "mr-2 form-control"
-      %label.form-check-label.mr-2
-        = check_box_tag :mas_iva, true, @mas_iva, class: "form-check-input"
-        Incluir IVA
-      = submit_tag "Filtrar", class: "btn btn-primary mr-2"
-      = link_to "Cancelar", estado_cuenta_path, class: "btn btn-danger"
+.col-md-8
+  = form_tag estado_cuenta_path, method: :get, class: "form-inline" do
+    .form-group
+      = label_tag :mes, "Mes", class: "sr-only"
+      = text_field_tag :mes, params[:mes], placeholder: "Selecciona el mes"
+    %label.form-check-label
+      = check_box_tag :mas_iva, true, @mas_iva, class: "form-check-input"
+      Incluir IVA
+    = submit_tag "Filtrar", class: "btn btn-primary"
+    = link_to "Cancelar", estado_cuenta_path, class: "btn btn-danger"
 
-  .col-md-4
-    %label Saldo inicial
-    = number_to_currency @estado_cuenta.saldo_inicial
-    %label Saldo final
-    = number_to_currency @estado_cuenta.saldo_final
+.col-md-4
+  %label Saldo inicial
+  = number_to_currency @estado_cuenta.saldo_inicial
+  %label Saldo final
+  = number_to_currency @estado_cuenta.saldo_final
+
+.row
 %hr/
 
 %table#estado_cuenta.table.table-striped.table-hover

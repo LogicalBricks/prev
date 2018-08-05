@@ -26,9 +26,9 @@
         %td= apartado.prevision
         %td
           .btn-group
-            = link_to apartado, class: 'btn btn-sm btn-secondary', title: 'Detalles' do
+            = link_to apartado, class: 'btn btn-sm btn-default', title: 'Detalles' do
               %i.fa.fa-search-plus
-            = link_to edit_apartado_path(apartado), class: 'btn btn-sm btn-secondary', title: 'Modificar' do
+            = link_to edit_apartado_path(apartado), class: 'btn btn-sm btn-default', title: 'Modificar' do
               %i.fa.fa-edit
             = link_to apartado, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
               %i.fa.fa-trash

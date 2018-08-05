@@ -1,4 +1,4 @@
-.float-right
+.pull-right
   = link_to estado_cuenta_path, class: 'btn btn-lg btn-primary' do
     %i.fa.fa-table
     Ver Estado de Cuenta
@@ -11,39 +11,39 @@
 
 .row
   .col-md-6
-    .card.mb-3
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Montos generales
-      %ol.list-group.list-group-flush
-        %li.list-group-item.justify-content-between
+      %ol.list-group
+        %li.list-group-item
           = link_to "Total", @prevision
-          .float-right= number_to_currency @prevision.monto
-        %li.list-group-item.justify-content-between
+          .pull-right= number_to_currency @prevision.monto
+        %li.list-group-item
           = link_to "Depositado", depositos_path
-          .float-right= number_to_currency @prevision.monto_depositado
-        %li.list-group-item.justify-content-between
+          .pull-right= number_to_currency @prevision.monto_depositado
+        %li.list-group-item
           = link_to "Gastado", gastos_path
-          .float-right= mostrar_montos monto: @prevision.monto_gastado, monto_limite: @prevision.monto, ocultar_limite: true
-        %li.list-group-item.justify-content-between
+          .pull-right= mostrar_montos monto: @prevision.monto_gastado, monto_limite: @prevision.monto, ocultar_limite: true
+        %li.list-group-item
           = link_to "Reservado", gastos_path
-          .float-right= mostrar_montos monto: @prevision.monto_reservado, monto_limite: @prevision.monto, ocultar_limite: true
-        %li.list-group-item.justify-content-between
+          .pull-right= mostrar_montos monto: @prevision.monto_reservado, monto_limite: @prevision.monto, ocultar_limite: true
+        %li.list-group-item
           = link_to "Gastado + reservado", gastos_path
-          .float-right= mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
-    .card
-      .card-header
+          .pull-right= mostrar_montos monto: @prevision.monto_gastado_o_reservado, monto_limite: @prevision.monto, ocultar_limite: true
+    .panel.panel-default
+      .panel-heading
         Montos por socio
-      %ol.list-group.list-group-flush
+      %ol.list-group
         - @prevision.socios.includes(:tope).each do |socio|
-          %li.list-group-item.justify-content-between
-            = link_to socio, socio
-            .float-right= mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
+          %li.list-group-item
+            .h5.pull-right= mostrar_montos(monto: socio.monto_gastado_o_reservado(prevision: @prevision), monto_limite: socio.monto_tope(prevision: @prevision))
+            .h5= link_to socio, socio
   .col-md-6
-    .card
-      .card-header
+    .panel.panel-default
+      .panel-heading
         Montos por apartado
-      %ol.list-group.list-group-flush
+      %ol.list-group
         - @prevision.apartados.includes(:gastos, :rubro).each do |apartado|
-          %li.list-group-item.justify-content-between
-            = link_to apartado, apartado
-            .float-right= number_to_currency apartado.suma_monto_gastado
+          %li.list-group-item
+            .h5.pull-right= number_to_currency apartado.suma_monto_gastado
+            .h5= link_to apartado, apartado

@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require tether
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require showdown
 //= require jquery_nested_form
 //= require bootstrap-datepicker

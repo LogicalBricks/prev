@@ -24,9 +24,9 @@
         %td= proveedor.rfc
         %td
           .btn-group
-            = link_to proveedor, class: 'btn btn-sm btn-secondary', title: 'Detalles' do
+            = link_to proveedor, class: 'btn btn-sm btn-default', title: 'Detalles' do
               %i.fa.fa-search-plus
-            = link_to edit_proveedor_path(proveedor), class: 'btn btn-sm btn-secondary', title: 'Modificar' do
+            = link_to edit_proveedor_path(proveedor), class: 'btn btn-sm btn-default', title: 'Modificar' do
               %i.fa.fa-edit
             = link_to proveedor, method: :delete, data: { confirm: '¿Estás seguro de borrarlo?'}, class: 'btn btn-sm btn-danger', title: 'Eliminar' do
               %i.fa.fa-trash
