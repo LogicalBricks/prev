@@ -33,7 +33,6 @@ gem 'carrierwave'
 gem 'devise'
 gem 'redcarpet'
 gem 'nested_form'
-gem 'sprockets', '3.7.1'
 
 gem 'to_xls', github: 'LogicalBricks/to_xls'
 
