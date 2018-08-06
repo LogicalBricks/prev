@@ -1,7 +1,7 @@
 class Comision < ActiveRecord::Base
   # == Associations ==
   belongs_to :prevision, inverse_of: :comisiones
-  belongs_to :deposito, inverse_of: :comisiones
+  belongs_to :deposito, inverse_of: :comisiones, optional: true
 
   # == Validations ==
   validates :prevision, :fecha, presence: true
