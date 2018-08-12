@@ -19,7 +19,7 @@ class Prevision < ActiveRecord::Base
 
   # == Validations ==
   validates :periodo, :monto_presupuestado, presence: true
-  validates :monto_remanente, numericality: true, if: "monto_remanente.present?"
+  validates :monto_remanente, numericality: true, if: -> prevision { prevision.monto_remanente.present? }
   validates :monto_presupuestado, numericality: { greater_than: 0 }
 
   # == Callbacks ==

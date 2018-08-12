@@ -1,11 +1,14 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.7'
+gem 'rails', '5.2.0'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.21'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -30,7 +33,6 @@ gem 'carrierwave'
 gem 'devise'
 gem 'redcarpet'
 gem 'nested_form'
-gem 'sprockets', '3.7.1'
 
 gem 'to_xls', github: 'LogicalBricks/to_xls'
 
@@ -45,6 +47,9 @@ end
 
 # Use Unicorn as the app server
 gem 'unicorn'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'shoulda'

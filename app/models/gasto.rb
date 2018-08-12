@@ -12,9 +12,9 @@ class Gasto < ActiveRecord::Base
 
   # == Associations ==
   belongs_to :socio
-  belongs_to :proveedor
+  belongs_to :proveedor, optional: true
   belongs_to :apartado
-  belongs_to :deposito, inverse_of: :gastos
+  belongs_to :deposito, inverse_of: :gastos, optional: true
 
   # == Validations ==
   validates :socio, :apartado, :fecha, :monto, presence: true
