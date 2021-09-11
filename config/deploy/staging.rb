@@ -7,9 +7,9 @@ set :deploy_to, "/home/deployer/apps/#{fetch(:application)}"
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{deployer@192.241.162.47}
-role :web, %w{deployer@192.241.162.47}
-role :db,  %w{deployer@192.241.162.47}
+role :app, %w{deployer@167.99.167.126}
+role :web, %w{deployer@167.99.167.126}
+role :db,  %w{deployer@167.99.167.126}
 
 # Extended Server Syntax
 # ======================
@@ -17,7 +17,7 @@ role :db,  %w{deployer@192.241.162.47}
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '192.241.162.47', user: 'deployer', roles: %w{web app db}
+server '167.99.167.126', user: 'deployer', roles: %w{web app db}
 
 set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
