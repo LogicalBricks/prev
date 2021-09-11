@@ -33,6 +33,8 @@ gem 'carrierwave'
 gem 'devise'
 gem 'redcarpet'
 gem 'nested_form'
+gem 'nokogiri', '1.11.2'
+gem 'mimemagic', '0.3.7'
 
 gem 'to_xls', github: 'LogicalBricks/to_xls'
 
